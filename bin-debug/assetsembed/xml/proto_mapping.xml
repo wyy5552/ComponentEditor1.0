@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- create by X2X , create time Mon Apr 25 17:19:41 2016 -->
+<proto_mapping>
+    <mapping msgId="0x102" msgName="MSGID_CENTER_LOGIN" proto="MSG_CENTER_LOGIN_ACK"/>
+    <mapping msgId="0x103" msgName="MSGID_SHIFT_ZONE_LOGIN" proto="MSG_CENTER_LOGIN_ACK"/>
+    <mapping msgId="0x104" msgName="MSGID_SOCKET_KEEPALIVE" proto=""/>
+
+    <!-- 登录、注册模块 -->
+    <mapping msgId="0x1001" msgName="MSGID_LOGIN" proto=""/><!--登陆-->
+    <mapping msgId="0x1002" msgName="MSGID_SHOW_CU" proto=""/><!--进入创角界面-->
+    <mapping msgId="0x1003" msgName="MSGID_RAND_NAME" proto="MSG_RAND_NAME_ACK"/><!--随机取名-->
+    <mapping msgId="0x1004" msgName="MSGID_CREATE_USER" proto=""/><!--创建角色-->
+    <mapping msgId="0x1005" msgName="MSGID_ENTER_GAME" proto="MSG_ENTER_GAME_ACK"/><!--进入游戏-->
+    <mapping msgId="0x1006" msgName="MSGID_EXIST_CHAR" proto="MSG_EXIST_CHAR"/><!--返回已注册角色列表-->
+    <mapping msgId="0x1007" msgName="MSGID_OTHER_LOGIN" proto=""/><!--被顶掉了-->
+    <mapping msgId="0x1008" msgName="MSGID_CHECK_CROSS_SERVER" proto="MSG_CHECK_CROSS_SERVER_ACK"/><!--检查角色是否在跨服中-->
+    
+    
+    <!-- 游戏全局模块 -->
+    <mapping msgId="0x1A06" msgName="MSGID_GAME_CONFIG" proto=""/><!--保存游戏配置-->
+    <mapping msgId="0x1A07" msgName="MSGID_PLAY_DRAMA" proto=""/><!--保存播放过的剧情id-->
+    <mapping msgId="0x1A08" msgName="MSGID_FUNCTION_INFO" proto="MSG_FUNCTION_INFO_ACK"/><!--更新function开放或关闭-->
+    <mapping msgId="0x1A09" msgName="MSGID_NOTIFY_INFO_3" proto="MSG_NOTIFY_INFO_3_ACK"/><!--3号区域通知-->
+    <mapping msgId="0x1A10" msgName="MSGID_NOTIFY_INFO_3_REQ" proto=""/><!--3号区域请求刷新-->
+    <mapping msgId="0x1A11" msgName="MSGID_SYS_INFO" proto="MSG_SYS_INFO_ACK"/><!--系统状态-->
+    <mapping msgId="0x1A12" msgName="MSGID_PLAYER_WORLD_SERVER_COUNT" proto="MSG_PLAYER_WORLD_SERVER_COUNT_ACK"/><!-- 玩家世界服功能次数-->
+    <mapping msgId="0x1A14" msgName="MSGID_SYSTIME_MICRO_CLINET" proto="MSG_MICRO_CLIENT_ACK"/><!--微端是否领取过-->
+    <mapping msgId="0x1A15" msgName="MSGID_CHANGE_CHARNAME" proto="MSG_CHANGE_CHARNAME_ACK"/><!--改名次数-->
+    
+
+    <!-- 地图模块 -->
+    <mapping msgId="0x1101" msgName="MSGID_MAP_ENTER" proto="MSG_MAP_ENTER_ACK"/><!--进入地图-->
+    <mapping msgId="0x1102" msgName="MSGID_MAP_LEAVE" proto=""/><!--离开地图-->
+    <mapping msgId="0x1103" msgName="MSGID_MAP_CITY" proto="MSG_MAP_CITY_ACK"/><!--可进入城市-->
+    <mapping msgId="0x1104" msgName="MSGID_MAP_MOVE" proto=""/><!--地图内移动-->
+    <mapping msgId="0x1105" msgName="MSGID_MAP_UPDATE" proto="MSG_MAP_UPDATE_ACK"/><!--地图内玩家信息更新-->
+    <mapping msgId="0x1106" msgName="MSGID_MAP_SERVER_UPDATE" proto="MSG_MAP_UPDATE_ACK"/><!--服务器主动更新位置坐标-->
+
+    <mapping msgId="0x1110" msgName="MSGID_MAP_NPC_INFO" proto="MSG_MAP_UPDATE_ACK"/><!--出现or消失-->
+
+    <mapping msgId="0x1201" msgName="MSGID_CHAT_SEND" proto=""/><!--发送聊天信息-->
+    <mapping msgId="0x1202" msgName="MSGID_CHAT_NOTIFY" proto="MSG_CHAT_NOTIFY_ACK"/><!--聊天广播-->
+    <mapping msgId="0x1203" msgName="MSGID_CHAT_NOTICE" proto="MSG_CHAT_NOTICE_ACK"/><!--公告-->
+    <mapping msgId="0x1204" msgName="MSGID_CHANGE_CODE" proto=""/><!--兑换码-->
+    <mapping msgId="0x1205" msgName="MSGID_CHANGE_CHANNEL" proto="NOTIFY_MY_CHAT_CHANNEL"/><!--切换聊天频道-->
+    <mapping msgId="0x1206" msgName="MSGID_GET_CHANNEL_LIST" proto="RT_GET_CHAT_CHANNEL_LIST"/><!--获取聊天频道列表-->
+    <mapping msgId="0x1207" msgName="MSGID_GUILD_HISTORY_CHAT" proto="MSG_GUILD_HISTORY_CHAT"/><!--公会聊天频道历史内容-->
+    <mapping msgId="0x1208" msgName="MSGID_CHAT_NOTICE_LIST" proto="MSG_CHAT_NOTICE_ACK"/><!--公告列表-->
+    <mapping msgId="0x1209" msgName="MSGID_CHAT_ANSWER" proto="MSG_CHAT_ANSWER_ACK"/><!--答题请求-->
+    <mapping msgId="0x1210" msgName="MSGID_NOTIFY_CHAT_QUESTION" proto="NOTIFY_CHAT_QUESTION"/><!--当前答题题目-->
+
+
+    <!-- 战斗模块 -->
+    <mapping msgId="0x1301" msgName="MSGID_BATTLE_CREATE" proto="MSG_BATTLE_CREATE_ACK"/><!-- 创建战斗 -->
+    <mapping msgId="0x1302" msgName="MSGID_BATTLE_REPORT" proto="MSG_BATTLE_REPORT_ACK"/><!-- 战斗回放 -->
+    <mapping msgId="0x1303" msgName="MSGID_BATTLE_CD_TIME" proto="MSG_BATTLE_CD_TIME_ACK"/><!-- 战斗cd中 -->
+    
+    
+    <!-- 道具模块 -->
+    <mapping msgId="0x1401" msgName="MSGID_ITEM_USE" proto=""/><!-- 使用道具 -->
+    <mapping msgId="0x1402" msgName="MSGID_ITEM_REORGANIZE" proto=""/><!-- 整理背包 -->
+    <mapping msgId="0x1403" msgName="MSGID_ITEM_UPGRADE" proto="MSG_ITEM_UPGRADE_ACK"/><!-- 装备强化 -->
+    <mapping msgId="0x1404" msgName="MSGID_ITEM_COMBINE" proto=""/><!-- 装备合成 -->
+    <mapping msgId="0x1405" msgName="MSGID_ITEM_GILT" proto=""/><!-- 装备镀金 -->
+    <mapping msgId="0x1406" msgName="MSGID_ITEM_COMPOSE" proto=""/><!-- 合成道具 -->
+    <mapping msgId="0x1407" msgName="MSGID_ITEM_DECOMPOSE" proto=""/><!-- 分解道具 -->
+    <mapping msgId="0x1408" msgName="MSGID_PUT_SPIRIT" proto=""/><!-- 装备灵件 -->
+    <mapping msgId="0x1409" msgName="MSGID_UPGRADE_SPIRIT" proto="MSG_UPGRADE_SPIRIT_ACK"/><!-- 洗练灵件 -->
+    <mapping msgId="0x1410" msgName="MSGID_UPGRADE_SPIRIT_NUM" proto="MSG_UPGRADE_SPIRIT_NUM_ACK"/><!-- 洗练次数 -->
+    <mapping msgId="0x1411" msgName="MSGID_UPGRADE_SPIRIT_SAVE" proto=""/><!-- 保存洗练结果 -->
+    <mapping msgId="0x1412" msgName="MSGID_ACTIVE_SPIRIT" proto=""/><!-- 激活洗练属性 -->
+    
+    <!-- 伙伴模块 -->
+    <mapping msgId="0x1501" msgName="MSGID_HREO_BATTLE" proto=""/><!-- 获得上阵伙伴列表 -->
+    <mapping msgId="0x1502" msgName="MSGID_HERO_PUT_ITEM" proto=""/><!-- 脱穿伙伴装备 -->
+    <mapping msgId="0x1503" msgName="MSGID_HERO_COMBINE_EQUIP" proto=""/><!-- 合成身上的装备 -->
+    <mapping msgId="0x1504" msgName="MSGID_HERO_ADVANCED" proto=""/><!-- 伙伴突破 -->
+    <mapping msgId="0x1505" msgName="MSGID_HERO_REBORN" proto=""/><!-- 伙伴重生 -->
+    <mapping msgId="0x1506" msgName="MSGID_HERO_EXTEND" proto=""/><!-- 伙伴传承 -->
+    <mapping msgId="0x1507" msgName="MSGID_HERO_PUT_BIRTH" proto=""/><!-- 脱穿命格 -->
+    
+	<!-- 任务模块 -->
+	<mapping msgId="0x1701" msgName="MSGID_TASK_START" proto=""/><!-- 开始任务(接任务) -->
+	<mapping msgId="0x1702" msgName="MSGID_TASK_COMMIT" proto=""/><!-- 提交任务 -->
+	<mapping msgId="0x1703" msgName="MSGID_TASK_EVENT" proto=""/><!--提交客户端only事件(如NPC对话) -->
+	
+    <!-- 阵型模块 -->
+	<mapping msgId="0x1801" msgName="MSGID_FORMATION_INFO" proto="MSG_UPDATE_FORMATION_ACK"/><!-- 请求布阵信息 -->
+	<mapping msgId="0x1802" msgName="MSGID_FORMATION_PUT_HERO" proto="MSG_UPDATE_FORMATION_ACK"/><!-- 布阵操作小伙伴 -->
+    
+
+    <!-- 伙伴模块 -->
+    <mapping msgId="0x1901" msgName="MSGID_INSTANCE_ENTER" proto=""/><!-- 进入副本 -->
+    <mapping msgId="0x1902" msgName="MSGID_INSTANCE_CLEANUP" proto="MSG_INSTANCE_CLEANUP_ACK"/><!-- 扫荡副本 -->
+    <mapping msgId="0x1903" msgName="MSGID_INSTANCE_AWARD" proto="MSG_INSTANCE_AWARD_ACK"/><!-- 打完副本后给的奖励 -->
+    <mapping msgId="0x1904" msgName="MSGID_INSTANCE_ACCEPT" proto=""/><!-- 领奖 -->
+    <mapping msgId="0x1905" msgName="MSGID_INSTANCE_REPORT" proto="MSG_INSTANCE_REPORT_ACK"/><!-- 取得战报信息 -->
+    <mapping msgId="0x1906" msgName="MSGID_UPDATEINSTANCE_REQ" proto=""/><!-- 更新章节副本信息 -->
+    <mapping msgId="0x1907" msgName="MSGID_HURDLE_ISOPEN" proto="MSGID_HURDLE_ISOPEN_ACK"/><!-- 副本是否开放 -->
+    <mapping msgId="0x1908" msgName="MSGID_CHAPTER_RESET" proto=""/><!-- 炼狱副本重置 -->
+    <mapping msgId="0x1909" msgName="MSGID_HELL_GET_GIFT" proto=""/><!-- 炼狱副本通关奖励领取 -->
+    
+    <!-- 购买模块 -->
+	<mapping msgId="0x2000" msgName="MSGID_COMMON_BUY" proto=""/><!-- 购买道具通用接口 -->
+	<mapping msgId="0x2001" msgName="MSGID_BLACK_MARKET" proto=""/><!-- 获取黑市数据 -->
+	<mapping msgId="0x2002" msgName="MSGID_BLACK_MARKET_REFRESH" proto=""/><!-- 刷新黑市 -->
+	<mapping msgId="0x2003" msgName="MSGID_BLACK_MARKET_BUY" proto=""/><!-- 购买黑市道具 -->
+	<mapping msgId="0x2050" msgName="MSGID_STORE_OPT" proto=""/><!-- 回购操作 -->
+	<mapping msgId="0x2080" msgName="MSGID_STORE_BUY" proto=""/><!-- 商城购买 -->
+	<!-- 交易系统 -->
+	<mapping msgId="0x2005" msgName="MSGID_TRADE_BASE_INFO" proto="NOTIFY_TRADE_BASE_INFO"/><!-- 玩家交易信息 -->
+	<mapping msgId="0x2004" msgName="MSGID_TRADE_ITEM_INFO" proto="MSG_TRADE_ITEM_INFO_ACK"/><!-- 请求交易面板数据 -->
+	<mapping msgId="0x2010" msgName="MSGID_TRADE_SINGLE_ITEM" proto="NOTIFY_TRADE_SINGLE_ITEM"/><!-- 单刷某个格子 -->
+	<mapping msgId="0x2011" msgName="MSGID_TRADE_LOG" proto="MSG_TRADE_LOG_ACK"/><!-- 购买记录 -->
+	
+	
+    
+    <!-- 竞技场模块 -->
+    <mapping msgId="0x2101" msgName="MSGID_ARENA_INFO" proto=""/><!-- 获得竞技场面板数据 -->
+    <mapping msgId="0x2102" msgName="MSGID_ARENA_START_FIGHT" proto=""/><!-- 开启竞技场战斗 -->
+    <mapping msgId="0x2103" msgName="MSGID_ARENA_BUY_TICKET" proto=""/><!-- 购买竞技场门票 -->
+    <mapping msgId="0x2104" msgName="MSGID_ARENA_RANK_BOX_INFO" proto="MSG_ARENA_RANK_BOX_INFO_ACK"/><!-- 竞技场段位奖励状态 -->
+    <mapping msgId="0x2105" msgName="MSGID_ARENA_GET_RANK_BOX" proto="MSG_ARENA_GET_RANK_BOX_ACK"/><!-- 竞技场领取当前的段位奖励 -->
+    
+    <!-- 邮件模块 -->
+    <mapping msgId="0x2201" msgName="MSGID_MAIL_INFO" proto="MSG_MAIL_INFO_ACK"/><!-- 获取邮件列表 -->
+    <mapping msgId="0x2202" msgName="MSGID_MAIL_DETAIL" proto="MSG_MAIL_DETAIL_ACK"/><!-- 获取邮件明细 -->
+    <mapping msgId="0x2203" msgName="MSGID_MAIL_GET_ATTACH" proto=""/><!-- 获取邮件附件 -->
+
+    <!-- 寻仙模块 -->
+    <mapping msgId="0x2301" msgName="MSGID_PRAY_INFO" proto=""/><!-- 抽卡界面信息 -->
+    <mapping msgId="0x2302" msgName="MSGID_PRAY_START" proto=""/><!-- 开始抽卡 -->
+    <mapping msgId="0x2303" msgName="MSGID_PRAY_CONFIRM" proto=""/><!-- 把抽到的卡放到背包里 -->
+
+    <!-- 技能模块 -->
+    <mapping msgId="0x2404" msgName="MSGID_SKILL_INFO" proto=""/><!-- 主角技能信息 -->
+    <mapping msgId="0x2405" msgName="MSGID_SKILL_SET" proto=""/><!-- 放置技能，如果slot_id == 0x0,下阵 -->
+    <mapping msgId="0x2406" msgName="MSGID_SKILL_UPGRADE" proto=""/><!-- 放置技能，如果slot_id == 0x0,下阵 -->
+    <mapping msgId="0x2407" msgName="MSGID_CHANGE_GOD" proto=""/><!-- 更换天神 -->
+
+     <!-- 命途模块 -->
+    <mapping msgId="0x2501" msgName="MSGID_FATE_ROLL" proto=""/><!-- 放置技能，如果slot_id == 0x0,下阵 -->
+    <mapping msgId="0x2502" msgName="MSGID_FATE_INFO" proto=""/><!-- 获取命途信息 -->
+    
+     <!-- 图鉴模块 -->
+    <mapping msgId="0x2600" msgName="MSGID_PHOTO_APPRAISAL_ENABLE" proto=""/><!-- 请求图鉴激活 -->
+    <mapping msgId="0x2601" msgName="MSGID_PHOTO_APPRAISAL_BREAK" proto=""/><!-- 图鉴分解 -->
+    <mapping msgId="0x2602" msgName="MSGID_PHOTO_APPRAISAL_RWD" proto=""/><!-- 请求领奖 -->
+    <mapping msgId="0x2603" msgName="MSGID_PHOTO_APPRAISAL_INFO" proto="MSG_PHOTOAPPRAISAL_ACK"/><!-- 推送图鉴信息 -->
+   
+    <!-- 好友模块 -->
+    <mapping msgId="0x2701" msgName="MSG_FRIEND_OPERATE" proto="MSG_FRIEND_PROMPT_ACK"/><!-- 请求好友操作或者黑名单操作 -->
+    <mapping msgId="0x2703" msgName="MSG_FRIEND_HISTORY_FID" proto="MSG_FRIEND_HISTORY_CONTENTS_ACK"/><!-- 请求聊天记录 -->
+    <mapping msgId="0x2704" msgName="MSG_FRIEND_PIC_CHANGE" proto=""/><!-- 更换头像请求 -->
+    <mapping msgId="0x2705" msgName="MSG_FRIEND_LISTENERS" proto=""/><!-- 请求听众列表 -->
+    <mapping msgId="0x2706" msgName="MSG_FRIEND_INFO" proto="MSG_FRIEND_INFO_ACK"/><!-- 好友基本信息 -->
+    <mapping msgId="0x2707" msgName="MSG_ENEMY_INFO" proto="MSG_ENEMY_INFO_ACK"/><!-- 仇人信息 -->
+    <mapping msgId="0x2708" msgName="MSG_SEND_FLOWER" proto=""/><!-- 送花 -->
+    <mapping msgId="0x2709" msgName="MSG_FLOWER_LOG_INFO" proto="MSG_FLOWERS_INFO_ACK"/><!-- 送花信息 -->
+    <mapping msgId="0x2710" msgName="MSG_SEND_FLOWERS_REQ" proto="MSG_FLOWER_IS_SEND_TODAY_ACK"/><!-- 仇人信息 -->
+    <mapping msgId="0x3001" msgName="MSGID_SORT_LIST" proto="MSG_SORT_LIST_ACK"/><!-- 排行榜 -->
+	
+    <!-- 奇术模块 -->
+    <mapping msgId="0x2803" msgName="MSGID_MAGIC_INFO" proto="MSG_UPDATE_MAGIC_INFO"/><!-- 请求奇术信息 -->
+    <mapping msgId="0x2804" msgName="MSGID_MAGIC_LEVELUP" proto=""/><!-- 奇术升级操作 -->
+	
+    <!-- 声望模块 -->
+    <mapping msgId="0x2901" msgName="MSGID_PRESTIGE_GET" proto=""/><!-- 请求领取 -->
+    <mapping msgId="0x2902" msgName="MSGID_PRESTIGE_INFO" proto="MSG_PRESTIGE_ACK"/><!-- 声望领取数据 -->
+	
+    <!-- 排行榜模块 -->
+    <mapping msgId="0x3000" msgName="MSGID_RANKING_LIST" proto="MSG_RANKING_LIST_ACK"/><!-- 排行榜信息 -->
+	
+    <!-- 招财 -->
+    <mapping msgId="0x3101" msgName="MSGID_MAMMON_INFO" proto=""/><!-- 获取招财数据 -->
+    <mapping msgId="0x3102" msgName="MSGID_MAMMON_OPT" proto=""/><!-- 招财操作 -->
+    <mapping msgId="0x3103" msgName="MSGID_MAMMON_OPEN" proto="MSG_MAMMON_OPEN_ACK"/><!-- 招财兑奖 -->
+   
+    <!-- 主角 -->
+    <mapping msgId="0x3201" msgName="MSGID_PLAYER_EQUIP_INFO" proto=""/><!-- 请求主角装备数据 -->
+    <mapping msgId="0x3202" msgName="MSGID_PLAYER_PUT_EQUIP" proto=""/><!-- 主角脱穿装备 -->
+    <mapping msgId="0x3203" msgName="MSGID_PLAYER_UPGRADE_EQUIP_POS" proto=""/><!-- 升级主角装备格子 -->
+    <mapping msgId="0x3204" msgName="MSGID_OTHER_PLAYER_INFO" proto="MSG_OTHER_PLAYER_INFO_ACK"/><!-- 观察其他玩家 -->
+    <mapping msgId="0x3205" msgName="MSGID_VIP_INFO" proto="MSG_VIP_INFO_ACK"/><!-- 请求vip进度 -->
+    <mapping msgId="0x3206" msgName="MSGID_VIP_GET_REWARD" proto="MSG_VIP_INFO_ACK"/><!-- 请求获取vip奖励 -->
+    <mapping msgId="0x3207" msgName="MSG_AVATAR_INFO" proto="MSG_AVATAR_INFO_ACK"/><!-- 主角换装中已获取和已装备数据 -->
+    <mapping msgId="0x3208" msgName="MSG_AVATAR_CHANGE" proto=""/><!-- 请求换装 -->
+  
+    <!-- 帮派 -->
+    <mapping msgId="0x3301" msgName="MSGID_GUILD_REQ" proto="MSG_GUILD_JOIN_ACK"/><!-- 请求 -->
+    <mapping msgId="0x3302" msgName="MSGID_GUILD_INFO" proto="MSG_GUILD_INFO_ACK"/><!-- 自己帮派信息 -->
+    <mapping msgId="0x3303" msgName="MSGID_GUILD_REQ_INFO" proto=""/><!-- 查看帮派申请者 -->
+    <mapping msgId="0x3304" msgName="MSGID_GUILD_MEMBER_INFO" proto="MSG_GUILD_MEMBER_ACK"/><!-- 查看帮派申请者 -->
+    <mapping msgId="0x3305" msgName="MSGID_GUILD_MEMBER_UPDATE" proto="MSG_GUILD_UPDATE_MEMBER_ACK"/><!-- 更新帮会成员 -->
+    <mapping msgId="0x3306" msgName="MSGID_GUILD_QUIT_VIEW" proto=""/><!-- 退出帮会界面 -->
+    <mapping msgId="0x3307" msgName="MSGID_GUILD_EXAMINE_INFO" proto="MSG_GUILD_EXAMINE_ACK"/><!-- 成员审核 -->
+    <mapping msgId="0x3308" msgName="MSGID_GUILD_LOG" proto="MSG_GUILD_LOG_ACK"/><!-- 帮会动态记录 -->
+    <mapping msgId="0x3309" msgName="MSGID_GUILD_LEVEL_MSG" proto="MSG_GUILD_LEVEL_ACK"/><!-- 帮会等级 -->
+    <mapping msgId="0x3310" msgName="MSGID_GUILD_SS_INFO" proto="MSG_GUILD_SS_ACK"/><!-- 进入七星封魔 -->
+    <mapping msgId="0x3311" msgName="MSGID_GUILD_SEAL_REWARD_INFO" proto="MSG_GUILD_SEAL_REWARD_ACK"/><!-- 获得buff -->
+    <mapping msgId="0x3312" msgName="MSGID_GUILD_DAMAGE_RANK_INFO" proto="MSG_GUILD_DAMAGE_RANK_ACK"/><!-- 奖励信息 -->
+    <mapping msgId="0x3313" msgName="MSGID_GUILD_KES_BUY_TIME" proto=""/><!-- 购买 -->
+    <mapping msgId="0x3314" msgName="MSGID_GUILD_KES_GET_REWARD" proto=""/><!-- 领取奖励 -->
+    <mapping msgId="0x3315" msgName="MSGID_GUILD_GOD_FETE" proto="MSG_GUILD_GOD_FETE_ACK"/><!-- 祭神 -->
+    <mapping msgId="0x3316" msgName="MSGID_GUILD_PURCHASE_STORE_INFO" proto="MSG_GUILD_SHOP_ACK"/><!-- 限购商店 -->
+    <mapping msgId="0x3317" msgName="MSGID_GUILD_EXCHANGE_INFO" proto="MSG_GUILD_EXCHANGE_ACK"/><!-- 交换所 -->
+    <mapping msgId="0x3318" msgName="MSGID_GUILD_EXCHANGE" proto="MSG_GUILD_EXCHANGE_REWARD_ACK"/><!-- 交换 -->
+    <mapping msgId="0x3319" msgName="MSGID_GUIDE_DEMAND" proto=""/><!-- 交换所提需求 -->
+    <mapping msgId="0x3320" msgName="MSGID_GUILD_INFO_OTHER" proto="MSG_GUILD_OTHER_INFO_ACK"/><!-- 其他帮派信息 -->
+    <mapping msgId="0x3321" msgName="MSGID_GUILD_SHOP_BUY" proto=""/><!-- 购买商店物品 -->
+    <mapping msgId="0x3322" msgName="MSGID_GUILD_TREASURE_LOG_INFO" proto="MSG_GUILD_TREASURE_LOG_ACK"/><!-- 挖宝记录 -->
+    <mapping msgId="0x3323" msgName="MSGID_GUILD_GET_TREASURE" proto="MSG_GUILD_TREASURE_REWARD_ACK"/><!-- 挖宝 -->
+    <mapping msgId="0x3324" msgName="MSGID_GUILD_TREASURE_INFO" proto="MSG_GUILD_TREASURE_INFO_ACK"/><!-- 宝藏信息 -->
+
+    <mapping msgId="0x3340" msgName="MSGID_GUILD_RECOMMENT" proto="MSG_GUILD_RECOMMENT_ACK"/><!-- 推荐帮会 -->
+    <mapping msgId="0x3341" msgName="MSGID_GUILD_SELECT_MEMBER" proto="MSG_GUILD_SELECT_MEMBER_ACK"/><!-- 成员筛选 -->
+
+
+
+    <mapping msgId="0x4501" msgName="MSGID_GUILD_CONVOY_INFO" proto="MSG_GUILD_CONVOY_INFO"/><!-- 护送玩家信息 -->
+    <mapping msgId="0x4502" msgName="MSG_GUILD_CONVOY_MESSENGER" proto="MSG_GUILD_CONVOY_MESSENGER_ACK"/><!-- 获取使者 -->
+    <mapping msgId="0x4503" msgName="MSG_GUILD_CONVOY_BEGIN" proto=""/><!-- 开始护送 -->
+    <mapping msgId="0x4504" msgName="MSG_GUILD_CONVOY_GET_REWARD" proto=""/><!-- 领取护送奖励 -->
+    <mapping msgId="0x4505" msgName="MSG_GUILD_CONVOY_GET_REWARD_ROBBED" proto=""/><!-- 领取护送抢劫奖励 -->
+    <mapping msgId="0x4506" msgName="MSG_GUILD_CONVOY_GET_INFO" proto="MSG_GUILD_CONVOY_GET_INFO_ACK"/><!-- 领取护送信息 -->
+    <mapping msgId="0x4507" msgName="MSG_GUILD_CONVOY_QUIT" proto=""/><!-- 退出护送 -->
+        
+    <!-- 世界boss -->
+    <mapping msgId="0x3401" msgName="MSGID_WORLD_BOSS_ADD_BUFF" proto=""/><!-- 鼓舞 -->
+    <mapping msgId="0x3402" msgName="MSGID_WORLD_BOSS_SORT_INFO" proto="MSG_WORLD_BOSS_SORT_INFO_ACK"/><!-- 请求排名列表 -->
+    
+    <mapping msgId="0x3403" msgName="MSGID_WORLD_BOSS_BASE_INFO" proto="MSG_WORLD_BOSS_BASE_INFO_ACK"/><!-- boss战基本信息 -->
+    <mapping msgId="0x3404" msgName="MSGID_WORLD_BOSS_PLAYER" proto="MSG_WORLD_BOSS_PLAYER_ACK"/><!-- 玩家自己数据 -->
+    <mapping msgId="0x3405" msgName="MSGID_WORLD_BOSS_LOG" proto="MSG_WORLD_BOSS_LOG"/><!-- 战斗日志 -->
+    <mapping msgId="0x3406" msgName="MSGID_SKILL_NPC_ACTION" proto="MSG_SKILL_NPC_ACTION"/><!-- npc动作 -->
+    <mapping msgId="0x3407" msgName="MSGID_WORLD_BOSS_PLAYER_DIE" proto="MSG_WORLD_BOSS_PLAYER_DIE"/><!-- 世界boss玩家死亡 -->
+
+    <mapping msgId="0x3408" msgName="MSGID_WORLD_BOSS_STATUS" proto="MSG_WORLD_BOSS_STATUS_ACK"/><!-- 玩家世界boss状态 -->
+    <mapping msgId="0x3410" msgName="MSGID_WORLD_BOSS_COUNT" proto="NOTIFY_WORLD_BOSSS_COUNT_ACK"/><!-- 玩家世界boss次数 -->
+
+    
+    <!-- 活动通用接口 -->
+    <mapping msgId="0x3501" msgName="MSGID_ACTIVITY_ENTER" proto=""/><!-- 请求进入活动地图 -->
+    <mapping msgId="0x3502" msgName="MSGID_ACTIVITY_STATUS" proto="MSG_ACTIVITY_STATUS_ACK"/><!-- 活动状态更新 -->
+
+    <!-- 探灵 -->
+    <mapping msgId="0x3600" msgName="MSGID_SD_INFO" proto="MSG_UPDATE_SEEK_DEVICE_ACK"/><!-- 手动获取狩灵信息 -->
+    <mapping msgId="0x3601" msgName="MSGID_SD_ENTER_HOLE" proto=""/><!-- 进入狩灵界面或者战斗 -->
+    <mapping msgId="0x3602" msgName="MSGID_SD_INVITE" proto=""/><!-- 邀请好友共同狩灵 -->
+    <mapping msgId="0x3603" msgName="MSGID_SD_BUY_REFRESH" proto=""/><!-- 元宝刷新 -->
+    <mapping msgId="0x3604" msgName="MSGID_SD_GET_DEVICE" proto=""/><!-- 领取狩灵奖励 -->
+    <mapping msgId="0x3605" msgName="MSGID_SD_ACCEPT_INVITE" proto=""/><!-- 接受好友的狩灵邀请 -->
+
+    <!-- 爬塔 -->
+    <mapping msgId="0x3701" msgName="MSGID_TOWER_INFO" proto="MSG_TOWER_INFO"/><!-- 爬塔详细信息 -->
+    <mapping msgId="0x3702" msgName="MSGID_TOWER_FIGHT" proto=""/><!-- 开始挑战 -->
+    <mapping msgId="0x3703" msgName="MSGID_TOWER_SWIPE" proto="MSG_TOWER_SWIPE_ACK"/><!-- 扫荡 -->
+    <mapping msgId="0x3704" msgName="MSGID_TOWER_RESET" proto=""/><!-- 重置本次挑战 -->
+    <mapping msgId="0x3705" msgName="MSGID_TOWER_RESET_STAR" proto=""/><!-- 重置难度 -->
+    <mapping msgId="0x3706" msgName="MSGID_TOWER_BUFFERS" proto="MSG_TOWER_BUFFERS_ACK"/><!-- 显示爬塔buff选择信息 -->
+    <mapping msgId="0x3707" msgName="MSGID_TOWER_BUY_BUF" proto="MSG_TOWER_BUY_BUF_ACK"/><!-- 购买buf -->
+    <mapping msgId="0x3708" msgName="MSGID_TOWER_GET_FLOOR_REWARD" proto="MSG_TOWER_GET_FLOOR_REWARD_ACK"/><!-- 领取通层奖励 -->
+    <mapping msgId="0x3709" msgName="MSGID_TOWER_HISTORY_FLOOR" proto="MSG_TOWER_HISTORY_FLOOR_ACK"/><!-- 历史最高层 -->
+        
+    <!-- 活跃度 -->
+    <mapping msgId="0x3801" msgName="MSGID_ACTIVE_INFO" proto="MSG_ACTIVE_INFO_ACK"/><!-- 请求活跃度数据 -->
+    <mapping msgId="0x3802" msgName="MSGID_ACTIVE_GET_REWARD" proto="ACTIVE_GET_REWARD"/><!-- 请求领取活跃度奖励 -->
+
+    <!-- 新手引导模块 -->
+    <mapping msgId="0x3901" msgName="MSGID_GUIDE_RECORD" proto=""/><!-- 记录新手指导步聚 -->
+    <mapping msgId="0x3902" msgName="MSGID_GUIDE_READ" proto="MSG_GUIDE_ACK"/><!-- 读取新手指导 -->
+
+    <!-- 礼包中心 -->
+    <mapping msgId="0x4001" msgName="MSGID_GIFT_SIGN_DAY" proto=""/><!-- 请求日常签到 -->
+    <mapping msgId="0x4002" msgName="MSGID_GIFT_GET_FRESH" proto=""/><!-- 获取更新奖励 -->
+    <mapping msgId="0x4003" msgName="MSGID_SIGN_DAY_REQ" proto=""/><!-- 签到请求 -->
+    <mapping msgId="0x4004" msgName="MSGID_GET_FRESH_REQ" proto=""/><!-- 获取更新奖励请求 -->
+
+    <!-- 命格 -->
+    <mapping msgId="0x4101" msgName="MSGID_BIRTH_CHART_COMBINE" proto=""/><!-- 命格合成 -->
+    <mapping msgId="0x4102" msgName="MSGID_BIRTH_CHART_CLEAR_UP" proto=""/><!-- 命格背包一键合成 -->
+    <mapping msgId="0x4103" msgName="MSGID_BIRTH_CHANGE_TYPE" proto=""/><!-- 切换背包 -->
+
+    <!-- 猎命 -->
+    <mapping msgId="0x4201" msgName="MSGID_HUNTB_INFO" proto=""/><!--  -->
+    <mapping msgId="0x4202" msgName="MSGID_HUNTB_HUNT" proto="MSG_HUNTB_HUNT_ACK"/><!--  -->
+    <mapping msgId="0x4203" msgName="MSGID_HUNTB_BUY_FIVE" proto="MSG_HUNTB_HUNT_ACK"/><!--  -->
+    <mapping msgId="0x4204" msgName="MSGID_HUNTB_RAND_INFO" proto="MSG_HUNTB_RAND_INFO_ACK"/><!--  -->
+
+    <!-- 练功房 -->
+    <mapping msgId="0x4301" msgName="MSGID_EXP_ROOM_INFO" proto="MSG_EXP_ROOM_INFO_ACK"/><!--  -->
+    <mapping msgId="0x4302" msgName="MSGID_EXP_ROOM_SITDOWN" proto=""/><!--  -->
+    <mapping msgId="0x4303" msgName="MSGID_EXP_ROOM_BUY_CD" proto=""/><!--  -->
+    <mapping msgId="0x4304" msgName="MSGID_EXP_ROOM_GET_EXP" proto=""/><!--  -->
+    <mapping msgId="0x4305" msgName="MSGID_EXP_ROOM_BUY_TIME" proto=""/><!--  -->
+
+     <!-- 六道轮回 -->
+    <mapping msgId="0x4401" msgName="MSGID_SIX_D_INFO" proto="MSG_SIX_D_INFO_ACK"/><!-- 六道数据 -->
+    <mapping msgId="0x4402" msgName="MSGID_SIX_D_SWIPE" proto="MSG_SIX_D_SWIPE_ACK"/><!-- 扫荡 -->
+    <mapping msgId="0x4403" msgName="MSGID_SIX_D_GET_DAILY" proto=""/><!-- 获得每日奖励 -->
+    <mapping msgId="0x4404" msgName="MSGID_SIX_D_RESET" proto=""/><!-- 重置 -->
+    <mapping msgId="0x4405" msgName="MSGID_SIX_D_ENTER_NEXT" proto=""/><!-- 进入下一道 -->
+    <mapping msgId="0x4406" msgName="MSGID_SIX_D_REWARD" proto="MSG_SIX_D_REWARD_ACK"/><!-- 奖励 -->
+	
+	<!-- 开服活动 -->
+	<mapping msgId="0x4601" msgName="MSGID_ZONE_OPEN_ACV_INFO" proto="MSG_ZONE_OPEN_ACV_ACK"/><!-- 请求开服活动信息 -->
+    <mapping msgId="0x4602" msgName="MSGID_ZONE_OPEN_ACV_GET_RWD" proto=""/><!-- 领取奖励 -->
+    <mapping msgId="0x4603" msgName="MSGID_ZONE_OPEN_ACV_GET_FINAL" proto="MSG_SIX_D_REWARD_ACK"/><!-- 领取终极奖励 -->
+	
+	<!-- 领地攻防战 -->
+    <mapping msgId="0x4701" msgName="MSGID_GUILD_VS_GUILD_INFO" proto="MSG_GUILD_VS_GUILD_INFO_ACK"/><!-- 活动主数据 -->
+    <mapping msgId="0x4702" msgName="MSGID_NOTIFY_GUILD_VS_GUILD_NUM" proto="NOTIFY_GUILD_VS_GUILD_NUM"/><!--  -->
+    <mapping msgId="0x4704" msgName="MSGID_NOTIFY_MY_GUILD_PK_INFO" proto="MSG_NOTIFY_MY_GUILD_PK_INFO"/><!-- 自己在当前活动的数据 -->
+	<mapping msgId="0x4705" msgName="MSGID_GUILD_VS_GUILD_WATCH_OPT" proto="MSG_GUILD_VS_GUILD_WATCH_OPT_ACK"/><!-- 观察 -->
+	<mapping msgId="0x4709" msgName="MSGID_NOTIFY_USER_DATA_UPDATE" proto="NOTIFY_USER_DATA_UPDATE"/><!-- 推送更新 -->
+	<mapping msgId="0x4710" msgName="MSGID_GUILD_VS_GUILD_REPORT" proto="MSG_GUILD_VS_GUILD_REPORT_ACK"/><!-- 战报 -->
+
+    <!-- 比武场 -->
+    <mapping msgId="0x4801" msgName="MSGID_SKYLADDER_INFO" proto="MSG_SKYLADDER_INFO_ACK"/><!-- 比武场信息 -->
+    <mapping msgId="0x4802" msgName="MSGID_SKYLADDER_FIGHT" proto=""/><!-- 战斗 -->
+    <mapping msgId="0x4803" msgName="MSGID_SKYLADDER_GET_DAILY" proto=""/><!-- 领奖每日 -->
+    <mapping msgId="0x4804" msgName="MSGID_SKYLADDER_GET_SEAON" proto=""/><!-- 赛季领奖 -->
+    <mapping msgId="0x4805" msgName="MSGID_SKYLADDER_BUY_COUNT" proto=""/><!-- 购买次数 -->
+    <mapping msgId="0x4806" msgName="MSGID_SKYLADDER_CLEAN_CD" proto=""/><!-- 清cd -->
+    <mapping msgId="0x4807" msgName="MSGID_SKYLADDER_RANK_LIST" proto="MSG_SKYLADDER_RANK_LIST_ACK"/><!-- 排行榜 -->
+	
+	<!-- 在线奖励 -->
+    <mapping msgId="0x4901" msgName="MSGID_ONLINE_REWARD_INFO" proto="MSG_ONLINE_REWARD_INFO_ACK"/><!-- 比武场信息 -->
+	
+	<!-- 首充奖励 -->
+    <mapping msgId="0x5001" msgName="MSGID_FIRST_CHARGE_INFO" proto="MSG_FIRST_CHARGE_INFO_ACK"/><!-- 首充奖励 -->
+
+    <!-- 红包 -->
+    <mapping msgId="0x5201" msgName="MSGID_FA_HONGBAO" proto=""/><!-- 发红包 -->
+    <mapping msgId="0x5202" msgName="MSGID_QIANG_HONGBAO" proto="MSG_QIANG_HONGBAO_ACK"/> <!-- 抢红包 -->
+    <mapping msgId="0x5203" msgName="MSGID_HONGBAO_LIST" proto="MSG_HONGBAO_LIST_ACK"/><!-- 红包列表 -->
+    <mapping msgId="0x5204" msgName="MSGID_HONGBAO_LOG" proto="MSG_HONGBAO_LOG_ACK"/><!-- 红包记录-->
+    <mapping msgId="0x5205" msgName="MSGID_HONGBAO_CHAT_UPDATE" proto="MSG_HONGBAO_CHAT_UPDATE_ACK"/><!-- 红包更新-->
+    
+    <!-- 股票 -->
+    <mapping msgId="0x5101" msgName="MSGID_STOCK_REFRESH" proto="MSG_STOCK_REFRESH_ACK"/><!-- 股票列表 -->
+    <mapping msgId="0x5103" msgName="MSGID_STOCK_EXCHANGE_INFO" proto="MSG_EXCHANGE_INFO_ACK"/><!-- 积分商城 -->
+    
+     <!-- 被动技能 -->
+    <mapping msgId="0x5401" msgName="MSGID_PASSIVE_SKILL_INFO" proto="MSG_PASSIVE_SKILL_INFO_ACK"/><!-- 所有被动技能列表 -->
+    <mapping msgId="0x5402" msgName="MSGID_PASSIVE_SKILL_UPGRADE" proto="MSG_PASSIVE_SKILL_UPGRADE_ACK"/><!-- 升级操作 -->
+    <mapping msgId="0x5403" msgName="MSG_PASSIVE_SKILL_EQUIP_REQ" proto="MSG_PASSIVE_SKILL_EQUIP_ACK"/><!-- 装备操作-->
+    <!-- 无尽试炼 -->
+    <mapping msgId="0x5301" msgName="MSGID_ENDLESS_INFO" proto="MSG_ENDLESS_INFO_ACK"/><!--  -->
+
+    <!-- 活动 掷色子 -->
+    <mapping msgId="0x5601" msgName="MSGID_ROLL_DICE_INFO" proto="MSG_ROLL_DICE_INFO_ACK"/><!-- 色子信息 -->
+	<!-- 礼品铺子 -->
+    <mapping msgId="0x5501" msgName="MSGID_GIFT_SHOP_OPT" proto="MSG_GIFT_SHOP_INFO_ACK"/><!--  -->
+    <mapping msgId="0x5502" msgName="MSGID_GIFT_SHOP_INFO" proto="MSG_GIFT_SHOP_INFO_ACK"/><!--  -->
+   <!-- 更新数据模块 -->
+   <mapping msgId="0x9901" msgName="MSGID_UPDATE_PLAYER" proto="MSG_UPDATE_PLAYER_ACK"/><!-- 更新玩家信息 -->
+   <mapping msgId="0x9902" msgName="MSGID_UPDATE_ITEM" proto="MSG_UPDATE_ITEM_ACK"/><!-- 更新玩家物品 -->
+   <mapping msgId="0x9903" msgName="MSGID_UPDATE_TASK" proto="MSG_UPDATE_TASK_ACK"/><!-- 更新玩家任务 -->
+   <mapping msgId="0x9904" msgName="MSGID_UPDATE_FORMATION" proto=""/><!-- 更新布阵信息 -->
+   <mapping msgId="0x9905" msgName="MSGID_UPDATE_INSTANCE" proto="MSG_UPDATE_INSTANCE_ACK"/><!-- 更新章节副本信息 -->
+   <mapping msgId="0x9906" msgName="MSGID_UPDATE_BLACK_MARKET" proto="MSG_UPDATE_BLACK_MARKET_ACK"/><!-- 刷新黑市 -->
+   <mapping msgId="0x9907" msgName="MSGID_UPDATE_STORE_BUY_BACK" proto="MSG_UPDATE_STORE_BUY_BACK_ACK"/><!-- 刷新回购数据 -->
+   <mapping msgId="0x9908" msgName="MSGID_UPDATE_ARENA" proto="MSG_UPDATE_ARENA_ACK"/><!-- 刷新竞技场数据 -->
+   <mapping msgId="0x9909" msgName="MSGID_UPDATE_MAIL_NUM" proto="MSG_UPDATE_MAIL_NUM_ACK"/><!-- 未读邮件数 -->
+   <mapping msgId="0x9910" msgName="MSGID_UPDATE_PRAY" proto="MSG_UPDATE_PRAY_ACK"/><!-- 刷新抽卡信息 -->
+   <mapping msgId="0x9911" msgName="MSGID_UPDATE_SKILL" proto="MSG_UPDATE_SKILL_ACK"/><!-- 主角技能 -->
+   <mapping msgId="0x9912" msgName="MSGID_UPDATE_FATE" proto="MSG_UPDATE_FATE_ACK"/><!-- 命途信息 -->
+   <mapping msgId="0x9913" msgName="MSGID_UPDATE_QUICK_BUY" proto="MSG_UPDATE_QUICK_BUY_ACK"/><!-- 更新快速购买次数 -->
+   <mapping msgId="0x9914" msgName="MSGID_UPDATE_MAGIC" proto="MSG_UPDATE_MAGIC_INFO"/><!-- 更新奇术 -->
+   <mapping msgId="0x9915" msgName="MSGID_UPDATE_GOD_LIST" proto="MSG_UPDATE_GOD_LIST_ACK"/><!-- 更新天神数据 -->
+   <mapping msgId="0x9916" msgName="MSGID_UPDATE_MAMMON" proto="MSG_UPDATE_MAMMON_ACK"/><!-- 更新招财 -->
+   <mapping msgId="0x9917" msgName="MSGID_UPDATE_PLAYER_EQUIP" proto="MSG_UPDATE_PLAYER_EQUIP"/><!-- 更新主角装备数据 -->
+   <mapping msgId="0x9918" msgName="MSGID_UPDATE_SEEK_DEVICE" proto="MSG_UPDATE_SEEK_DEVICE_ACK"/><!-- 更新狩灵信息 -->
+   <mapping msgId="0x9919" msgName="MSGID_UPDATE_SIGN_DAY" proto="MSG_UPDATE_SINGN_ACK"/><!-- 日常签到 -->
+   <mapping msgId="0x9920" msgName="MSGID_UPDATE_FRESH" proto="MSG_UPDATE_FRESH_ACK"/><!-- 更新奖励 -->
+   <mapping msgId="0x9921" msgName="MSGID_UPDATE_PLAYER_VISIBLE" proto="MSG_UPDATE_PLAYER_VISIBLE"/><!-- 更新地图玩家查看状态 -->
+   <mapping msgId="0x9922" msgName="MSGID_UPDATE_HB_INFO" proto="MSG_UPDATE_HB_INFO_ACK"/><!-- 更新猎命数据 -->
+   <mapping msgId="0x9923" msgName="MSGID_UPDATE_FCM" proto="MSG_UPDATE_FCM_ACK"/><!-- 防沉迷数据 -->
+   <mapping msgId="0x9924" msgName="MSGID_UPDATE_PLAYER_BUF" proto="MSG_UPDATE_PLAYER_BUF_ACK"/><!-- 玩家BUF -->
+   <mapping msgId="0x9925" msgName="MSGID_UPDATE_CHAT_OFF_MSG" proto="MSG_FRIEND_HISTORY_CONTENTS_ACK"/><!-- 私聊离线记录 -->
+   <mapping msgId="0x9926" msgName="MSGID_UPDATE_SKYLADDER" proto="MSG_UPDATE_SKYLADDER_ACK"/><!-- 更新比武场天梯数据 界面打开状态才会处理-->
+   <mapping msgId="0x9927" msgName="MSGID_UPDATE_CARD_STATUS" proto="MSG_UPDATE_CARD_STATUS_ACK"/><!-- 特权卡状态-->
+</proto_mapping>

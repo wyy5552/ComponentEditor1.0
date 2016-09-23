@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+						creationComplete="init()" width="1800" height="900" xmlns:ns1="*">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Label;
+			
+			import src.MainEditor;
+			import src.utils.KeyStateUtil;
+			
+			private var main:MainEditor;
+			
+			private function init():void
+			{
+				addEventListener(Event.ADDED_TO_STAGE,into);
+			}
+			private function into(e:Event):void
+			{
+				main = new MainEditor();
+				KeyStateUtil.setStage(stage);
+				addChild(main);
+				main.width = 1600;
+				main.height = 800;
+			}
+		]]>
+	</mx:Script>
+</mx:WindowedApplication>

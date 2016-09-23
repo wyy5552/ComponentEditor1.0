@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- create by X2X , create time Mon Apr 25 17:19:41 2016 -->
+<new_user_load>
+    <new_user_load url="maps/10001.xml" />
+    <new_user_load url="maps/10002.xml" />
+    <new_user_load url="maps/deco/10003_zhongjingceng.swf" />
+    <new_user_load url="drama/effect/juqing_zhizhuxiaoshi.swf" />
+    <new_user_load url="drama/effect/juqing_minggeyingxiang.swf" />
+    <new_user_load url="figure/npc/hero_xiaojiu01_m.swf" />
+    <new_user_load url="figure/npc/camera 1.swf" />
+    <new_user_load url="figure/npc/hero_bilian01_m.swf" />
+    <new_user_load url="drama/effect/juqing_hanhua.swf" />
+    <new_user_load url="drama/effect/10001_hulingchuxian.swf" />
+</new_user_load>

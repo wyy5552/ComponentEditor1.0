@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   width="1200"
+					   height="800" xmlns:wyy="src.wyy.*" xmlns:view="src.wyy.view.*"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import src.wyy.view.GlobalMdr;
+			
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				new GlobalMdr(this);
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:VGroup>
+		<s:HGroup height="5%">
+			<s:Button label="保存" id="saveBtn"/>
+			<s:Button label="打开" id="openBtn"/>
+		</s:HGroup>
+		<s:HGroup height="95%">
+			<s:BorderContainer width="100" height="100%">
+				<view:ComponentView id="cmp">
+					
+				</view:ComponentView>
+			</s:BorderContainer>
+			
+			<s:BorderContainer width="1000" height="100%">
+				<view:UIView id="ui" width="100%" height="100%" contentBackgroundColor="0xffff00">
+					
+				</view:UIView>
+			</s:BorderContainer>
+			<s:BorderContainer width="100" height="100%">
+				<view:PropertyView id="ppt">
+					
+				</view:PropertyView>
+			</s:BorderContainer>
+		</s:HGroup>
+	</s:VGroup>
+	
+</s:WindowedApplication>
