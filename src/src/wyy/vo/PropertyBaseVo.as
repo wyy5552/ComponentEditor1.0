@@ -19,6 +19,10 @@ package src.wyy.vo
 		
 		public var type:String = "";
 		
+		public var width:int;
+		
+		public var height:int;
+		
 		public function PropertyBaseVo()
 		{
 		}
@@ -33,6 +37,15 @@ package src.wyy.vo
 				var arr1:Array = String(arr[i]).split("=");
 				deProperty.push(arr1[0]);
 				deValue.push(arr1[1]);
+				if(arr1[0] == "width")
+				{
+					width = arr1[1];
+				}
+				else if(arr1[0] == "height")
+				{
+					height = arr1[1];
+				}
+					
 			}
 		}
 	}

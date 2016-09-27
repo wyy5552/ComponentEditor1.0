@@ -4,7 +4,6 @@ package src.wyy.util
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
 	
-	import mx.core.IVisualElementContainer;
 	import mx.core.UIComponent;
 	
 	/**
@@ -14,18 +13,29 @@ package src.wyy.util
 	 */
 	public class UIRect
 	{
-		private static var pointArr:Array;
+		private var pointArr:Array;
 		/**
 		 *  
 		 */		
-		private static const num:int = 3;
+		private const num:int = 3;
 		
-		private static var _editUI:DisplayObject;
+		private var _editUI:DisplayObject;
 		
-		private static var _dragPt:UIComponent;
+		private var _dragPt:UIComponent;
+		
+		private static var _instance: UIRect;
+		public static function get inst(): UIRect
+		{
+			if(_instance == null)
+				_instance = new  UIRect();
+			return _instance;
+		}
+		
 		public function UIRect()
 		{
 			super();
+			if(_instance != null)
+				throw "UIRect.as" + "is a SingleTon Class!!!";
 			pointArr = new Array();
 			var arr:Array;
 			var pt:UIComponent;
@@ -46,14 +56,13 @@ package src.wyy.util
 		 * @param value
 		 * 
 		 */		
-		public static function set editUI(value:DisplayObject):void
+		public function set editUI(value:DisplayObject):void
 		{
 			_editUI = value;
-			_editUI.parent.addEventListener(MouseEvent.MOUSE_UP,onStopDrag);
 			resetPt();
 		}
 		
-		public static function resetPt():void
+		private function resetPt():void
 		{
 			var arr:Array;
 			var point:UIComponent;
@@ -73,19 +82,26 @@ package src.wyy.util
 				}
 			}
 		}
-		
-		protected static function onStopDrag(event:MouseEvent):void
+		public function onMouseUp():void
 		{
-			// TODO Auto-generated method stub
-			editUI.stage.removeEventListener(MouseEvent.MOUSE_MOVE,onMove);
-			var pt:UIComponent = event.target as UIComponent;
-			pt.stopDrag();
-			_dragPt = null;
+			if(editUI != null && _dragPt != null)
+			{
+				editUI.stage.removeEventListener(MouseEvent.MOUSE_MOVE,onMove);
+				_dragPt.stopDrag();
+				_dragPt = null;
+			}
+		}
+		protected function onDrag(event:MouseEvent):void
+		{
+			
+			editUI.stage.addEventListener(MouseEvent.MOUSE_MOVE,onMove);
+			_dragPt = event.target as UIComponent;
+			_dragPt.startDrag();
 		}
 		
-		protected static function onMove(event:MouseEvent):void
+		
+		protected function onMove(event:MouseEvent):void
 		{
-			// TODO Auto-generated method stub
 			switch(_dragPt.name)
 			{
 				case "0,0"://左上角
@@ -140,26 +156,18 @@ package src.wyy.util
 			}
 		}
 		
-		protected static function onDrag(event:MouseEvent):void
-		{
-			
-			// TODO Auto-generated method stub
-			editUI.stage.addEventListener(MouseEvent.MOUSE_MOVE,onMove);
-			_dragPt = event.target as UIComponent;
-			_dragPt.startDrag();
-		}
-		public static function get editUI():DisplayObject
+		public function get editUI():DisplayObject
 		{
 			return _editUI;
 		}
 		
 		
-		public static function clear():void
+		public function clear():void
 		{
 			
 		}
 		
-		private static function drawRect(name:String):UIComponent
+		private function drawRect(name:String):UIComponent
 		{
 			var rect:UIComponent = new UIComponent();
 			rect.name = name;

@@ -3,16 +3,9 @@ package src.wyy.view
 	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
-	import flash.events.IEventDispatcher;
-	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.filesystem.File;
-	import flash.geom.Point;
 	import flash.net.FileFilter;
-	import flash.ui.Keyboard;
-	
-	import mx.controls.Button;
-	import mx.core.UIComponent;
 	
 	import src.wyy.event.WyyEvent;
 	import src.wyy.model.UIModel;
@@ -39,17 +32,15 @@ package src.wyy.view
 		 * 当前拖动的 
 		 */		
 		public var curDrag:DragObject;
-		/**
-		 * 当前编辑的对象 
-		 */		
-		public var curFocus:DisplayObject;
 		
-		public var addVec:Vector.<DisplayObject> = new Vector.<DisplayObject>();
+		private var uiRect:UIRect;
+	
 		
 		public function GlobalMdr(ui:MyUI)
 		{
 			super();
-			new UIRect();//实例化拖动点
+			uiRect = UIRect.inst;
+			
 			this.view = ui;
 			
 			this.cmp = ui.cmp;
@@ -66,15 +57,10 @@ package src.wyy.view
 			view.stage.addEventListener(MouseEvent.MOUSE_UP,onStopDrag);
 			//鼠标抬起
 			ui.addEventListener(MouseEvent.MOUSE_UP,onUIUp);
-			//鼠标点击ui编辑区域
-			ui.addEventListener(MouseEvent.CLICK,onUIClick);
-			
-			ui.addEventListener(MouseEvent.ROLL_OVER,onUIOver);
-			ui.addEventListener(MouseEvent.ROLL_OUT,onUIOut);
-			
 			
 			view.saveBtn.addEventListener(MouseEvent.CLICK,onSaveCode);
 			view.openBtn.addEventListener(MouseEvent.CLICK,onOpenCode);
+			
 		}
 		
 		private var _loadFile:File;
@@ -100,12 +86,12 @@ package src.wyy.view
 		 */
 		private function loadFileCompleteHandler(event:Event):void 
 		{
-			ui.removeChildren();
+			ui.clear();
 			_loadFile.removeEventListener(Event.COMPLETE, loadFileCompleteHandler);
-			addVec = UIModel.inst.analyse(String(_loadFile.data));
+			var addVec:Vector.<DisplayObject> = UIModel.inst.analyse(String(_loadFile.data));
 			for(var i:int = 0; i < addVec.length; i++)
 			{
-				ui.addChild(addVec[i]);
+				ui.addItem(addVec[i]);
 			}
 		}	
 
@@ -116,67 +102,9 @@ package src.wyy.view
 		 */		
 		protected function onSaveCode(event:MouseEvent):void
 		{
-			UIModel.inst.sava(addVec);
-		}
-		/**
-		 * 鼠标在ui编辑区，则监听按键动作 
-		 * @param event
-		 * 
-		 */		
-		protected function onUIOver(event:MouseEvent):void
-		{
-			ui.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
-		}
-		protected function onUIOut(event:MouseEvent):void
-		{
-			ui.removeEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
+			UIModel.inst.sava(ui.addVec);
 		}
 		
-		/**
-		 * ui编辑器里面的ui被点击 
-		 * @param event
-		 * 
-		 */		
-		protected function onUIClick(event:MouseEvent):void
-		{
-			
-			if(event.target is DisplayObject)
-			{
-				if(event.target != ui)
-				{
-					trace(event.target);
-					curFocus = event.target as DisplayObject;
-					UIRect.editUI = curFocus;
-					
-					ppt.ui = curFocus;
-				}
-			}
-		}
-		
-		protected function onKeyDown(event:KeyboardEvent):void
-		{
-			// TODO Auto-generated method stub
-			if(curFocus != null)
-			{
-				if(event.keyCode == Keyboard.LEFT)
-				{
-					curFocus.x --;
-				}
-				else if(event.keyCode == Keyboard.RIGHT)
-				{
-					curFocus.x ++;
-				}
-				else if(event.keyCode == Keyboard.DOWN)
-				{
-					curFocus.y ++;	
-				}
-				else if(event.keyCode == Keyboard.UP)
-				{
-					curFocus.y --;	
-				}
-					
-			}
-		}
 		/**
 		 * 鼠标在ui编辑部分抬起 
 		 * @param event
@@ -188,24 +116,25 @@ package src.wyy.view
 			{
 				var vo:PropertyBaseVo = curDrag.data as PropertyBaseVo;
 				var dis:DisplayObject = UICreater.getUIbyName(vo.type)
-				ui.addChild(dis);
+				ui.addItem(dis);
 				dis.x = ui.mouseX;
 				dis.y = ui.mouseY;
 				for(var i:int = 0; i < vo.deProperty.length; i++)
 				{
 					dis[vo.deProperty[i]] = vo.deValue[i];
 				}
-				
-				addVec.push(dis);
+				ui.addVec.push(dis);
 			}
 		}
 		/**
-		 * 舞台鼠标抬起，将拖拽的对象松掉 
+		 * 舞台鼠标抬起
 		 * @param event
 		 * 
 		 */		
 		protected function onStopDrag(event:MouseEvent):void
 		{
+			uiRect.onMouseUp();
+			
 			if(curDrag != null)
 			{
 				curDrag.stopDrag();
@@ -221,6 +150,8 @@ package src.wyy.view
 			curDrag.data = event.data;
 			curDrag.x = view.mouseX;//设置到鼠标位置
 			curDrag.y = view.mouseY;
+			curDrag.width = event.data["width"];
+			curDrag.height = event.data["height"];
 			curDrag.startDrag();
 		}
 		

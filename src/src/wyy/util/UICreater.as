@@ -2,6 +2,7 @@ package src.wyy.util
 {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.text.TextField;
 	
 	import mx.controls.Button;
 	
@@ -32,7 +33,7 @@ package src.wyy.util
 				case "Button":
 					return new Button;		
 				case "Label":
-					return new Label();
+					return new TextField;
 				default:
 					return new Button;		
 			}
