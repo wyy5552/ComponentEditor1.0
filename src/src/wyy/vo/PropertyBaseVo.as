@@ -7,20 +7,33 @@ package src.wyy.vo
 	 */
 	public class PropertyBaseVo
 	{
-		public var name:String = "button";
+		/**
+		 * 属性列表 
+		 */		
+		public var deProperty:Array = new Array();
+		/**
+		 * 属性对应的默认值 
+		 */		
+		public var deValue:Array = new Array();
 		
-		public var x:int;
 		
-		public var y:int;
-		
-		public var width:int = 100;
-		
-		public var height:int = 20;
-		
-		public var align:String = "";
+		public var type:String = "";
 		
 		public function PropertyBaseVo()
 		{
+		}
+		
+		public function fromXML(xml:XML):void
+		{
+			type = xml.@type;
+			var property:String = xml.@property;
+			var arr:Array = property.split(",");
+			for(var i:int = 0; i < arr.length; i++)
+			{
+				var arr1:Array = String(arr[i]).split("=");
+				deProperty.push(arr1[0]);
+				deValue.push(arr1[1]);
+			}
 		}
 	}
 }

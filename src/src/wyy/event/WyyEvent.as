@@ -10,13 +10,15 @@ package src.wyy.event
 	 */
 	public class WyyEvent extends Event
 	{
+		public var data:Object;
 		/**
 		 * 组件被点击 
 		 */		
 		public static var DRAG_COMPONENT:String = "drag_component";
 		public function WyyEvent(type:String, data:Object=null)
 		{
-			super(type, data);
+			super(type);
+			this.data = data;
 		}
 	}
 }

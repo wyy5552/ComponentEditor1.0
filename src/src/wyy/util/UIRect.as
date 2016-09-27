@@ -12,7 +12,7 @@ package src.wyy.util
 	 * @author weiyanyu
 	 * 创建时间：2016-9-22 下午6:23:30
 	 */
-	public class UISetMgr
+	public class UIRect
 	{
 		private static var pointArr:Array;
 		/**
@@ -23,7 +23,7 @@ package src.wyy.util
 		private static var _editUI:DisplayObject;
 		
 		private static var _dragPt:UIComponent;
-		public function UISetMgr()
+		public function UIRect()
 		{
 			super();
 			pointArr = new Array();
@@ -41,7 +41,11 @@ package src.wyy.util
 			}
 		}
 		
-		
+		/**
+		 * 当前编辑的ui 
+		 * @param value
+		 * 
+		 */		
 		public static function set editUI(value:DisplayObject):void
 		{
 			_editUI = value;
@@ -61,7 +65,7 @@ package src.wyy.util
 					point = arr[j];
 					point.y = editUI.y + (editUI.height >> 1) * i;
 					point.x = editUI.x + (editUI.width >> 1) * j;
-					(editUI.parent as IVisualElementContainer).addElement(point);
+					(editUI.parent).addChild(point);
 					if(!point.hasEventListener(MouseEvent.MOUSE_DOWN))
 					{
 						point.addEventListener(MouseEvent.MOUSE_DOWN,onDrag);

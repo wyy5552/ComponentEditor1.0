@@ -17,6 +17,11 @@
 				uiH.text = value.height + "";
 				uiW.text = value.width + "";
 			}
+			
+			public function set data(value:Object):void
+			{
+				
+			}
 		]]>
 	</fx:Script>
 	<s:VGroup>

@@ -12,18 +12,21 @@ package src.wyy.view
 	import flash.ui.Keyboard;
 	
 	import mx.controls.Button;
+	import mx.core.UIComponent;
 	
 	import src.wyy.event.WyyEvent;
 	import src.wyy.model.UIModel;
-	import src.wyy.util.UISetMgr;
+	import src.wyy.util.UICreater;
+	import src.wyy.util.UIRect;
 	import src.wyy.vo.DragObject;
+	import src.wyy.vo.PropertyBaseVo;
 	
 	/**
 	 * 最上层
 	 * @author weiyanyu
 	 * 创建时间：2016-9-22 下午4:05:19
 	 */
-	public class GlobalMdr implements IEventDispatcher
+	public class GlobalMdr
 	{
 		public var view:MyUI;
 		
@@ -46,7 +49,7 @@ package src.wyy.view
 		public function GlobalMdr(ui:MyUI)
 		{
 			super();
-			new UISetMgr();//实例化拖动点
+			new UIRect();//实例化拖动点
 			this.view = ui;
 			
 			this.cmp = ui.cmp;
@@ -85,9 +88,7 @@ package src.wyy.view
 		}
 		
 		/**
-		 * 选择地图配置文件 
 		 * @param event
-		 * 
 		 */
 		private function selectFileHandler(event:Event):void {
 			_loadFile.removeEventListener(Event.SELECT, selectFileHandler);
@@ -95,31 +96,39 @@ package src.wyy.view
 			_loadFile.load();
 		}
 		/**
-		 * 加载场景配置 
 		 * @param event
-		 * 
 		 */
 		private function loadFileCompleteHandler(event:Event):void 
 		{
+			ui.removeChildren();
 			_loadFile.removeEventListener(Event.COMPLETE, loadFileCompleteHandler);
-			UIModel.inst.analyse(String(_loadFile.data));
+			addVec = UIModel.inst.analyse(String(_loadFile.data));
+			for(var i:int = 0; i < addVec.length; i++)
+			{
+				ui.addChild(addVec[i]);
+			}
 		}	
 
-		
+		/**
+		 * 生成代码 
+		 * @param event
+		 * 
+		 */		
 		protected function onSaveCode(event:MouseEvent):void
 		{
 			UIModel.inst.sava(addVec);
 		}
-		
+		/**
+		 * 鼠标在ui编辑区，则监听按键动作 
+		 * @param event
+		 * 
+		 */		
 		protected function onUIOver(event:MouseEvent):void
 		{
-			// TODO Auto-generated method stub
 			ui.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 		}
-		
 		protected function onUIOut(event:MouseEvent):void
 		{
-			// TODO Auto-generated method stub
 			ui.removeEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 		}
 		
@@ -137,7 +146,7 @@ package src.wyy.view
 				{
 					trace(event.target);
 					curFocus = event.target as DisplayObject;
-					UISetMgr.editUI = curFocus;
+					UIRect.editUI = curFocus;
 					
 					ppt.ui = curFocus;
 				}
@@ -177,16 +186,24 @@ package src.wyy.view
 		{
 			if(curDrag != null)
 			{
-				var btn:Button = new Button();
-				ui.addElement(btn);
-				var pt:Point = ui.globalToLocal(new Point(curDrag.x,curDrag.y));
-				btn.x = pt.x;
-				btn.y = pt.y;
+				var vo:PropertyBaseVo = curDrag.data as PropertyBaseVo;
+				var dis:DisplayObject = UICreater.getUIbyName(vo.type)
+				ui.addChild(dis);
+				dis.x = ui.mouseX;
+				dis.y = ui.mouseY;
+				for(var i:int = 0; i < vo.deProperty.length; i++)
+				{
+					dis[vo.deProperty[i]] = vo.deValue[i];
+				}
 				
-				addVec.push(btn);
+				addVec.push(dis);
 			}
 		}
-		
+		/**
+		 * 舞台鼠标抬起，将拖拽的对象松掉 
+		 * @param event
+		 * 
+		 */		
 		protected function onStopDrag(event:MouseEvent):void
 		{
 			if(curDrag != null)
@@ -197,45 +214,14 @@ package src.wyy.view
 			}
 		}
 		
-		protected function onStartDrag(event:Event):void
+		protected function onStartDrag(event:WyyEvent):void
 		{
 			curDrag = new DragObject();
 			view.addElement(curDrag);
-			curDrag.x = view.mouseX;
+			curDrag.data = event.data;
+			curDrag.x = view.mouseX;//设置到鼠标位置
 			curDrag.y = view.mouseY;
 			curDrag.startDrag();
-		}
-		
-		//
-		
-		public function addEventListener(type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=false):void
-		{
-			// TODO Auto Generated method stub
-			
-		}
-		
-		public function dispatchEvent(event:Event):Boolean
-		{
-			// TODO Auto Generated method stub
-			return false;
-		}
-		
-		public function hasEventListener(type:String):Boolean
-		{
-			// TODO Auto Generated method stub
-			return false;
-		}
-		
-		public function removeEventListener(type:String, listener:Function, useCapture:Boolean=false):void
-		{
-			// TODO Auto Generated method stub
-			
-		}
-		
-		public function willTrigger(type:String):Boolean
-		{
-			// TODO Auto Generated method stub
-			return false;
 		}
 		
 	}

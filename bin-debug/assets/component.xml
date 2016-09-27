@@ -1,0 +1,4 @@
+<root>
+	<comp type="Label" property="width=50,height=20,size=12,text=文本组件"/>
+	<comp type="Group" property="width=50,height=50"/>
+</root>

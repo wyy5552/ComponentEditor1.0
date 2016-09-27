@@ -45,7 +45,7 @@
     <mapping msgId="0x1205" msgName="MSGID_CHANGE_CHANNEL" proto="NOTIFY_MY_CHAT_CHANNEL"/><!--切换聊天频道-->
     <mapping msgId="0x1206" msgName="MSGID_GET_CHANNEL_LIST" proto="RT_GET_CHAT_CHANNEL_LIST"/><!--获取聊天频道列表-->
     <mapping msgId="0x1207" msgName="MSGID_GUILD_HISTORY_CHAT" proto="MSG_GUILD_HISTORY_CHAT"/><!--公会聊天频道历史内容-->
-    <mapping msgId="0x1208" msgName="MSGID_CHAT_NOTICE_LIST" proto="MSG_CHAT_NOTICE_ACK"/><!--公告列表-->
+    <mapping msgId="0x1208" msgName="MSGID_CHAT_NOTICE_LIST" proto="MSG_CHAT_NOTICE_LIST_ACK"/><!--公告列表-->
     <mapping msgId="0x1209" msgName="MSGID_CHAT_ANSWER" proto="MSG_CHAT_ANSWER_ACK"/><!--答题请求-->
     <mapping msgId="0x1210" msgName="MSGID_NOTIFY_CHAT_QUESTION" proto="NOTIFY_CHAT_QUESTION"/><!--当前答题题目-->
 
