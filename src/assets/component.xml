@@ -1,21 +1,15 @@
 <root>
 	<comp type="Label" text="文本组件">
-		<prop type="x" value="0"/>
-		<prop type="y" value="0"/>
-		<prop type="width" value="50"/>
-		<prop type="height" value="20"/>
-		<prop type="text" value="文本组件"/>
+		<prop key="x" value="0" type="0"/>
+		<prop key="y" value="0" type="0"/>
+		<prop key="width" value="50" type="0"/>
+		<prop key="height" value="20" type="0"/>
+		<prop key="text" value="文本组件" type="1"/>
 	</comp>
 	<comp type="Group1" text="文本组件">
-		<prop type="x" value="0"/>
-		<prop type="y" value="0"/>
-		<prop type="width" value="100"/>
-		<prop type="height" value="100"/>
-	</comp>
-	<comp type="Group" text="文本组件">
-		<prop type="x" value="0"/>
-		<prop type="y" value="0"/>
-		<prop type="width" value="50"/>
-		<prop type="height" value="20"/>
+		<prop key="x" value="0" type="0"/>
+		<prop key="y" value="0" type="0"/>
+		<prop key="width" value="50" type="0"/>
+		<prop key="height" value="50" type="0"/>
 	</comp>
 </root>

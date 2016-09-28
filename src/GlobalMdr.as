@@ -10,7 +10,7 @@ package
 	import src.wyy.event.WyyEvent;
 	import src.wyy.model.UIModel;
 	import src.wyy.util.UICreater;
-	import src.wyy.util.UIRect;
+	import src.wyy.view.UIRect;
 	import src.wyy.view.ComponentView;
 	import src.wyy.view.PropertyView;
 	import src.wyy.view.UIView;
@@ -104,7 +104,7 @@ package
 		 */		
 		protected function onSaveCode(event:MouseEvent):void
 		{
-			UIModel.inst.sava(ui.addVec);
+			UIModel.inst.sava(ui.addVec,ui.voDict);
 		}
 		
 		/**
@@ -155,7 +155,7 @@ package
 			curDrag.x = view.mouseX;//设置到鼠标位置
 			curDrag.y = view.mouseY;
 			var vo:PropertyBaseVo = event.data as PropertyBaseVo;
-			curDrag.setSize(int(vo.getProperty("width")), int(vo.getProperty("height")));
+			curDrag.setSize(int(vo.getProperty("width").value), int(vo.getProperty("height").value));
 			curDrag.startDrag();
 		}
 		

@@ -1,4 +1,4 @@
-package src.wyy.util
+package src.wyy.view
 {
 	
 	import flash.display.DisplayObject;

@@ -12,6 +12,7 @@ package src.wyy.model
 	import mx.utils.StringUtil;
 	
 	import src.wyy.util.UICreater;
+	import src.wyy.vo.PropertyBaseVo;
 	
 	
 	/**
@@ -44,9 +45,7 @@ package src.wyy.model
 		private var imptPre:String = "import ";
 		
 		
-		private var propertyArr:Array = ["x","y","width","height"];
-		
-		public function sava(value:Vector.<DisplayObject>):void
+		public function sava(value:Vector.<DisplayObject>,voDict:Dictionary):void
 		{
 			var file:File;
 			var stream:FileStream;
@@ -59,19 +58,24 @@ package src.wyy.model
 			
 			var type:String;
 			var typeArr:Array;
+			
+			var propertyVo:PropertyBaseVo;
 			for each(dis in value)
 			{
+				
+				propertyVo = voDict[dis];
 				typeArr = getQualifiedClassName(dis).split("::");
 				
 				type = typeArr[1];
 				if(impt.search(imptPre + typeArr[0] + "." + type + end) == -1)
 					impt += imptPre + typeArr[0] + "." + type + end;
-				varStr += pre + dis.name + ":" + type + end;
-				initStr += "    " + dis.name + " = new " + type + "()" + end;
-				initStr += "	" + "addChild(" + dis.name + ")" + end;
-				for(var i:int = 0; i < propertyArr.length; i++)
+				varStr += pre + propertyVo.uiName + ":" + type + end;
+				initStr += "    " + propertyVo.uiName + " = new " + type + "()" + end;
+				initStr += "	" + "addChild(" + propertyVo.uiName + ")" + end;
+				
+				for(var i:int = 0; i < propertyVo.deProperty.length; i++)
 				{
-					initStr += "	" + dis.name + "." + propertyArr[i] + " = " + dis[propertyArr[i]] + end;
+					initStr += "	" + propertyVo.uiName + "." + propertyVo.deProperty[i].key + " = " + propertyVo.deProperty[i].value + end;
 				}
 				initStr += "\n";
 			}

@@ -1,45 +1,54 @@
 package src.wyy.vo
 {
-	import flash.utils.Dictionary;
 	
 	/**
+	 * 组件vo<br>
+	 * 记录组件的属性
 	 * @author weiyanyu
 	 * 创建时间：2016-9-22 下午4:33:29
 	 */
 	public class PropertyBaseVo
 	{
 		/**
-		 * 属性列表 
+		 * 只用来记录顺序
 		 */		
 		public var deProperty:Array = new Array();
-		/**
-		 * 属性字典，方便查找 
-		 */		
-		public var dict:Dictionary = new Dictionary();
 		
 		public var type:String = "";
 		
+		public var uiName:String = "";
+		
 		public function PropertyBaseVo()
 		{
+			
 		}
 		
-		public function getProperty(value:String):Object
+		public function getProperty(value:String):KeyValueVo
 		{
+			var kv:KeyValueVo;
 			for(var i:int = 0; i < deProperty.length; i++)
 			{
-				if(deProperty[i].type == value)
-				{
-					return deProperty[i].value;
-				}
+				kv = deProperty[i];
+				if(kv.key == value)
+					return kv;
 			}
 			return null;
 		}
 		
 		public function setProperty(key:String,value:String):void
 		{
-			if(dict[key] != null)
+			var kv:KeyValueVo = getProperty(key);
+			kv.value = value;
+		}
+		
+		public function fromXML(xml:XML):void
+		{
+			type = xml.@type;
+			for each(var child:XML in xml.prop)
 			{
-				dict[key] = value;
+				var obj:KeyValueVo = new KeyValueVo;
+				obj.fromXML(child);
+				deProperty.push(obj);
 			}
 		}
 		
@@ -49,13 +58,9 @@ package src.wyy.vo
 			vo.type = type;
 			for(var i:int = 0; i < deProperty.length; i++)
 			{
-				var obj:Object = new Object();
-				obj.type = deProperty[i].type;
-				obj.value = deProperty[i].value;
-				vo.deProperty.push(obj);
-				vo.dict[obj.type] = obj.value;
+				var kv:KeyValueVo = deProperty[i];
+				vo.deProperty.push(kv.clone);
 			}
-			
 			return vo;
 		}
 		

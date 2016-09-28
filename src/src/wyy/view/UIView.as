@@ -12,7 +12,8 @@ package src.wyy.view
 	import mx.core.UIComponent;
 	
 	import src.wyy.event.WyyEvent;
-	import src.wyy.util.UIRect;
+	import src.wyy.model.CompModel;
+	import src.wyy.vo.KeyValueVo;
 	import src.wyy.vo.PropertyBaseVo;
 	
 	
@@ -46,22 +47,24 @@ package src.wyy.view
 			addEventListener(MouseEvent.ROLL_OUT,onUIOut);
 			
 			propertyView.addEventListener(WyyEvent.PROPERTY_CHANGE,onUIPropertyChange);
+			propertyView.addEventListener(WyyEvent.PROPERTY_CHANGE,onUIPropertyChange);
 		}
-		
+		/**
+		 * 组件的单个属性被设置 
+		 * @param event
+		 * 
+		 */		
 		protected function onUIPropertyChange(event:WyyEvent):void
 		{
-			var obj:Object = event.data;
-			curFocus[obj.type] = obj.value;
+			var obj:KeyValueVo = event.data as KeyValueVo;
+			CompModel.setSingleProperty(curFocus,obj);
 			UIRect.inst.editUI = curFocus;
 		}
 		
 		public function addItem(dis:DisplayObject,vo:PropertyBaseVo):void
 		{
 			voDict[dis] = vo;
-			for(var i:int = 0; i < vo.deProperty.length; i++)
-			{
-				dis[vo.deProperty[i].type] = vo.deProperty[i].value;
-			}
+			CompModel.setProperty(dis,vo);
 			addChild(dis);
 			dis.addEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
 			dis.addEventListener(MouseEvent.MOUSE_UP,onItemUp);
@@ -79,19 +82,40 @@ package src.wyy.view
 		{
 			Sprite(event.target).startDrag();
 			curFocus = event.target as DisplayObject;
+			
 			propertyView.data = voDict[curFocus];
 			UIRect.inst.editUI = curFocus;
 			addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
+			curFocus.addEventListener(WyyEvent.UI_RESIZE,onResizeUI);
 		}
-		
+		/**
+		 * 重新设置大小 
+		 * @param event
+		 * 
+		 */		
+		protected function onResizeUI(event:Event):void
+		{
+			var vo:PropertyBaseVo = voDict[curFocus];
+			vo.setProperty("x",curFocus.x.toString());
+			vo.setProperty("y",curFocus.y.toString());
+			vo.setProperty("width",curFocus.width.toString());
+			vo.setProperty("height",curFocus.height.toString());
+			propertyView.data = vo;
+		}
+		//如果在拖动组件,表示只是设置坐标
 		protected function onMouseMove(event:MouseEvent):void
 		{
+			var vo:PropertyBaseVo = voDict[curFocus];
+			vo.setProperty("x",curFocus.x.toString());
+			vo.setProperty("y",curFocus.y.toString());
+			propertyView.data = vo;
 			UIRect.inst.editUI = curFocus;
 		}
 		protected function onItemUp(event:Event):void
 		{
 			Sprite(event.target).stopDrag();
 			removeEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
+			curFocus.addEventListener(WyyEvent.UI_RESIZE,onResizeUI);
 		}
 		
 		/**

@@ -7,18 +7,18 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import spark.events.TextOperationEvent;
+			import mx.events.FlexEvent;
 			
 			import src.wyy.event.WyyEvent;
 			
 			override public function set data(value:Object):void
 			{
 				super.data = value;
-				lb.text = value.type;
+				lb.text = value.key;
 				input.text = value.value;
 			}
 			
-			protected function input_changeHandler(event:TextOperationEvent):void
+			protected function input_enterHandler(event:FlexEvent):void
 			{
 				// TODO Auto-generated method stub
 				data.value = input.text;
@@ -31,7 +31,7 @@
 		<s:Label id="lb" width="30%">
 			
 		</s:Label>
-		<s:TextInput id="input" width="70%" change="input_changeHandler(event)">
+		<s:TextInput id="input" width="70%" enter="input_enterHandler(event)" >
 			
 		</s:TextInput>
 	</mx:HBox>

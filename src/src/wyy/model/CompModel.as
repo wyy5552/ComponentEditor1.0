@@ -1,7 +1,10 @@
 package src.wyy.model
 {
+	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.utils.Dictionary;
 	
+	import src.wyy.vo.KeyValueVo;
 	import src.wyy.vo.PropertyBaseVo;
 	
 	/**
@@ -41,23 +44,39 @@ package src.wyy.model
 			for each(var node:XML in xml.comp)
 			{
 				vo = new PropertyBaseVo();
-				vo.type = node.@type;
-				for each(var child:XML in node.prop)
-				{
-					var obj:Object = new Object;
-					obj.type = String(child.@type);
-					
-					obj.value = String(child.@value);
-					trace(obj.type,obj.value);
-					vo.deProperty.push(obj);
-					vo.dict[obj.type] = obj.value;
-				}
+				vo.fromXML(node);
 				dict[vo.type] = vo;
 				compArr.push(vo);
 			}
 		}
 		
-
+		
+		public static function setProperty(dis:DisplayObject,vo:PropertyBaseVo):void
+		{
+			var kv:KeyValueVo;
+			for(var i:int = 0; i < vo.deProperty.length; i++)
+			{
+				kv = vo.deProperty[i];
+				setSingleProperty(dis,kv);
+			}
+		}
+		
+		public static function setSingleProperty(dis:DisplayObject,kv:KeyValueVo):void
+		{
+			switch(kv.type)
+			{
+				case KeyValueVo.int_type:
+				{
+					dis[kv.key] = int(kv.value);
+					break;
+				}
+				default:
+				{
+					dis[kv.key] = String(kv.value);
+					break;
+				}
+			}
+		}
 		
 		
 	}

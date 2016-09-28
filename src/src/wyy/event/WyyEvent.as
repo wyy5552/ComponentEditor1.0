@@ -19,6 +19,10 @@ package src.wyy.event
 		 * 组件属性设置 
 		 */		
 		public static var PROPERTY_CHANGE:String = "PROPERTY_CHANGE";
+		/**
+		 * 组件变量名字
+		 */		
+		public static var UI_NAME_CHANGE:String = "UI_NAME_CHANGE";
 		
 		/**
 		 * 组件拖动大小 
