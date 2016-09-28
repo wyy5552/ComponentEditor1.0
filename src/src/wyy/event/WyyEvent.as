@@ -15,9 +15,18 @@ package src.wyy.event
 		 * 组件被点击 
 		 */		
 		public static var DRAG_COMPONENT:String = "drag_component";
+		/**
+		 * 组件属性设置 
+		 */		
+		public static var PROPERTY_CHANGE:String = "PROPERTY_CHANGE";
+		
+		/**
+		 * 组件拖动大小 
+		 */		
+		public static var UI_RESIZE:String = "UI_RESIZE";
 		public function WyyEvent(type:String, data:Object=null)
 		{
-			super(type);
+			super(type,true);
 			this.data = data;
 		}
 	}

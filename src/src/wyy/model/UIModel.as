@@ -50,7 +50,7 @@ package src.wyy.model
 		{
 			var file:File;
 			var stream:FileStream;
-			file = File.applicationStorageDirectory.resolvePath("shenmeatext.as");
+			file = new File("D:\\abc" + ".as");
 			stream = new FileStream();
 			var dis:DisplayObject;
 			var impt:String = "";//导入的包

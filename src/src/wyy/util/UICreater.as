@@ -1,12 +1,13 @@
 package src.wyy.util
 {
+	import com.gamehero.sxd2.gui.core.label.ActiveLabel;
+	import com.gamehero.sxd2.gui.theme.ifstheme.controls.text.Label;
+	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import flash.text.TextField;
 	
 	import mx.controls.Button;
 	
-	import alternativa.gui.controls.text.Label;
 	
 	/**
 	 * 
@@ -33,11 +34,20 @@ package src.wyy.util
 				case "Button":
 					return new Button;		
 				case "Label":
-					return new TextField;
+					return new ActiveLabel;
 				default:
 					return new Button;		
 			}
 			return new Sprite;
+		}
+		
+		private static function getSp():Sprite
+		{
+			var sp:Sprite = new Sprite();
+			sp.graphics.beginFill(0x00ff00,1);
+			sp.graphics.drawRect(0,0,50,50);
+			sp.graphics.endFill();
+			return sp;
 		}
 	}
 }

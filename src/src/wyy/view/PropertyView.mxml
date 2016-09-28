@@ -1,45 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100" height="800">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="200" height="800">
 	<fx:Declarations>
 		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			private var _ui:DisplayObject;
-			public function set ui(value:DisplayObject):void
-			{
-				_ui = value;
-				
-				uiX.text = value.x + "";
-				uiY.text = value.y + "";
-				uiH.text = value.height + "";
-				uiW.text = value.width + "";
-			}
+			import mx.collections.ArrayCollection;
 			
+			import src.wyy.vo.PropertyBaseVo;
 			public function set data(value:Object):void
 			{
-				
+				var vo:PropertyBaseVo = value as PropertyBaseVo;
+				list.dataProvider = new ArrayCollection(vo.deProperty);
 			}
 		]]>
 	</fx:Script>
-	<s:VGroup>
-		<s:HGroup>
-			<s:Label text="x"/>
-			<s:TextInput width="50"  id="uiX"/>
-		</s:HGroup>
-		<s:HGroup>
-			<s:Label text="y" />
-			<s:TextInput width="50" id="uiY"/>
-		</s:HGroup>
-		<s:HGroup>
-			<s:Label text="height" />
-			<s:TextInput width="50" id="uiH"/>
-		</s:HGroup>
-		<s:HGroup>
-			<s:Label text="width" />
-			<s:TextInput width="50" id="uiW"/>
-		</s:HGroup>
+	<s:VGroup width="200" height="100%">
+		<s:List id="list" itemRenderer="src.wyy.view.PropertyRender" width="100%" height="100%">
+			
+		</s:List>
 	</s:VGroup>
 </s:Group>

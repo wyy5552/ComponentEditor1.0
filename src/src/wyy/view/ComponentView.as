@@ -2,14 +2,12 @@ package src.wyy.view
 {
 	
 	import flash.events.MouseEvent;
-	import flash.utils.ByteArray;
-	import flash.utils.Dictionary;
-	
 	import mx.controls.Button;
 	
 	import spark.components.Group;
 	
 	import src.wyy.event.WyyEvent;
+	import src.wyy.model.CompModel;
 	import src.wyy.vo.PropertyBaseVo;
 	
 	/**
@@ -19,29 +17,18 @@ package src.wyy.view
 	 */
 	public class ComponentView extends Group
 	{
-		[Embed(source="/assets/component.xml",mimeType = "application/octet-stream")]
-		public var xmlClass:Class;
-		
-		public var dict:Dictionary = new Dictionary();
-		
 		public function ComponentView()
 		{
 			super();
 			
-			var xml:XML = XML(new xmlClass());
-			trace(xml);
-			
 			var vo:PropertyBaseVo;
-			var i:int;
-			for each(var node:XML in xml.comp)
+			var arr:Array = CompModel.inst.compArr;
+			for (var i:int = 0; i < arr.length; i++)
 			{
-				vo = new PropertyBaseVo();
-				vo.fromXML(node);
-				dict[vo.type] = vo;
+				vo = arr[i];
 				var btn:Button = new Button();
 				btn.x = 10;
 				btn.y = 20 + (20 + 5) * i;
-				i++;
 				addElement(btn);
 				btn.data = vo;
 				btn.label = vo.type;
@@ -53,7 +40,7 @@ package src.wyy.view
 		protected function onStartDrag(event:MouseEvent):void
 		{
 			var btn:Button = event.target as Button;
-			dispatchEvent(new WyyEvent(WyyEvent.DRAG_COMPONENT,btn.data));
+			dispatchEvent(new WyyEvent(WyyEvent.DRAG_COMPONENT,btn.data.clone));
 		}
 	}
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" width="100" height="30">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import spark.events.TextOperationEvent;
+			
+			import src.wyy.event.WyyEvent;
+			
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				lb.text = value.type;
+				input.text = value.value;
+			}
+			
+			protected function input_changeHandler(event:TextOperationEvent):void
+			{
+				// TODO Auto-generated method stub
+				data.value = input.text;
+				dispatchEvent(new WyyEvent(WyyEvent.PROPERTY_CHANGE,data));
+			}
+			
+		]]>
+	</fx:Script>
+	<mx:HBox width="100%">
+		<s:Label id="lb" width="30%">
+			
+		</s:Label>
+		<s:TextInput id="input" width="70%" change="input_changeHandler(event)">
+			
+		</s:TextInput>
+	</mx:HBox>
+</s:ItemRenderer>

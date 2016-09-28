@@ -1,4 +1,4 @@
-package src.wyy.view
+package 
 {
 	
 	import flash.display.DisplayObject;
@@ -11,6 +11,9 @@ package src.wyy.view
 	import src.wyy.model.UIModel;
 	import src.wyy.util.UICreater;
 	import src.wyy.util.UIRect;
+	import src.wyy.view.ComponentView;
+	import src.wyy.view.PropertyView;
+	import src.wyy.view.UIView;
 	import src.wyy.vo.DragObject;
 	import src.wyy.vo.PropertyBaseVo;
 	
@@ -33,21 +36,20 @@ package src.wyy.view
 		 */		
 		public var curDrag:DragObject;
 		
-		private var uiRect:UIRect;
-	
 		
-		public function GlobalMdr(ui:MyUI)
+		public function GlobalMdr(myui:MyUI)
 		{
 			super();
-			uiRect = UIRect.inst;
 			
-			this.view = ui;
+			this.view = myui;
 			
-			this.cmp = ui.cmp;
-			this.ui = ui.ui;
-			this.ppt = ui.ppt;
+			this.cmp = myui.cmp;
+			this.ui = myui.ui;
+			this.ppt = myui.ppt;
+			this.ui.propertyView = ppt;
+			this.ui.init();
 			
-			ui.addEventListener(Event.ADDED,onAdded);
+			myui.addEventListener(Event.ADDED,onAdded);
 		}
 		
 		protected function onAdded(event:Event):void
@@ -91,7 +93,7 @@ package src.wyy.view
 			var addVec:Vector.<DisplayObject> = UIModel.inst.analyse(String(_loadFile.data));
 			for(var i:int = 0; i < addVec.length; i++)
 			{
-				ui.addItem(addVec[i]);
+				ui.addItem(addVec[i],null);
 			}
 		}	
 
@@ -106,7 +108,8 @@ package src.wyy.view
 		}
 		
 		/**
-		 * 鼠标在ui编辑部分抬起 
+		 * 鼠标在ui编辑部分抬起 <br>
+		 * 添加ui
 		 * @param event
 		 * 
 		 */		
@@ -115,14 +118,11 @@ package src.wyy.view
 			if(curDrag != null)
 			{
 				var vo:PropertyBaseVo = curDrag.data as PropertyBaseVo;
-				var dis:DisplayObject = UICreater.getUIbyName(vo.type)
-				ui.addItem(dis);
-				dis.x = ui.mouseX;
-				dis.y = ui.mouseY;
-				for(var i:int = 0; i < vo.deProperty.length; i++)
-				{
-					dis[vo.deProperty[i]] = vo.deValue[i];
-				}
+				var dis:DisplayObject = UICreater.getUIbyName(vo.type);
+				vo.setProperty("x",ui.mouseX.toString());
+				vo.setProperty("y",ui.mouseY.toString());
+				ui.addItem(dis,vo);
+
 				ui.addVec.push(dis);
 			}
 		}
@@ -133,7 +133,7 @@ package src.wyy.view
 		 */		
 		protected function onStopDrag(event:MouseEvent):void
 		{
-			uiRect.onMouseUp();
+			UIRect.inst.onMouseUp();
 			
 			if(curDrag != null)
 			{
@@ -142,7 +142,11 @@ package src.wyy.view
 				curDrag = null;
 			}
 		}
-		
+		/**
+		 * 拖动组件列表里面的组件
+		 * @param event
+		 * 
+		 */		
 		protected function onStartDrag(event:WyyEvent):void
 		{
 			curDrag = new DragObject();
@@ -150,8 +154,8 @@ package src.wyy.view
 			curDrag.data = event.data;
 			curDrag.x = view.mouseX;//设置到鼠标位置
 			curDrag.y = view.mouseY;
-			curDrag.width = event.data["width"];
-			curDrag.height = event.data["height"];
+			var vo:PropertyBaseVo = event.data as PropertyBaseVo;
+			curDrag.setSize(int(vo.getProperty("width")), int(vo.getProperty("height")));
 			curDrag.startDrag();
 		}
 		

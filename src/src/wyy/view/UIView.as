@@ -7,11 +7,13 @@ package src.wyy.view
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.ui.Keyboard;
+	import flash.utils.Dictionary;
 	
 	import mx.core.UIComponent;
 	
 	import src.wyy.event.WyyEvent;
 	import src.wyy.util.UIRect;
+	import src.wyy.vo.PropertyBaseVo;
 	
 	
 	/**
@@ -24,29 +26,42 @@ package src.wyy.view
 		
 		private var _curFocus:DisplayObject;
 		
+		public var propertyView:PropertyView;
+		
 		private var _addVec:Vector.<DisplayObject> = new Vector.<DisplayObject>();
+		 /**
+		 *  key ui,value vo
+		  */
+		public var voDict:Dictionary = new Dictionary();
 		
 		public function UIView()
 		{
 			super();
 			
+		}
+		
+		public function init():void
+		{
 			addEventListener(MouseEvent.ROLL_OVER,onUIOver);
 			addEventListener(MouseEvent.ROLL_OUT,onUIOut);
-		}
-		
-		public function get addVec():Vector.<DisplayObject>
-		{
-			return _addVec;
-		}
-
-		public function set addVec(value:Vector.<DisplayObject>):void
-		{
-			_addVec = value;
 			
+			propertyView.addEventListener(WyyEvent.PROPERTY_CHANGE,onUIPropertyChange);
 		}
 		
-		public function addItem(dis:DisplayObject):void
+		protected function onUIPropertyChange(event:WyyEvent):void
 		{
+			var obj:Object = event.data;
+			curFocus[obj.type] = obj.value;
+			UIRect.inst.editUI = curFocus;
+		}
+		
+		public function addItem(dis:DisplayObject,vo:PropertyBaseVo):void
+		{
+			voDict[dis] = vo;
+			for(var i:int = 0; i < vo.deProperty.length; i++)
+			{
+				dis[vo.deProperty[i].type] = vo.deProperty[i].value;
+			}
 			addChild(dis);
 			dis.addEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
 			dis.addEventListener(MouseEvent.MOUSE_UP,onItemUp);
@@ -54,6 +69,8 @@ package src.wyy.view
 		public function removeItem(dis:DisplayObject):void
 		{
 			removeChild(dis);
+			voDict[dis] = null;
+			delete voDict[dis];
 			dis.removeEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
 			dis.removeEventListener(MouseEvent.MOUSE_UP,onItemUp);
 		}
@@ -62,6 +79,7 @@ package src.wyy.view
 		{
 			Sprite(event.target).startDrag();
 			curFocus = event.target as DisplayObject;
+			propertyView.data = voDict[curFocus];
 			UIRect.inst.editUI = curFocus;
 			addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
 		}
@@ -122,7 +140,6 @@ package src.wyy.view
 		{
 			return _curFocus;
 		}
-
 		/**
 		 * @private
 		 */
@@ -130,11 +147,22 @@ package src.wyy.view
 		{
 			_curFocus = value;
 		}
-
+		public function get addVec():Vector.<DisplayObject>
+		{
+			return _addVec;
+		}
+		
+		public function set addVec(value:Vector.<DisplayObject>):void
+		{
+			_addVec = value;
+			
+		}
+		
 		public function clear():void
 		{
 			removeChildren();
 			addVec = new Vector.<DisplayObject>();
+			_curFocus = null;
 		}
 
 	}

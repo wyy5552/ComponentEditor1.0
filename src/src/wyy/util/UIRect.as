@@ -6,6 +6,8 @@ package src.wyy.util
 	
 	import mx.core.UIComponent;
 	
+	import src.wyy.event.WyyEvent;
+	
 	/**
 	 * 组件大小区域
 	 * @author weiyanyu
@@ -82,6 +84,10 @@ package src.wyy.util
 				}
 			}
 		}
+		/**
+		 * 鼠标抬起，拖拽点置空 
+		 * 
+		 */		
 		public function onMouseUp():void
 		{
 			if(editUI != null && _dragPt != null)
@@ -154,6 +160,8 @@ package src.wyy.util
 			{
 				editUI.width = (_dragPt.x - editUI.x);
 			}
+			
+			editUI.dispatchEvent(new WyyEvent(WyyEvent.UI_RESIZE));
 		}
 		
 		public function get editUI():DisplayObject
@@ -171,8 +179,8 @@ package src.wyy.util
 		{
 			var rect:UIComponent = new UIComponent();
 			rect.name = name;
-			rect.graphics.beginFill(0x41415D,.2);
-			rect.graphics.drawCircle(0,0,5);
+			rect.graphics.beginFill(0x41415D,1);
+			rect.graphics.drawRect(-3,-3,6,6);
 			rect.graphics.endFill();
 			return rect
 		}

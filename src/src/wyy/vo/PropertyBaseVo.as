@@ -1,5 +1,6 @@
 package src.wyy.vo
 {
+	import flash.utils.Dictionary;
 	
 	/**
 	 * @author weiyanyu
@@ -12,41 +13,51 @@ package src.wyy.vo
 		 */		
 		public var deProperty:Array = new Array();
 		/**
-		 * 属性对应的默认值 
+		 * 属性字典，方便查找 
 		 */		
-		public var deValue:Array = new Array();
-		
+		public var dict:Dictionary = new Dictionary();
 		
 		public var type:String = "";
-		
-		public var width:int;
-		
-		public var height:int;
 		
 		public function PropertyBaseVo()
 		{
 		}
 		
-		public function fromXML(xml:XML):void
+		public function getProperty(value:String):Object
 		{
-			type = xml.@type;
-			var property:String = xml.@property;
-			var arr:Array = property.split(",");
-			for(var i:int = 0; i < arr.length; i++)
+			for(var i:int = 0; i < deProperty.length; i++)
 			{
-				var arr1:Array = String(arr[i]).split("=");
-				deProperty.push(arr1[0]);
-				deValue.push(arr1[1]);
-				if(arr1[0] == "width")
+				if(deProperty[i].type == value)
 				{
-					width = arr1[1];
+					return deProperty[i].value;
 				}
-				else if(arr1[0] == "height")
-				{
-					height = arr1[1];
-				}
-					
+			}
+			return null;
+		}
+		
+		public function setProperty(key:String,value:String):void
+		{
+			if(dict[key] != null)
+			{
+				dict[key] = value;
 			}
 		}
+		
+		public function get clone():PropertyBaseVo
+		{
+			var vo:PropertyBaseVo = new PropertyBaseVo();
+			vo.type = type;
+			for(var i:int = 0; i < deProperty.length; i++)
+			{
+				var obj:Object = new Object();
+				obj.type = deProperty[i].type;
+				obj.value = deProperty[i].value;
+				vo.deProperty.push(obj);
+				vo.dict[obj.type] = obj.value;
+			}
+			
+			return vo;
+		}
+		
 	}
 }
