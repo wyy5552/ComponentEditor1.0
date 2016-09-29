@@ -85,7 +85,7 @@ package src.wyy.view
 			}
 		}
 		/**
-		 * 鼠标抬起，拖拽点置空 
+		 * 鼠标抬起，当前拖拽点置空 
 		 * 
 		 */		
 		public function onMouseUp():void

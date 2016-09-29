@@ -8,7 +8,9 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
 			import mx.events.FlexEvent;
+			
 			import src.wyy.event.WyyEvent;
 			import src.wyy.vo.PropertyBaseVo;
 			public function set data(value:Object):void
@@ -18,10 +20,17 @@
 				uniName.text = vo.uiName;
 			}
 			
-			protected function uniName_enterHandler(event:FlexEvent):void
+			protected function uniName_enterHandler(event:FocusEvent):void
 			{
 				// TODO Auto-generated method stub
-				dispatchEvent(new WyyEvent(WyyEvent.UI_NAME_CHANGE,uniName.text));
+				if(uniName.text == "")
+				{
+					Alert.show("给组件声明唯一的名字！");
+				}
+				else
+				{
+					dispatchEvent(new WyyEvent(WyyEvent.UI_NAME_CHANGE,uniName.text));
+				}
 			}
 			
 		]]>
@@ -31,7 +40,7 @@
 			<s:Label width="20%" text="组件唯一名称">
 				
 			</s:Label>
-			<s:TextInput id="uniName" width="80%" enter="uniName_enterHandler(event)">
+			<s:TextInput id="uniName" width="80%" focusOut="uniName_enterHandler(event)">
 				
 			</s:TextInput>
 		</s:HGroup>

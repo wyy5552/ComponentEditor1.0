@@ -13,6 +13,7 @@ package src.wyy.view
 	
 	import src.wyy.event.WyyEvent;
 	import src.wyy.model.CompModel;
+	import src.wyy.model.UIModel;
 	import src.wyy.vo.KeyValueVo;
 	import src.wyy.vo.PropertyBaseVo;
 	
@@ -29,11 +30,8 @@ package src.wyy.view
 		
 		public var propertyView:PropertyView;
 		
-		private var _addVec:Vector.<DisplayObject> = new Vector.<DisplayObject>();
-		 /**
-		 *  key ui,value vo
-		  */
-		public var voDict:Dictionary = new Dictionary();
+		private var model:UIModel = UIModel.inst;
+		
 		
 		public function UIView()
 		{
@@ -47,7 +45,13 @@ package src.wyy.view
 			addEventListener(MouseEvent.ROLL_OUT,onUIOut);
 			
 			propertyView.addEventListener(WyyEvent.PROPERTY_CHANGE,onUIPropertyChange);
-			propertyView.addEventListener(WyyEvent.PROPERTY_CHANGE,onUIPropertyChange);
+			propertyView.addEventListener(WyyEvent.UI_NAME_CHANGE,onUINameChange);
+		}
+		
+		protected function onUINameChange(event:WyyEvent):void
+		{
+			var uiName:String = event.data as String;
+			(model.voDict[curFocus] as PropertyBaseVo).uiName = uiName;
 		}
 		/**
 		 * 组件的单个属性被设置 
@@ -63,28 +67,35 @@ package src.wyy.view
 		
 		public function addItem(dis:DisplayObject,vo:PropertyBaseVo):void
 		{
-			voDict[dis] = vo;
+			model.voDict[dis] = vo;
+			if(model.addVec.indexOf(dis) == -1)
+			{
+				model.addVec.push(dis);
+			}
+			
 			CompModel.setProperty(dis,vo);
 			addChild(dis);
+			
 			dis.addEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
-			dis.addEventListener(MouseEvent.MOUSE_UP,onItemUp);
 		}
 		public function removeItem(dis:DisplayObject):void
 		{
 			removeChild(dis);
-			voDict[dis] = null;
-			delete voDict[dis];
+			model.voDict[dis] = null;
+			delete model.voDict[dis];
+			
+			model.addVec.splice(model.addVec.indexOf(dis),1);
+			
 			dis.removeEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
-			dis.removeEventListener(MouseEvent.MOUSE_UP,onItemUp);
 		}
 		
 		protected function onItemDown(event:Event):void
 		{
-			Sprite(event.target).startDrag();
 			curFocus = event.target as DisplayObject;
-			
-			propertyView.data = voDict[curFocus];
+			Sprite(curFocus).startDrag();
+			propertyView.data = model.voDict[curFocus];
 			UIRect.inst.editUI = curFocus;
+			
 			addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
 			curFocus.addEventListener(WyyEvent.UI_RESIZE,onResizeUI);
 		}
@@ -95,7 +106,7 @@ package src.wyy.view
 		 */		
 		protected function onResizeUI(event:Event):void
 		{
-			var vo:PropertyBaseVo = voDict[curFocus];
+			var vo:PropertyBaseVo = model.voDict[curFocus];
 			vo.setProperty("x",curFocus.x.toString());
 			vo.setProperty("y",curFocus.y.toString());
 			vo.setProperty("width",curFocus.width.toString());
@@ -105,17 +116,23 @@ package src.wyy.view
 		//如果在拖动组件,表示只是设置坐标
 		protected function onMouseMove(event:MouseEvent):void
 		{
-			var vo:PropertyBaseVo = voDict[curFocus];
+			var vo:PropertyBaseVo = model.voDict[curFocus];
 			vo.setProperty("x",curFocus.x.toString());
 			vo.setProperty("y",curFocus.y.toString());
 			propertyView.data = vo;
 			UIRect.inst.editUI = curFocus;
 		}
-		protected function onItemUp(event:Event):void
+		/**
+		 * 鼠标抬起 
+		 */		
+		public function onItemUp():void
 		{
-			Sprite(event.target).stopDrag();
-			removeEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
-			curFocus.addEventListener(WyyEvent.UI_RESIZE,onResizeUI);
+			if(curFocus)
+			{
+				Sprite(curFocus).stopDrag();
+				removeEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
+				curFocus.removeEventListener(WyyEvent.UI_RESIZE,onResizeUI);
+			}
 		}
 		
 		/**
@@ -171,21 +188,11 @@ package src.wyy.view
 		{
 			_curFocus = value;
 		}
-		public function get addVec():Vector.<DisplayObject>
-		{
-			return _addVec;
-		}
-		
-		public function set addVec(value:Vector.<DisplayObject>):void
-		{
-			_addVec = value;
-			
-		}
 		
 		public function clear():void
 		{
 			removeChildren();
-			addVec = new Vector.<DisplayObject>();
+			model.addVec = new Vector.<DisplayObject>();
 			_curFocus = null;
 		}
 

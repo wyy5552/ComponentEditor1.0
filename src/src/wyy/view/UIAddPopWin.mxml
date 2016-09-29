@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="250" height="100"
+			   title="设置组件名字"
+			   close="titlewindow1_closeHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			
+			import src.wyy.vo.PropertyBaseVo;
+			
+			protected function titlewindow1_closeHandler(event:CloseEvent):void
+			{
+				if(uiName.text != "")
+				{
+					PopUpManager.removePopUp(this);
+				}
+				else
+				{
+					Alert.show("请输入组件名字");
+				}
+				
+			}
+			
+			private var _data:PropertyBaseVo;
+			
+			public function set data(value:PropertyBaseVo):void
+			{
+				_data = value;	
+			}
+			
+			protected function createBtn_clickHandler(event:MouseEvent):void
+			{
+				if(uiName.text != "")
+				{
+					_data.uiName = uiName.text;
+					uiName.text = "";
+					PopUpManager.removePopUp(this);
+				}
+				else
+				{
+					Alert.show("请输入组件名字");
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:VGroup horizontalAlign="center" height="100%" width="100%">
+		<s:HGroup width="100%" height="50%">
+			<s:Label text="请输入组件名称" width="40%"/>
+			<s:TextInput id="uiName" width="60%"/>
+		</s:HGroup>
+		<s:Button id="createBtn" click="createBtn_clickHandler(event)" label="确认"/>
+	</s:VGroup>
+</s:TitleWindow>

@@ -6,6 +6,14 @@
 		<prop key="height" value="20" type="0"/>
 		<prop key="text" value="文本组件" type="1"/>
 	</comp>
+	<comp type="Button" text="通用按钮">
+		<prop key="x" value="0" type="0"/>
+		<prop key="y" value="0" type="0"/>
+		<prop key="width" value="50" type="0"/>
+		<prop key="height" value="20" type="0"/>
+		<prop key="label" value="" type="1"/>
+	</comp>
+	
 	<comp type="Group1" text="文本组件">
 		<prop key="x" value="0" type="0"/>
 		<prop key="y" value="0" type="0"/>

@@ -17,7 +17,7 @@ package src.wyy.vo
 		/**
 		 * 0,表示整形； 1，表示字符串 
 		 */		
-		public var type:int;
+		public var type:String;
 		
 		
 		public function KeyValueVo()

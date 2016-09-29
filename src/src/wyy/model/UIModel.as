@@ -8,10 +8,8 @@ package src.wyy.model
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
 	
-	import mx.controls.Button;
-	import mx.utils.StringUtil;
-	
 	import src.wyy.util.UICreater;
+	import src.wyy.view.UIRect;
 	import src.wyy.vo.PropertyBaseVo;
 	
 	
@@ -22,21 +20,27 @@ package src.wyy.model
 	public class UIModel
 	{
 		
-		private static var _inst:UIModel;
+		private static var _instance:UIModel;
 		
 		public static function get inst():UIModel
 		{
-			return new UIModel();
+			if(_instance == null)
+				_instance = new  UIModel();
+			return _instance;
 		}
 		public function UIModel()
 		{
-			if(_inst == null)
-				_inst = this;
-			else
-			{
-				trace("UIModel不能实例化了！");
-			}
+			if(_instance != null)
+				throw "UIModel.as" + "is a SingleTon Class!!!";
 		}
+		/**
+		 * 舞台上所有的组件 
+		 */		
+		public var addVec:Vector.<DisplayObject> = new Vector.<DisplayObject>();
+		/**
+		 * 组件对应的属性 
+		 */		
+		public var voDict:Dictionary = new Dictionary();
 		
 		private var pre:String = "public var ";
 		
@@ -45,7 +49,7 @@ package src.wyy.model
 		private var imptPre:String = "import ";
 		
 		
-		public function sava(value:Vector.<DisplayObject>,voDict:Dictionary):void
+		public function sava():void
 		{
 			var file:File;
 			var stream:FileStream;
@@ -60,7 +64,7 @@ package src.wyy.model
 			var typeArr:Array;
 			
 			var propertyVo:PropertyBaseVo;
-			for each(dis in value)
+			for each(dis in addVec)
 			{
 				
 				propertyVo = voDict[dis];
@@ -75,7 +79,7 @@ package src.wyy.model
 				
 				for(var i:int = 0; i < propertyVo.deProperty.length; i++)
 				{
-					initStr += "	" + propertyVo.uiName + "." + propertyVo.deProperty[i].key + " = " + propertyVo.deProperty[i].value + end;
+					initStr += "	" + propertyVo.uiName + "." + CompModel.getProperty(propertyVo.deProperty[i]) + end;
 				}
 				initStr += "\n";
 			}

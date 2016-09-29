@@ -50,7 +50,12 @@ package src.wyy.model
 			}
 		}
 		
-		
+		/**
+		 * 设置组件显示的属性 
+		 * @param dis
+		 * @param vo
+		 * 
+		 */		
 		public static function setProperty(dis:DisplayObject,vo:PropertyBaseVo):void
 		{
 			var kv:KeyValueVo;
@@ -76,6 +81,25 @@ package src.wyy.model
 					break;
 				}
 			}
+		}
+		
+		public static function getProperty(kv:KeyValueVo):String
+		{
+			var str:String = kv.key;
+			switch(kv.type)
+			{
+				case KeyValueVo.int_type:
+				{
+					str = kv.key + " = " + kv.value;
+					break;
+				}
+				default:
+				{
+					str = kv.key + " = " + "\"" + kv.value + "\"";
+					break;
+				}
+			}
+			return str;
 		}
 		
 		

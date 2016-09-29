@@ -2,17 +2,23 @@ package
 {
 	
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.filesystem.File;
 	import flash.net.FileFilter;
 	
+	import mx.core.FlexGlobals;
+	import mx.managers.PopUpManager;
+	
 	import src.wyy.event.WyyEvent;
+	import src.wyy.model.CompModel;
 	import src.wyy.model.UIModel;
 	import src.wyy.util.UICreater;
-	import src.wyy.view.UIRect;
 	import src.wyy.view.ComponentView;
 	import src.wyy.view.PropertyView;
+	import src.wyy.view.UIAddPopWin;
+	import src.wyy.view.UIRect;
 	import src.wyy.view.UIView;
 	import src.wyy.vo.DragObject;
 	import src.wyy.vo.PropertyBaseVo;
@@ -36,6 +42,8 @@ package
 		 */		
 		public var curDrag:DragObject;
 		
+		private var curAddUIPop:UIAddPopWin = new UIAddPopWin();
+		
 		
 		public function GlobalMdr(myui:MyUI)
 		{
@@ -56,7 +64,7 @@ package
 		{
 			// TODO Auto-generated method stub
 			cmp.addEventListener(WyyEvent.DRAG_COMPONENT,onStartDrag);
-			view.stage.addEventListener(MouseEvent.MOUSE_UP,onStopDrag);
+			view.stage.addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
 			//鼠标抬起
 			ui.addEventListener(MouseEvent.MOUSE_UP,onUIUp);
 			
@@ -104,7 +112,7 @@ package
 		 */		
 		protected function onSaveCode(event:MouseEvent):void
 		{
-			UIModel.inst.sava(ui.addVec,ui.voDict);
+			UIModel.inst.sava();
 		}
 		
 		/**
@@ -118,22 +126,36 @@ package
 			if(curDrag != null)
 			{
 				var vo:PropertyBaseVo = curDrag.data as PropertyBaseVo;
+				
+				curAddUIPop.data = vo;
+				PopUpManager.addPopUp(curAddUIPop,FlexGlobals.topLevelApplication as DisplayObjectContainer);
+				PopUpManager.centerPopUp(curAddUIPop);
+				curAddUIPop.addEventListener(Event.REMOVED_FROM_STAGE,onClosePop);
+				//先把组件添加到舞台，然后强制设置名字
 				var dis:DisplayObject = UICreater.getUIbyName(vo.type);
 				vo.setProperty("x",ui.mouseX.toString());
 				vo.setProperty("y",ui.mouseY.toString());
-				ui.addItem(dis,vo);
-
-				ui.addVec.push(dis);
+				CompModel.setProperty(dis,vo);
+				ui.addChild(dis);
+				
+				function onClosePop(event:Event):void
+				{
+					ui.addItem(dis,vo);
+					curAddUIPop.removeEventListener(Event.REMOVED_FROM_STAGE,onClosePop);
+				}
 			}
 		}
+		
 		/**
-		 * 舞台鼠标抬起
+		 * 舞台鼠标抬起<br>
+		 * 鼠标抬起动作要统一处理，而不是单独处理某一个组件的鼠标抬起动作
 		 * @param event
 		 * 
 		 */		
-		protected function onStopDrag(event:MouseEvent):void
+		protected function onMouseUp(event:MouseEvent):void
 		{
 			UIRect.inst.onMouseUp();
+			ui.onItemUp();
 			
 			if(curDrag != null)
 			{

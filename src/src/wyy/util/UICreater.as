@@ -35,10 +35,8 @@ package src.wyy.util
 					return new Button;		
 				case "Label":
 					return new ActiveLabel;
-				default:
-					return new Button;		
 			}
-			return new Sprite;
+			return getSp();
 		}
 		
 		private static function getSp():Sprite
