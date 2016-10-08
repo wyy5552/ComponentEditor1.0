@@ -16,21 +16,51 @@
 			import src.wyy.model.ResourceModel;
 			import src.wyy.vo.KeyValueVo;
 			
+			private var domainAc:ArrayCollection;
+			
+			private var urlAc:ArrayCollection;
+			
 			override public function set data(value:Object):void
 			{
 				super.data = value;
 				lb.text = value.key;
 				
+				var kv:KeyValueVo = value as KeyValueVo;
 				
-				if(value.type == KeyValueVo.bd_type)
+				
+				if(kv.type == KeyValueVo.bd_type)
 				{
 					group1.visible = false;
 					group2.visible = true;
 					
-					domainBox.dataProvider = new ArrayCollection([ResourceModel.MAIN,ResourceModel.UI]);
-					domainBox.selectedIndex = 0;
-					urlBox.dataProvider = new ArrayCollection(ResourceModel.inst.sourceArr);
-					urlBox.selectedIndex = 0;
+					if(domainAc == null)
+					{
+						domainAc = new ArrayCollection(ResourceModel.domainArr);
+						domainBox.dataProvider = domainAc;
+					}
+					if(urlAc == null)
+					{
+						urlAc = new ArrayCollection();
+					}
+					
+					var arr:Array = kv.value.split("~");// domain~url
+					var domainStr:String = arr[0];
+					var sourceStr:String = arr[1];
+					
+					urlAc.removeAll();
+					if(domainStr == null || domainStr == "")
+					{//如果没有设置资源域
+						domainBox.selectedIndex = 0;
+						urlAc.source = ResourceModel.inst.getSourceArr(ResourceModel.MAIN);
+						urlBox.dataProvider = urlAc;
+					}
+					else
+					{
+						domainBox.selectedIndex = ResourceModel.domainArr.indexOf(domainStr);
+						urlAc.source = ResourceModel.inst.getSourceArr(sourceStr);
+						urlBox.dataProvider = urlAc;
+						urlBox.selectedIndex = urlAc.source.indexOf(sourceStr);
+					}
 				}
 				else
 				{
@@ -58,6 +88,12 @@
 				dispatchEvent(new WyyEvent(WyyEvent.PROPERTY_CHANGE,data));
 			}
 			
+			protected function domainBox_changeHandler(event:IndexChangeEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<s:Label id="lb" width="60">
@@ -67,7 +103,7 @@
 		</s:TextInput>
 	</s:VGroup>
 	<s:HGroup id="group2" x="60">
-		<s:ComboBox id="domainBox" x="0" width="70"/>
-		<s:ComboBox id="urlBox" x="70" width="70" change="urlBox_changeHandler(event)"/>
+		<s:ComboBox id="domainBox" x="0" width="100" change="domainBox_changeHandler(event)"/>
+		<s:ComboBox id="urlBox" x="70" width="100" change="urlBox_changeHandler(event)"/>
 	</s:HGroup>
 </s:ItemRenderer>

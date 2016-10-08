@@ -33,14 +33,24 @@ package src.wyy.model
 		/**
 		 * mainUI域 
 		 */		
-		public var mainUI:ApplicationDomain;
+		private var mainUI:ApplicationDomain;
+		private var source:ApplicationDomain;
 		
-		public var source:ApplicationDomain;
+		private var mainUIStr:String = "";
+		private var sourceStr:String = "";
 		
-		public static var MAIN:String = "main";
+		
+		public static var MAIN:String = "MainUI";
 		public static var UI:String = "ui";
 		
+		private var mainInfo:LoaderInfo;
+		private var sourceInfo:LoaderInfo;
+		
+		
 		public var sourceArr:Array;
+		public static var domainArr:Array;
+		
+		
 		
 		private var loader:Loader;
 		public function init():void
@@ -70,9 +80,8 @@ package src.wyy.model
 		
 		protected function loadFileCompleteHandler(event:Event):void
 		{
-			var swfTarget:LoaderInfo=loader.contentLoaderInfo; 
-			mainUI=swfTarget.applicationDomain as ApplicationDomain; 
-			analyseSWF(swfTarget.bytes);
+			mainInfo=loader.contentLoaderInfo; 
+			mainUI=mainInfo.applicationDomain as ApplicationDomain; 
 		}
 		
 		private var _loadFile:File;
@@ -90,6 +99,10 @@ package src.wyy.model
 			_loadFile.removeEventListener(Event.SELECT, selectFileHandler);
 			_loadFile.addEventListener(Event.COMPLETE, loadFileCompleteHandler1);
 			_loadFile.load();
+			var fileName:String = _loadFile.name;
+			UI = fileName.substring(0,fileName.indexOf("."));
+			
+			domainArr = [MAIN,UI];
 		}
 		/**
 		 * @param event
@@ -105,13 +118,50 @@ package src.wyy.model
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onLoaded);
 			function onLoaded():void
 			{
-				var swfTarget:LoaderInfo=loader.contentLoaderInfo; 
-				source = swfTarget.applicationDomain as ApplicationDomain; 
-				var str:String = analyseSWF(swfTarget.bytes);
-				sourceArr = str.split("~");
+				sourceInfo=loader.contentLoaderInfo; 
+				source = sourceInfo.applicationDomain as ApplicationDomain; 
 			}
 			
 		}	
+		/**
+		 * 获取swf里面的资源列表 
+		 * @param url
+		 * @return 
+		 * 
+		 */		
+		public function getSourceArr(url:String):Array
+		{
+			var str:String;
+			switch(url)
+			{
+				case UI:
+				{
+					if(sourceStr != "")
+					{
+						str = sourceStr;
+					}
+					else
+					{
+						sourceStr = str = analyseSWF(sourceInfo.bytes);
+					}
+					break;
+				}
+				default:
+				{
+					if(mainUIStr != "")
+					{
+						str = mainUIStr;
+					}
+					else
+					{
+						mainUIStr = str = analyseSWF(mainInfo.bytes);
+					}
+					break;
+				}
+			}
+			sourceArr = str.split("~");
+			return sourceArr;
+		}
 		
 		private function analyseSWF(bytes:ByteArray):String
 		{

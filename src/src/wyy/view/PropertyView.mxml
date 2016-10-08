@@ -34,12 +34,12 @@
 			
 		]]>
 	</fx:Script>
-	<s:VGroup width="200" height="100%">
-		<s:HGroup>
-			<s:Label width="20%" text="组件唯一名称">
+	<s:VGroup width="300" height="100%">
+		<s:HGroup width="100%">
+			<s:Label width="40%" text="组件唯一名称">
 				
 			</s:Label>
-			<s:TextInput id="uniName" width="80%" focusOut="uniName_enterHandler(event)">
+			<s:TextInput id="uniName" width="60%" focusOut="uniName_enterHandler(event)">
 				
 			</s:TextInput>
 		</s:HGroup>
