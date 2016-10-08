@@ -10,6 +10,7 @@ package src.wyy.vo
 	{
 		public static var int_type:String = "0";
 		public static var str_type:String = "1";
+		public static var bd_type:String = "2";
 		
 		public var key:String;
 		

@@ -1,15 +1,12 @@
 package src.wyy.model
 {
 	import flash.display.DisplayObject;
-	import flash.display.Sprite;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
 	
-	import src.wyy.util.UICreater;
-	import src.wyy.view.UIRect;
 	import src.wyy.vo.PropertyBaseVo;
 	
 	
@@ -111,7 +108,7 @@ package src.wyy.model
 					var key:String = trim(arr[0]);//key 组件名字
 					var spType:String = String(arr[1]).substring(4,String(arr[1]).length - 3);//去掉new，()
 					spType = trim(spType);
-					vDict[key] = UICreater.getUIbyName(spType);// 获取对应的组件
+					vDict[key] = CompModel.getUIbyName(spType);// 获取对应的组件
 					addVec.push(DisplayObject(vDict[key]));//保存组件
 				}
 				else if(str.indexOf(".") > -1)

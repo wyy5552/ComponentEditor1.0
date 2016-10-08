@@ -13,8 +13,8 @@ package
 	
 	import src.wyy.event.WyyEvent;
 	import src.wyy.model.CompModel;
+	import src.wyy.model.ResourceModel;
 	import src.wyy.model.UIModel;
-	import src.wyy.util.UICreater;
 	import src.wyy.view.ComponentView;
 	import src.wyy.view.PropertyView;
 	import src.wyy.view.UIAddPopWin;
@@ -70,10 +70,15 @@ package
 			
 			view.saveBtn.addEventListener(MouseEvent.CLICK,onSaveCode);
 			view.openBtn.addEventListener(MouseEvent.CLICK,onOpenCode);
+			view.addSource.addEventListener(MouseEvent.CLICK,onAddSource);
 			
 		}
-		
 		private var _loadFile:File;
+		protected function onAddSource(event:MouseEvent):void
+		{
+			// TODO Auto-generated method stub
+			ResourceModel.inst.addSource();
+		}
 		
 		protected function onOpenCode(event:MouseEvent):void
 		{
@@ -132,7 +137,7 @@ package
 				PopUpManager.centerPopUp(curAddUIPop);
 				curAddUIPop.addEventListener(Event.REMOVED_FROM_STAGE,onClosePop);
 				//先把组件添加到舞台，然后强制设置名字
-				var dis:DisplayObject = UICreater.getUIbyName(vo.type);
+				var dis:DisplayObject = CompModel.getUIbyName(vo.type);
 				vo.setProperty("x",ui.mouseX.toString());
 				vo.setProperty("y",ui.mouseY.toString());
 				CompModel.setProperty(dis,vo);

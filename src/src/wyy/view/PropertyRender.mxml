@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="library://ns.adobe.com/flex/spark" 
-				xmlns:mx="library://ns.adobe.com/flex/mx" width="100" height="30">
+				xmlns:mx="library://ns.adobe.com/flex/mx" width="200" height="30">
 	<fx:Declarations>
 		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
+			import spark.events.IndexChangeEvent;
+			
 			import src.wyy.event.WyyEvent;
+			import src.wyy.model.ResourceModel;
+			import src.wyy.vo.KeyValueVo;
 			
 			override public function set data(value:Object):void
 			{
 				super.data = value;
 				lb.text = value.key;
-				input.text = value.value;
+				
+				
+				if(value.type == KeyValueVo.bd_type)
+				{
+					group1.visible = false;
+					group2.visible = true;
+					
+					domainBox.dataProvider = new ArrayCollection([ResourceModel.MAIN,ResourceModel.UI]);
+					domainBox.selectedIndex = 0;
+					urlBox.dataProvider = new ArrayCollection(ResourceModel.inst.sourceArr);
+					urlBox.selectedIndex = 0;
+				}
+				else
+				{
+					input.text = value.value;
+					group1.visible = true;
+					group2.visible = false;
+				}
 			}
 			
 			protected function input_enterHandler(event:FlexEvent):void
@@ -25,14 +47,27 @@
 				dispatchEvent(new WyyEvent(WyyEvent.PROPERTY_CHANGE,data));
 			}
 			
+			/**
+			 * 资源路径变化
+			 */
+			protected function urlBox_changeHandler(event:IndexChangeEvent):void
+			{
+				// TODO Auto-generated method stub
+//				data.value = appBox.selectedItem;
+				data.value = domainBox.selectedItem + "~" + urlBox.selectedItem;
+				dispatchEvent(new WyyEvent(WyyEvent.PROPERTY_CHANGE,data));
+			}
+			
 		]]>
 	</fx:Script>
-	<mx:HBox width="100%">
-		<s:Label id="lb" width="30%">
-			
-		</s:Label>
-		<s:TextInput id="input" width="70%" enter="input_enterHandler(event)" >
-			
+	<s:Label id="lb" width="60">
+	</s:Label>
+	<s:VGroup id="group1" x="60">
+		<s:TextInput id="input" x="60" width="140" enter="input_enterHandler(event)" visible="true">
 		</s:TextInput>
-	</mx:HBox>
+	</s:VGroup>
+	<s:HGroup id="group2" x="60">
+		<s:ComboBox id="domainBox" x="0" width="70"/>
+		<s:ComboBox id="urlBox" x="70" width="70" change="urlBox_changeHandler(event)"/>
+	</s:HGroup>
 </s:ItemRenderer>

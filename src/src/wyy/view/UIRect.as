@@ -2,11 +2,15 @@ package src.wyy.view
 {
 	
 	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	
 	import mx.core.UIComponent;
 	
 	import src.wyy.event.WyyEvent;
+	import src.wyy.model.CompModel;
+	import src.wyy.model.UIModel;
+	import src.wyy.vo.PropertyBaseVo;
 	
 	/**
 	 * 组件大小区域
@@ -21,9 +25,11 @@ package src.wyy.view
 		 */		
 		private const num:int = 3;
 		
-		private var _editUI:DisplayObject;
+		private var _editUI:Sprite;
 		
 		private var _dragPt:UIComponent;
+		
+		private var model:UIModel = UIModel.inst;
 		
 		private static var _instance: UIRect;
 		public static function get inst(): UIRect
@@ -58,7 +64,7 @@ package src.wyy.view
 		 * @param value
 		 * 
 		 */		
-		public function set editUI(value:DisplayObject):void
+		public function set editUI(value:Sprite):void
 		{
 			_editUI = value;
 			resetPt();
@@ -161,10 +167,18 @@ package src.wyy.view
 				editUI.width = (_dragPt.x - editUI.x);
 			}
 			
+			
+			var vo:PropertyBaseVo = model.voDict[editUI];
+			vo.setProperty("x",editUI.x.toString());
+			vo.setProperty("y",editUI.y.toString());
+			vo.setProperty("width",editUI.width.toString());
+			vo.setProperty("height",editUI.height.toString());
+			CompModel.setGraphics(editUI,vo);
+						
 			editUI.dispatchEvent(new WyyEvent(WyyEvent.UI_RESIZE));
 		}
 		
-		public function get editUI():DisplayObject
+		public function get editUI():Sprite
 		{
 			return _editUI;
 		}

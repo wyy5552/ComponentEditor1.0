@@ -1,4 +1,4 @@
-package src.wyy.test 
+package test 
 {
 	import flash.display.Sprite;
 	

@@ -29,7 +29,7 @@ package com.gamehero.sxd2.gui.core.combobox
 	 * 创建时间：2016-8-16 下午3:59:16
 	 * 
 	 */
-	public class ComboBox extends GUIobject
+	public class YY_ComboBox extends GUIobject
 	{
 		/** 文本 **/
 		private var titleItem:DropDownListItem;
@@ -66,7 +66,7 @@ package com.gamehero.sxd2.gui.core.combobox
 		
 		private var UIGap:int = 6;
 		
-		public function ComboBox()
+		public function YY_ComboBox()
 		{
 			super();
 			

@@ -7,7 +7,6 @@ package src.wyy.view
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.ui.Keyboard;
-	import flash.utils.Dictionary;
 	
 	import mx.core.UIComponent;
 	
@@ -26,7 +25,7 @@ package src.wyy.view
 	public class UIView extends UIComponent
 	{
 		
-		private var _curFocus:DisplayObject;
+		private var _curFocus:Sprite;
 		
 		public var propertyView:PropertyView;
 		
@@ -36,7 +35,6 @@ package src.wyy.view
 		public function UIView()
 		{
 			super();
-			
 		}
 		
 		public function init():void
@@ -64,7 +62,12 @@ package src.wyy.view
 			CompModel.setSingleProperty(curFocus,obj);
 			UIRect.inst.editUI = curFocus;
 		}
-		
+		/**
+		 * 编辑区添加组件 
+		 * @param dis
+		 * @param vo
+		 * 
+		 */		
 		public function addItem(dis:DisplayObject,vo:PropertyBaseVo):void
 		{
 			model.voDict[dis] = vo;
@@ -72,10 +75,8 @@ package src.wyy.view
 			{
 				model.addVec.push(dis);
 			}
-			
 			CompModel.setProperty(dis,vo);
 			addChild(dis);
-			
 			dis.addEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
 		}
 		public function removeItem(dis:DisplayObject):void
@@ -83,7 +84,6 @@ package src.wyy.view
 			removeChild(dis);
 			model.voDict[dis] = null;
 			delete model.voDict[dis];
-			
 			model.addVec.splice(model.addVec.indexOf(dis),1);
 			
 			dis.removeEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
@@ -91,13 +91,13 @@ package src.wyy.view
 		
 		protected function onItemDown(event:Event):void
 		{
-			curFocus = event.target as DisplayObject;
-			Sprite(curFocus).startDrag();
+			curFocus = event.target as Sprite;
+			(curFocus).startDrag();
 			propertyView.data = model.voDict[curFocus];
 			UIRect.inst.editUI = curFocus;
-			
 			addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
-			curFocus.addEventListener(WyyEvent.UI_RESIZE,onResizeUI);
+			if(!curFocus.hasEventListener(WyyEvent.UI_RESIZE))
+				curFocus.addEventListener(WyyEvent.UI_RESIZE,onResizeUI);
 		}
 		/**
 		 * 重新设置大小 
@@ -107,10 +107,6 @@ package src.wyy.view
 		protected function onResizeUI(event:Event):void
 		{
 			var vo:PropertyBaseVo = model.voDict[curFocus];
-			vo.setProperty("x",curFocus.x.toString());
-			vo.setProperty("y",curFocus.y.toString());
-			vo.setProperty("width",curFocus.width.toString());
-			vo.setProperty("height",curFocus.height.toString());
 			propertyView.data = vo;
 		}
 		//如果在拖动组件,表示只是设置坐标
@@ -177,14 +173,14 @@ package src.wyy.view
 		/**
 		 * 当前编辑的对象 
 		 */
-		public function get curFocus():DisplayObject
+		public function get curFocus():Sprite
 		{
 			return _curFocus;
 		}
 		/**
 		 * @private
 		 */
-		public function set curFocus(value:DisplayObject):void
+		public function set curFocus(value:Sprite):void
 		{
 			_curFocus = value;
 		}

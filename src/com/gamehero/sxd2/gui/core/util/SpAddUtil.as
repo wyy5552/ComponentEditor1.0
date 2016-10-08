@@ -1,6 +1,5 @@
 package com.gamehero.sxd2.gui.core.util
 {
-	import com.gamehero.sxd2.core.Global;
 	import com.gamehero.sxd2.gui.theme.ifstheme.controls.buttons.Button;
 	
 	import flash.display.BitmapData;

@@ -14,11 +14,24 @@ package com.gamehero.sxd2.gui.core.button
 	 * @author weiyanyu
 	 * 创建时间：2016-9-19 下午4:23:30
 	 */
-	public class SkinSetBtn extends Button
+	public class YY_SkinSetBtn extends Button
 	{
-		public function SkinSetBtn()
+		public function YY_SkinSetBtn()
 		{
 			super(null,null,null,null);
+		}
+		
+		public function set upSkin(bd:BitmapData):void
+		{
+			stateUP = new Bitmap(bd);
+		}
+		public function set downSkin(bd:BitmapData):void
+		{
+			stateDOWN = new Bitmap(bd);
+		}
+		public function set overSkin(bd:BitmapData):void
+		{
+			stateOVER = new Bitmap(bd);
 		}
 		
 		public function setSkin(UpSkin:BitmapData, downSkin:BitmapData = null, overSkin:BitmapData = null, disableSkin:BitmapData = null):void

@@ -2,17 +2,21 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
-					   width="1200"
+					   width="1300"
 					   height="800" xmlns:wyy="src.wyy.*" xmlns:view="src.wyy.view.*"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
 			
+			import src.wyy.model.ResourceModel;
 			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				// TODO Auto-generated method stub
+				
+				ResourceModel.inst.init();
+				
 				new GlobalMdr(this);
 				ui.graphics.beginFill(0x00ff00,.2);
 				ui.graphics.drawRect(0,0,ui.width,ui.height);
@@ -28,6 +32,7 @@
 		<s:HGroup height="5%">
 			<s:Button label="保存" id="saveBtn"/>
 			<s:Button label="打开" id="openBtn"/>
+			<s:Button label="打开资源" id="addSource"/>
 		</s:HGroup>
 		<s:HGroup height="95%">
 			<s:BorderContainer width="100" height="100%">
@@ -40,7 +45,7 @@
 				<view:UIView id="ui" width="100%" height="100%">
 				</view:UIView>
 			</s:BorderContainer>
-			<s:BorderContainer width="200" height="100%">
+			<s:BorderContainer width="300" height="100%">
 				<view:PropertyView id="ppt">
 					
 				</view:PropertyView>

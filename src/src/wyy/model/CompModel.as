@@ -1,7 +1,13 @@
 package src.wyy.model
 {
+	import com.gamehero.sxd2.gui.core.button.YY_SkinSetBtn;
+	import com.gamehero.sxd2.gui.core.label.ActiveLabel;
+	import com.gamehero.sxd2.gui.core.util.SpAddUtil;
+	
+	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
 	import src.wyy.vo.KeyValueVo;
@@ -51,6 +57,44 @@ package src.wyy.model
 		}
 		
 		/**
+		 *  
+		 * @param value
+		 * @return 
+		 * 
+		 */		
+		public static function getUIbyName(value:String):DisplayObject
+		{
+			var dis:Sprite;
+			var property:PropertyBaseVo;
+			switch(value)
+			{
+				case CompDict.YY_SkinSetBtn:
+					dis = new YY_SkinSetBtn;	
+					property = inst.dict[CompDict.YY_SkinSetBtn];
+					break;
+				case CompDict.YY_Label:
+					dis = new ActiveLabel;
+					property = inst.dict[CompDict.YY_Label];
+					break;
+				default:
+					dis = new Sprite;
+					property = inst.dict[CompDict.YY_Label];
+			}
+			dis.mouseEnabled = true;
+			dis.mouseChildren = false;
+			return setGraphics(dis,property);
+		}
+		
+		public static function setGraphics(sp:Sprite,property:PropertyBaseVo):Sprite
+		{
+			sp.graphics.clear();
+			sp.graphics.beginFill(0x00ff00,.2);
+			sp.graphics.drawRect(0,0,int(property.getProperty("width").value),int(property.getProperty("height").value));
+			sp.graphics.endFill();
+			return sp;
+		}
+		
+		/**
 		 * 设置组件显示的属性 
 		 * @param dis
 		 * @param vo
@@ -75,6 +119,11 @@ package src.wyy.model
 					dis[kv.key] = int(kv.value);
 					break;
 				}
+				case KeyValueVo.bd_type:
+					var url:Array = kv.value.split("~");
+					var bd:BitmapData = SpAddUtil.getBD(ResourceModel.inst.getDomain(url[0]),url[1]);
+					dis[kv.key] = bd;
+					break;
 				default:
 				{
 					dis[kv.key] = String(kv.value);
@@ -93,6 +142,10 @@ package src.wyy.model
 					str = kv.key + " = " + kv.value;
 					break;
 				}
+				case KeyValueVo.bd_type:
+					var arr:Array = kv.value.split("~");
+					str = kv.key + " = " + "SpAddUtil.getBD('"+ arr[0] + "','" + arr[1] + "')";
+					break;
 				default:
 				{
 					str = kv.key + " = " + "\"" + kv.value + "\"";
