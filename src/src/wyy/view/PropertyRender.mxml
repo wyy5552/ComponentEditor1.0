@@ -12,13 +12,15 @@
 			
 			import spark.events.IndexChangeEvent;
 			
-			import src.wyy.event.WyyEvent;
 			import src.wyy.model.ResourceModel;
+			import src.wyy.util.BinderManager;
 			import src.wyy.vo.KeyValueVo;
 			
 			private var domainAc:ArrayCollection;
 			
 			private var urlAc:ArrayCollection;
+			
+			private var kv:KeyValueVo;
 			
 			override public function set data(value:Object):void
 			{
@@ -72,9 +74,7 @@
 			
 			protected function input_enterHandler(event:FlexEvent):void
 			{
-				// TODO Auto-generated method stub
-				data.value = input.text;
-				dispatchEvent(new WyyEvent(WyyEvent.PROPERTY_CHANGE,data));
+				BinderManager.inst.setSingleProperty(UIRect.inst.editUI,lb.text,input.text);
 			}
 			
 			/**
@@ -82,15 +82,11 @@
 			 */
 			protected function urlBox_changeHandler(event:IndexChangeEvent):void
 			{
-				// TODO Auto-generated method stub
-//				data.value = appBox.selectedItem;
-				data.value = domainBox.selectedItem + "~" + urlBox.selectedItem;
-				dispatchEvent(new WyyEvent(WyyEvent.PROPERTY_CHANGE,data));
+				BinderManager.inst.setSingleProperty(UIRect.inst.editUI,lb.text,domainBox.selectedItem + "~" + urlBox.selectedItem);
 			}
 			
 			protected function domainBox_changeHandler(event:IndexChangeEvent):void
 			{
-				// TODO Auto-generated method stub
 				
 			}
 			

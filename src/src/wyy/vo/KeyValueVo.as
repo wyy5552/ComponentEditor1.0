@@ -2,7 +2,7 @@ package src.wyy.vo
 {
 	
 	/**
-	 * 
+	 * 属性设置
 	 * @author weiyanyu
 	 * 创建时间：2016-9-28 下午8:09:51
 	 */

@@ -23,13 +23,13 @@ package src.wyy.vo
 			
 		}
 		
-		public function getProperty(value:String):KeyValueVo
+		public function getProperty(key:String):KeyValueVo
 		{
 			var kv:KeyValueVo;
 			for(var i:int = 0; i < deProperty.length; i++)
 			{
 				kv = deProperty[i];
-				if(kv.key == value)
+				if(kv.key == key)
 					return kv;
 			}
 			return null;

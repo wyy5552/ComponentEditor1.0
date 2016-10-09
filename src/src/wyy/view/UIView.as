@@ -13,6 +13,7 @@ package src.wyy.view
 	import src.wyy.event.WyyEvent;
 	import src.wyy.model.CompModel;
 	import src.wyy.model.UIModel;
+	import src.wyy.util.BinderManager;
 	import src.wyy.vo.KeyValueVo;
 	import src.wyy.vo.PropertyBaseVo;
 	
@@ -42,7 +43,6 @@ package src.wyy.view
 			addEventListener(MouseEvent.ROLL_OVER,onUIOver);
 			addEventListener(MouseEvent.ROLL_OUT,onUIOut);
 			
-			propertyView.addEventListener(WyyEvent.PROPERTY_CHANGE,onUIPropertyChange);
 			propertyView.addEventListener(WyyEvent.UI_NAME_CHANGE,onUINameChange);
 		}
 		
@@ -50,17 +50,6 @@ package src.wyy.view
 		{
 			var uiName:String = event.data as String;
 			(model.voDict[curFocus] as PropertyBaseVo).uiName = uiName;
-		}
-		/**
-		 * 组件的单个属性被设置 
-		 * @param event
-		 * 
-		 */		
-		protected function onUIPropertyChange(event:WyyEvent):void
-		{
-			var obj:KeyValueVo = event.data as KeyValueVo;
-			CompModel.setSingleProperty(curFocus,obj);
-			UIRect.inst.editUI = curFocus;
 		}
 		/**
 		 * 编辑区添加组件 
@@ -75,7 +64,7 @@ package src.wyy.view
 			{
 				model.addVec.push(dis);
 			}
-			CompModel.setProperty(dis,vo);
+			BinderManager.inst.bind(dis,vo);
 			addChild(dis);
 			dis.addEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
 		}

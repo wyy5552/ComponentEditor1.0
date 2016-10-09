@@ -94,43 +94,6 @@ package src.wyy.model
 			return sp;
 		}
 		
-		/**
-		 * 设置组件显示的属性 
-		 * @param dis
-		 * @param vo
-		 * 
-		 */		
-		public static function setProperty(dis:DisplayObject,vo:PropertyBaseVo):void
-		{
-			var kv:KeyValueVo;
-			for(var i:int = 0; i < vo.deProperty.length; i++)
-			{
-				kv = vo.deProperty[i];
-				setSingleProperty(dis,kv);
-			}
-		}
-		
-		public static function setSingleProperty(dis:DisplayObject,kv:KeyValueVo):void
-		{
-			switch(kv.type)
-			{
-				case KeyValueVo.int_type:
-				{
-					dis[kv.key] = int(kv.value);
-					break;
-				}
-				case KeyValueVo.bd_type:
-					var url:Array = kv.value.split("~");
-					var bd:BitmapData = SpAddUtil.getBD(ResourceModel.inst.getDomain(url[0]),url[1]);
-					dis[kv.key] = bd;
-					break;
-				default:
-				{
-					dis[kv.key] = String(kv.value);
-					break;
-				}
-			}
-		}
 		
 		public static function getProperty(kv:KeyValueVo):String
 		{

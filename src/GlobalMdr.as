@@ -140,12 +140,10 @@ package
 				var dis:DisplayObject = CompModel.getUIbyName(vo.type);
 				vo.setProperty("x",ui.mouseX.toString());
 				vo.setProperty("y",ui.mouseY.toString());
-				CompModel.setProperty(dis,vo);
-				ui.addChild(dis);
+				ui.addItem(dis,vo);
 				
 				function onClosePop(event:Event):void
 				{
-					ui.addItem(dis,vo);
 					curAddUIPop.removeEventListener(Event.REMOVED_FROM_STAGE,onClosePop);
 				}
 			}
