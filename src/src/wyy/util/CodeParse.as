@@ -1,4 +1,4 @@
-package src.wyy.model
+package src.wyy.util
 {
 	import flash.display.DisplayObject;
 	import flash.filesystem.File;
@@ -7,6 +7,7 @@ package src.wyy.model
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
 	
+	import src.wyy.model.CompModel;
 	import src.wyy.vo.PropertyBaseVo;
 	
 	
@@ -14,30 +15,22 @@ package src.wyy.model
 	 * @author weiyanyu
 	 * 创建时间：2016-9-23 下午4:23:54
 	 */
-	public class UIModel
+	public class CodeParse
 	{
 		
-		private static var _instance:UIModel;
+		private static var _instance:CodeParse;
 		
-		public static function get inst():UIModel
+		public static function get inst():CodeParse
 		{
 			if(_instance == null)
-				_instance = new  UIModel();
+				_instance = new  CodeParse();
 			return _instance;
 		}
-		public function UIModel()
+		public function CodeParse()
 		{
 			if(_instance != null)
 				throw "UIModel.as" + "is a SingleTon Class!!!";
 		}
-		/**
-		 * 舞台上所有的组件 
-		 */		
-		public var addVec:Vector.<DisplayObject> = new Vector.<DisplayObject>();
-		/**
-		 * 组件对应的属性 
-		 */		
-		public var voDict:Dictionary = new Dictionary();
 		
 		private var pre:String = "public var ";
 		
@@ -59,12 +52,12 @@ package src.wyy.model
 			
 			var type:String;
 			var typeArr:Array;
-			
+			var bmgr:BinderManager = BinderManager.inst;
 			var propertyVo:PropertyBaseVo;
-			for each(dis in addVec)
+			for each(dis in bmgr.addVec)
 			{
 				
-				propertyVo = voDict[dis];
+				propertyVo = bmgr.getBinder(dis).vo;
 				typeArr = getQualifiedClassName(dis).split("::");
 				
 				type = typeArr[1];

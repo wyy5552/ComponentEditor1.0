@@ -9,8 +9,10 @@ package src.wyy.view
 	
 	import src.wyy.event.WyyEvent;
 	import src.wyy.model.CompModel;
-	import src.wyy.model.UIModel;
+	import src.wyy.util.BinderManager;
+	import src.wyy.util.CodeParse;
 	import src.wyy.vo.PropertyBaseVo;
+	import src.wyy.vo.SpriteVoBinder;
 	
 	/**
 	 * 组件大小区域
@@ -29,7 +31,7 @@ package src.wyy.view
 		
 		private var _dragPt:UIComponent;
 		
-		private var model:UIModel = UIModel.inst;
+		private var model:CodeParse = CodeParse.inst;
 		
 		private static var _instance: UIRect;
 		public static function get inst(): UIRect
@@ -167,13 +169,12 @@ package src.wyy.view
 				editUI.width = (_dragPt.x - editUI.x);
 			}
 			
-			
-			var vo:PropertyBaseVo = model.voDict[editUI];
-			vo.setProperty("x",editUI.x.toString());
-			vo.setProperty("y",editUI.y.toString());
-			vo.setProperty("width",editUI.width.toString());
-			vo.setProperty("height",editUI.height.toString());
-			CompModel.setGraphics(editUI,vo);
+			var binder:SpriteVoBinder = BinderManager.inst.getBinder(editUI);
+			binder.setSingleProperty("x",editUI.x.toString());
+			binder.setSingleProperty("y",editUI.y.toString());
+			binder.setSingleProperty("width",editUI.width.toString());
+			binder.setSingleProperty("height",editUI.height.toString());
+			BinderManager.setGraphics(editUI);
 						
 			editUI.dispatchEvent(new WyyEvent(WyyEvent.UI_RESIZE));
 		}

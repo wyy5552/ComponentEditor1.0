@@ -2,14 +2,12 @@ package src.wyy.model
 {
 	import com.gamehero.sxd2.gui.core.button.YY_SkinSetBtn;
 	import com.gamehero.sxd2.gui.core.label.ActiveLabel;
-	import com.gamehero.sxd2.gui.core.util.SpAddUtil;
 	
-	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
+	import src.wyy.util.BinderManager;
 	import src.wyy.vo.KeyValueVo;
 	import src.wyy.vo.PropertyBaseVo;
 	
@@ -82,16 +80,7 @@ package src.wyy.model
 			}
 			dis.mouseEnabled = true;
 			dis.mouseChildren = false;
-			return setGraphics(dis,property);
-		}
-		
-		public static function setGraphics(sp:Sprite,property:PropertyBaseVo):Sprite
-		{
-			sp.graphics.clear();
-			sp.graphics.beginFill(0x00ff00,.2);
-			sp.graphics.drawRect(0,0,int(property.getProperty("width").value),int(property.getProperty("height").value));
-			sp.graphics.endFill();
-			return sp;
+			return BinderManager.setGraphics(dis);
 		}
 		
 		

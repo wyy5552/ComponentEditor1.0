@@ -3,6 +3,7 @@ package
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.filesystem.File;
@@ -14,7 +15,8 @@ package
 	import src.wyy.event.WyyEvent;
 	import src.wyy.model.CompModel;
 	import src.wyy.model.ResourceModel;
-	import src.wyy.model.UIModel;
+	import src.wyy.util.BinderManager;
+	import src.wyy.util.CodeParse;
 	import src.wyy.view.ComponentView;
 	import src.wyy.view.PropertyView;
 	import src.wyy.view.UIAddPopWin;
@@ -22,6 +24,7 @@ package
 	import src.wyy.view.UIView;
 	import src.wyy.vo.DragObject;
 	import src.wyy.vo.PropertyBaseVo;
+	import src.wyy.vo.SpriteVoBinder;
 	
 	/**
 	 * 最上层
@@ -103,7 +106,7 @@ package
 		{
 			ui.clear();
 			_loadFile.removeEventListener(Event.COMPLETE, loadFileCompleteHandler);
-			var addVec:Vector.<DisplayObject> = UIModel.inst.analyse(String(_loadFile.data));
+			var addVec:Vector.<DisplayObject> = CodeParse.inst.analyse(String(_loadFile.data));
 			for(var i:int = 0; i < addVec.length; i++)
 			{
 				ui.addItem(addVec[i],null);
@@ -117,7 +120,7 @@ package
 		 */		
 		protected function onSaveCode(event:MouseEvent):void
 		{
-			UIModel.inst.sava();
+			CodeParse.inst.sava();
 		}
 		
 		/**
@@ -138,10 +141,12 @@ package
 				curAddUIPop.addEventListener(Event.REMOVED_FROM_STAGE,onClosePop);
 				//先把组件添加到舞台，然后强制设置名字
 				var dis:DisplayObject = CompModel.getUIbyName(vo.type);
-				vo.setProperty("x",ui.mouseX.toString());
-				vo.setProperty("y",ui.mouseY.toString());
+				BinderManager.inst.bind(dis,vo);
+				var binder:SpriteVoBinder = BinderManager.inst.getBinder(dis);
+				BinderManager.setGraphics(dis as Sprite);
+				binder.setSingleProperty("x",ui.mouseX.toString());
+				binder.setSingleProperty("y",ui.mouseY.toString());
 				ui.addItem(dis,vo);
-				
 				function onClosePop(event:Event):void
 				{
 					curAddUIPop.removeEventListener(Event.REMOVED_FROM_STAGE,onClosePop);

@@ -12,6 +12,7 @@ package src.wyy.model
 	import flash.utils.Endian;
 
 	/**
+	 * 
 	 * @author weiyanyu
 	 * 创建时间：2016-9-30 上午10:10:13
 	 */

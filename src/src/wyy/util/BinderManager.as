@@ -1,14 +1,17 @@
 package src.wyy.util
 {
 	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
 	import mx.controls.Alert;
 	
 	import src.wyy.vo.PropertyBaseVo;
+	import src.wyy.vo.SpriteVoBinder;
 
 	/**
-	 * 组件与属性vo绑定管理
+	 * 组件与属性vo绑定管理;
+	 * 所有与编辑对象有关的操作都在这里进行，保证统一处理
 	 * @author weiyanyu
 	 * 创建时间：2016-10-9 20:31:52
 	 * 
@@ -31,7 +34,12 @@ package src.wyy.util
 		/**
 		 * key sp; value binder; 
 		 */		
-		public var dict:Dictionary = new Dictionary();
+		private var dict:Dictionary = new Dictionary();
+		
+		/**
+		 * 舞台上所有的组件 
+		 */		
+		public var addVec:Vector.<DisplayObject> = new Vector.<DisplayObject>();
 		
 		public function bind(sp:DisplayObject,vo:PropertyBaseVo):void
 		{
@@ -64,6 +72,15 @@ package src.wyy.util
 		public function setSingleProperty(dis:DisplayObject,key:String,value:String):void
 		{
 			(dict[dis] as SpriteVoBinder).setSingleProperty(key,value);
+		}
+		
+		public static function setGraphics(sp:Sprite):Sprite
+		{
+			sp.graphics.clear();
+			sp.graphics.beginFill(0x00ff00,.2);
+			sp.graphics.drawRect(0,0,sp.width,sp.height);
+			sp.graphics.endFill();
+			return sp;
 		}
 	}
 }

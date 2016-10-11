@@ -1,4 +1,4 @@
-package src.wyy.util
+package src.wyy.vo
 {
 	import com.gamehero.sxd2.gui.core.util.SpAddUtil;
 	
@@ -6,8 +6,6 @@ package src.wyy.util
 	import flash.display.DisplayObject;
 	
 	import src.wyy.model.ResourceModel;
-	import src.wyy.vo.KeyValueVo;
-	import src.wyy.vo.PropertyBaseVo;
 	
 	/**
 	 * 组件与vo绑定<br>
@@ -28,14 +26,13 @@ package src.wyy.util
 			this.vo = vo;
 			setProperty(vo);
 		}
-		
 		/**
 		 * 设置组件显示的属性 
 		 * @param dis
 		 * @param vo
 		 * 
 		 */		
-		private function setProperty(vo:PropertyBaseVo):void
+		public function setProperty(vo:PropertyBaseVo):void
 		{
 			var kv:KeyValueVo;
 			for(var i:int = 0; i < vo.deProperty.length; i++)
