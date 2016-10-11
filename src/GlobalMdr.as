@@ -1,7 +1,6 @@
 package 
 {
 	
-	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -18,9 +17,9 @@ package
 	import src.wyy.util.BinderManager;
 	import src.wyy.util.CodeParse;
 	import src.wyy.view.ComponentView;
+	import src.wyy.view.FoucusUIMgr;
 	import src.wyy.view.PropertyView;
 	import src.wyy.view.UIAddPopWin;
-	import src.wyy.view.UIRect;
 	import src.wyy.view.UIView;
 	import src.wyy.vo.DragObject;
 	import src.wyy.vo.PropertyBaseVo;
@@ -106,7 +105,7 @@ package
 		{
 			ui.clear();
 			_loadFile.removeEventListener(Event.COMPLETE, loadFileCompleteHandler);
-			var addVec:Vector.<DisplayObject> = CodeParse.inst.analyse(String(_loadFile.data));
+			var addVec:Vector.<Sprite> = CodeParse.inst.analyse(String(_loadFile.data));
 			for(var i:int = 0; i < addVec.length; i++)
 			{
 				ui.addItem(addVec[i],null);
@@ -140,7 +139,7 @@ package
 				PopUpManager.centerPopUp(curAddUIPop);
 				curAddUIPop.addEventListener(Event.REMOVED_FROM_STAGE,onClosePop);
 				//先把组件添加到舞台，然后强制设置名字
-				var dis:DisplayObject = CompModel.getUIbyName(vo.type);
+				var dis:Sprite = CompModel.getUIbyName(vo.type);
 				BinderManager.inst.bind(dis,vo);
 				var binder:SpriteVoBinder = BinderManager.inst.getBinder(dis);
 				BinderManager.setGraphics(dis as Sprite);
@@ -162,7 +161,7 @@ package
 		 */		
 		protected function onMouseUp(event:MouseEvent):void
 		{
-			UIRect.inst.onMouseUp();
+			FoucusUIMgr.inst.onMouseUp();
 			ui.onItemUp();
 			
 			if(curDrag != null)

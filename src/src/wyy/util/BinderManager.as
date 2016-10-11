@@ -1,11 +1,12 @@
 package src.wyy.util
 {
-	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
 	import mx.controls.Alert;
 	
+	import src.wyy.view.FoucusUIMgr;
 	import src.wyy.vo.PropertyBaseVo;
 	import src.wyy.vo.SpriteVoBinder;
 
@@ -39,9 +40,9 @@ package src.wyy.util
 		/**
 		 * 舞台上所有的组件 
 		 */		
-		public var addVec:Vector.<DisplayObject> = new Vector.<DisplayObject>();
+		public var addVec:Vector.<Sprite> = new Vector.<Sprite>();
 		
-		public function bind(sp:DisplayObject,vo:PropertyBaseVo):void
+		public function bind(sp:Sprite,vo:PropertyBaseVo):void
 		{
 			if(dict[sp] != null)
 			{
@@ -52,12 +53,12 @@ package src.wyy.util
 			dict[sp] = new SpriteVoBinder(sp,vo);
 		}
 		
-		public function getBinder(sp:DisplayObject):SpriteVoBinder
+		public function getBinder(sp:Sprite):SpriteVoBinder
 		{
 			return dict[sp] as SpriteVoBinder;
 		}
 		
-		public function delSp(sp:DisplayObject):void
+		public function delSp(sp:Sprite):void
 		{
 			dict[sp] = null;
 			delete dict[sp];
@@ -69,9 +70,10 @@ package src.wyy.util
 		 * @param value
 		 * 
 		 */		
-		public function setSingleProperty(dis:DisplayObject,key:String,value:String):void
+		public function setSingleProperty(dis:Sprite,key:String,value:String):void
 		{
 			(dict[dis] as SpriteVoBinder).setSingleProperty(key,value);
+			FoucusUIMgr.inst.editUI = dis;
 		}
 		
 		public static function setGraphics(sp:Sprite):Sprite

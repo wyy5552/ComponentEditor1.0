@@ -1,6 +1,7 @@
 package src.wyy.util
 {
-	import flash.display.DisplayObject;
+	import flash.display.Sprite;
+	import flash.display.Sprite;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
@@ -45,7 +46,7 @@ package src.wyy.util
 			var stream:FileStream;
 			file = new File("D:\\abc" + ".as");
 			stream = new FileStream();
-			var dis:DisplayObject;
+			var dis:Sprite;
 			var impt:String = "";//导入的包
 			var varStr:String = "";//变量声明
 			var initStr:String = "";//初始化函数体
@@ -83,12 +84,12 @@ package src.wyy.util
 			stream.close();
 		}
 		
-		public function analyse(value:String):Vector.<DisplayObject>
+		public function analyse(value:String):Vector.<Sprite>
 		{
 			value = value.substr(value.indexOf("{"),value.indexOf("}"))
 			var lines:Array = value.split("\n");
 			
-			var addVec:Vector.<DisplayObject> = new Vector.<DisplayObject>();
+			var addVec:Vector.<Sprite> = new Vector.<Sprite>();
 			//变量字典
 			var vDict:Dictionary = new Dictionary();
 			var str:String = "";
@@ -102,7 +103,7 @@ package src.wyy.util
 					var spType:String = String(arr[1]).substring(4,String(arr[1]).length - 3);//去掉new，()
 					spType = trim(spType);
 					vDict[key] = CompModel.getUIbyName(spType);// 获取对应的组件
-					addVec.push(DisplayObject(vDict[key]));//保存组件
+					addVec.push(Sprite(vDict[key]));//保存组件
 				}
 				else if(str.indexOf(".") > -1)
 				{

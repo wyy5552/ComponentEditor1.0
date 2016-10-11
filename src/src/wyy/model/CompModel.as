@@ -60,7 +60,7 @@ package src.wyy.model
 		 * @return 
 		 * 
 		 */		
-		public static function getUIbyName(value:String):DisplayObject
+		public static function getUIbyName(value:String):Sprite
 		{
 			var dis:Sprite;
 			var property:PropertyBaseVo;

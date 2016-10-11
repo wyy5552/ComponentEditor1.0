@@ -15,9 +15,13 @@
 			import src.wyy.model.ResourceModel;
 			import src.wyy.util.BinderManager;
 			import src.wyy.vo.KeyValueVo;
-			
+			 /**
+			 * domain组
+			  */
 			private var domainAc:ArrayCollection;
-			
+			/**
+			 * 资源路径
+			 */
 			private var urlAc:ArrayCollection;
 			
 			private var kv:KeyValueVo;
@@ -59,7 +63,7 @@
 					else
 					{
 						domainBox.selectedIndex = ResourceModel.domainArr.indexOf(domainStr);
-						urlAc.source = ResourceModel.inst.getSourceArr(sourceStr);
+						urlAc.source = ResourceModel.inst.getSourceArr(domainStr);
 						urlBox.dataProvider = urlAc;
 						urlBox.selectedIndex = urlAc.source.indexOf(sourceStr);
 					}
@@ -74,7 +78,7 @@
 			
 			protected function input_enterHandler(event:FlexEvent):void
 			{
-				BinderManager.inst.setSingleProperty(UIRect.inst.editUI,lb.text,input.text);
+				BinderManager.inst.setSingleProperty(FoucusUIMgr.inst.editUI,lb.text,input.text);
 			}
 			
 			/**
@@ -82,11 +86,14 @@
 			 */
 			protected function urlBox_changeHandler(event:IndexChangeEvent):void
 			{
-				BinderManager.inst.setSingleProperty(UIRect.inst.editUI,lb.text,domainBox.selectedItem + "~" + urlBox.selectedItem);
+				BinderManager.inst.setSingleProperty(FoucusUIMgr.inst.editUI,lb.text,domainBox.selectedItem + "~" + urlBox.selectedItem);
+				
 			}
 			
 			protected function domainBox_changeHandler(event:IndexChangeEvent):void
 			{
+				urlAc.source = ResourceModel.inst.getSourceArr(domainBox.selectedItem);
+				urlBox.dataProvider = urlAc;
 				
 			}
 			

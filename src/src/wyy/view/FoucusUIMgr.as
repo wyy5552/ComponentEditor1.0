@@ -1,25 +1,22 @@
 package src.wyy.view
 {
 	
-	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	
 	import mx.core.UIComponent;
 	
 	import src.wyy.event.WyyEvent;
-	import src.wyy.model.CompModel;
 	import src.wyy.util.BinderManager;
 	import src.wyy.util.CodeParse;
-	import src.wyy.vo.PropertyBaseVo;
 	import src.wyy.vo.SpriteVoBinder;
 	
 	/**
-	 * 组件大小区域
+	 * 当前操作的组件
 	 * @author weiyanyu
 	 * 创建时间：2016-9-22 下午6:23:30
 	 */
-	public class UIRect
+	public class FoucusUIMgr
 	{
 		private var pointArr:Array;
 		/**
@@ -33,15 +30,15 @@ package src.wyy.view
 		
 		private var model:CodeParse = CodeParse.inst;
 		
-		private static var _instance: UIRect;
-		public static function get inst(): UIRect
+		private static var _instance: FoucusUIMgr;
+		public static function get inst(): FoucusUIMgr
 		{
 			if(_instance == null)
-				_instance = new  UIRect();
+				_instance = new  FoucusUIMgr();
 			return _instance;
 		}
 		
-		public function UIRect()
+		public function FoucusUIMgr()
 		{
 			super();
 			if(_instance != null)

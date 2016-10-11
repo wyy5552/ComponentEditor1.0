@@ -1,7 +1,7 @@
 package src.wyy.view
 {
 	
-	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -12,7 +12,6 @@ package src.wyy.view
 	
 	import src.wyy.event.WyyEvent;
 	import src.wyy.util.BinderManager;
-	import src.wyy.util.CodeParse;
 	import src.wyy.vo.PropertyBaseVo;
 	import src.wyy.vo.SpriteVoBinder;
 	
@@ -25,13 +24,11 @@ package src.wyy.view
 	public class UIView extends UIComponent
 	{
 		
-		private var _curFocus:Sprite;
-		
 		private var binder:SpriteVoBinder;
 		
 		public var propertyView:PropertyView;
 		
-		private var model:BinderManager = BinderManager.inst;
+		private var binderMgr:BinderManager = BinderManager.inst;
 		
 		
 		public function UIView()
@@ -58,20 +55,20 @@ package src.wyy.view
 		 * @param vo
 		 * 
 		 */		
-		public function addItem(dis:DisplayObject,vo:PropertyBaseVo):void
+		public function addItem(dis:Sprite,vo:PropertyBaseVo):void
 		{
-			if(model.addVec.indexOf(dis) == -1)
+			if(binderMgr.addVec.indexOf(dis) == -1)
 			{
-				model.addVec.push(dis);
+				binderMgr.addVec.push(dis);
 			}
 			addChild(dis);
 			dis.addEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
 		}
-		public function removeItem(dis:DisplayObject):void
+		public function removeItem(dis:Sprite):void
 		{
 			removeChild(dis);
-			model.delSp(dis);
-			model.addVec.splice(model.addVec.indexOf(dis),1);
+			binderMgr.delSp(dis);
+			binderMgr.addVec.splice(binderMgr.addVec.indexOf(dis),1);
 			dis.removeEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
 		}
 		/**
@@ -82,12 +79,9 @@ package src.wyy.view
 		protected function onItemDown(event:Event):void
 		{
 			var sp:Sprite = event.target as Sprite;
-			if(sp != curFocus)//当点击的是相同的，则不重新设置
-			{
-				propertyView.data = binder.vo;
-				UIRect.inst.editUI = curFocus;
-			}
 			curFocus = event.target as Sprite;
+			propertyView.data = binder.vo;
+			FoucusUIMgr.inst.editUI = curFocus;
 			(curFocus).startDrag();
 			addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
 			if(!curFocus.hasEventListener(WyyEvent.UI_RESIZE))
@@ -100,7 +94,7 @@ package src.wyy.view
 		 */		
 		protected function onResizeUI(event:Event):void
 		{
-			var binder:SpriteVoBinder = model.getBinder(curFocus);
+			var binder:SpriteVoBinder = binderMgr.getBinder(curFocus);
 			propertyView.data = binder.vo;
 		}
 		//如果在拖动组件,表示只是设置坐标
@@ -109,7 +103,7 @@ package src.wyy.view
 			binder.setSingleProperty("x",curFocus.x.toString());
 			binder.setSingleProperty("y",curFocus.y.toString());
 			propertyView.data = binder.vo;
-			UIRect.inst.editUI = curFocus;
+			FoucusUIMgr.inst.editUI = curFocus;
 		}
 		/**
 		 * 鼠标抬起 
@@ -162,28 +156,23 @@ package src.wyy.view
 				
 			}
 		}
-
-		/**
-		 * 当前编辑的对象 
-		 */
 		public function get curFocus():Sprite
 		{
-			return _curFocus;
+			return FoucusUIMgr.inst.editUI;
 		}
 		/**
 		 * @private
 		 */
 		public function set curFocus(value:Sprite):void
 		{
-			_curFocus = value;
-			binder = model.getBinder(value);
+			FoucusUIMgr.inst.editUI = value;
+			binder = binderMgr.getBinder(value);
 		}
 		
 		public function clear():void
 		{
 			removeChildren();
-			model.addVec = new Vector.<DisplayObject>();
-			_curFocus = null;
+			binderMgr.addVec = new Vector.<Sprite>();
 		}
 
 	}
