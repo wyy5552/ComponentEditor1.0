@@ -12,18 +12,16 @@ package
 	import mx.managers.PopUpManager;
 	
 	import src.wyy.event.WyyEvent;
-	import src.wyy.model.CompModel;
 	import src.wyy.model.ResourceModel;
-	import src.wyy.util.BinderManager;
 	import src.wyy.util.CodeParse;
+	import src.wyy.util.FoucusUIMgr;
+	import src.wyy.util.UICreater;
 	import src.wyy.view.ComponentView;
-	import src.wyy.view.FoucusUIMgr;
 	import src.wyy.view.PropertyView;
 	import src.wyy.view.UIAddPopWin;
 	import src.wyy.view.UIView;
 	import src.wyy.vo.DragObject;
 	import src.wyy.vo.PropertyBaseVo;
-	import src.wyy.vo.SpriteVoBinder;
 	
 	/**
 	 * 最上层
@@ -139,12 +137,7 @@ package
 				PopUpManager.centerPopUp(curAddUIPop);
 				curAddUIPop.addEventListener(Event.REMOVED_FROM_STAGE,onClosePop);
 				//先把组件添加到舞台，然后强制设置名字
-				var dis:Sprite = CompModel.getUIbyName(vo.type);
-				BinderManager.inst.bind(dis,vo);
-				var binder:SpriteVoBinder = BinderManager.inst.getBinder(dis);
-				BinderManager.setGraphics(dis as Sprite);
-				binder.setSingleProperty("x",ui.mouseX.toString());
-				binder.setSingleProperty("y",ui.mouseY.toString());
+				var dis:Sprite = UICreater.getUIbyName(vo.type);
 				ui.addItem(dis,vo);
 				function onClosePop(event:Event):void
 				{

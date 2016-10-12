@@ -1,7 +1,6 @@
 package com.gamehero.sxd2.gui.core.group
 {
 	
-	import com.gamehero.sxd2.gui.main.menuBar.IMenuButton;
 	import com.gamehero.sxd2.gui.theme.ifstheme.container.list.ListItemObject;
 	
 	import flash.display.Shape;
@@ -14,7 +13,7 @@ package com.gamehero.sxd2.gui.core.group
 	 * 创建时间：2015-9-10 下午4:02:49
 	 * 
 	 */
-	public class ItemRender extends ListItemObject implements IMenuButton
+	public class ItemRender extends ListItemObject
 	{
 		
 		

@@ -6,7 +6,6 @@ package src.wyy.util
 	
 	import mx.controls.Alert;
 	
-	import src.wyy.view.FoucusUIMgr;
 	import src.wyy.vo.PropertyBaseVo;
 	import src.wyy.vo.SpriteVoBinder;
 

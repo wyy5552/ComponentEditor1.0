@@ -369,7 +369,7 @@ package com.gamehero.sxd2.gui.theme.ifstheme.skin
 		
 		public static function getClass(name:String):Object
 		{
-			return Global.instance.getRes(RESOURCE.loaderInfo.applicationDomain,name);
+			return Global.instance.getRes(null,name);
 		}
 	}
 }

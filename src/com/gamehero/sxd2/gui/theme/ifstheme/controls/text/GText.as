@@ -170,7 +170,7 @@ package com.gamehero.sxd2.gui.theme.ifstheme.controls.text {
 		
 		
 		
-		public function draw():void {
+		override protected function draw():void {
 			
 			graphics.clear();
 			graphics.beginFill(0xFF0000, 1);

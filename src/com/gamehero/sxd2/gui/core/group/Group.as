@@ -1,9 +1,5 @@
 package com.gamehero.sxd2.gui.core.group
 {
-	
-	import com.gamehero.sxd2.core.GameConfig;
-	import com.gamehero.sxd2.pro.PRO_Item;
-	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
@@ -207,7 +203,7 @@ package com.gamehero.sxd2.gui.core.group
 		protected function get isClick():Boolean
 		{
 			// 区分双击
-			if(getTimer() - _clickTime <  GameConfig.MOUSE_DOUBLE_CLICK_TIME)
+			if(getTimer() - _clickTime <  40)
 			{
 				return false;
 			}

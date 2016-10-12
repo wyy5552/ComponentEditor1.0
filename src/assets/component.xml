@@ -1,4 +1,10 @@
 <root>
+	<comp type="YY_Window" text="窗口">
+		<prop key="x" value="0" type="0"/>
+		<prop key="y" value="0" type="0"/>
+		<prop key="width" value="400" type="0"/>
+		<prop key="height" value="300" type="0"/>
+	</comp>
 	<comp type="YY_Label" text="文本组件">
 		<prop key="x" value="0" type="0"/>
 		<prop key="y" value="0" type="0"/>
@@ -17,10 +23,29 @@
 		<prop key="overSkin" value="" type="2"/>
 	</comp>
 	
-	<comp type="Group1" text="文本组件">
+	<comp type="YY_DataGroup" text="容器">
 		<prop key="x" value="0" type="0"/>
 		<prop key="y" value="0" type="0"/>
-		<prop key="width" value="50" type="0"/>
-		<prop key="height" value="50" type="0"/>
+		<prop key="width" value="100" type="0"/>
+		<prop key="height" value="100" type="0"/>
+		<prop key="itemHeight" value="100" type="0"/>
+		<prop key="itemWidth" value="100" type="0"/>
+		<prop key="row" value="100" type="0"/>
+		<prop key="col" value="100" type="0"/>
+		<prop key="gapY" value="100" type="0"/>
+		<prop key="gapX" value="100" type="0"/>
+	</comp>
+	<comp type="YY_MovieClip" text="动画">
+		<prop key="x" value="0" type="0"/>
+		<prop key="y" value="0" type="0"/>
+		<prop key="width" value="100" type="0"/>
+		<prop key="height" value="100" type="0"/>
+	</comp>
+	<comp type="YY_Bitmap" text="位图">
+		<prop key="x" value="0" type="0"/>
+		<prop key="y" value="0" type="0"/>
+		<prop key="width" value="100" type="0"/>
+		<prop key="height" value="100" type="0"/>
+		<prop key="bitmapData" value="" type="2"/>
 	</comp>
 </root>

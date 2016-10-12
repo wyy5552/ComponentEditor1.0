@@ -55,7 +55,7 @@ package com.gamehero.sxd2.gui
 			/**
 			 * 构造函数
 			 * */
-			public function SButton(btn:SimpleButton,_lab:String="",_icon:DisplayObject=null,defaultColor:uint = GameDictionary.WINDOW_BTN,lockColor:uint = GameDictionary.WINDOW_BTN_GRAY)
+			public function SButton(btn:SimpleButton,_lab:String="",_icon:DisplayObject=null,defaultColor:uint = 0xb7dbdf,lockColor:uint = 0xb7dbdf)
 			{
 				_defaultColor = defaultColor;
 				_lockColor = lockColor;

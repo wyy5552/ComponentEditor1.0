@@ -1,7 +1,9 @@
 package src.wyy.view
 {
 	
-	import flash.display.Sprite;
+	import com.gamehero.sxd2.gui.core.GameWindow;
+	import com.gamehero.sxd2.gui.core.GeneralWindow;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -11,7 +13,9 @@ package src.wyy.view
 	import mx.core.UIComponent;
 	
 	import src.wyy.event.WyyEvent;
+	import src.wyy.model.ResourceModel;
 	import src.wyy.util.BinderManager;
+	import src.wyy.util.FoucusUIMgr;
 	import src.wyy.vo.PropertyBaseVo;
 	import src.wyy.vo.SpriteVoBinder;
 	
@@ -29,11 +33,16 @@ package src.wyy.view
 		public var propertyView:PropertyView;
 		
 		private var binderMgr:BinderManager = BinderManager.inst;
+		/**
+		 * 依赖的窗口 
+		 */		
+		private var win:GameWindow;
 		
 		
 		public function UIView()
 		{
 			super();
+			
 		}
 		
 		public function init():void
@@ -57,16 +66,33 @@ package src.wyy.view
 		 */		
 		public function addItem(dis:Sprite,vo:PropertyBaseVo):void
 		{
-			if(binderMgr.addVec.indexOf(dis) == -1)
-			{
-				binderMgr.addVec.push(dis);
-			}
-			addChild(dis);
 			dis.addEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
+			BinderManager.inst.bind(dis,vo);
+			BinderManager.setGraphics(dis as Sprite);
+			var binder:SpriteVoBinder = BinderManager.inst.getBinder(dis);
+			if(dis is GameWindow)
+			{
+				win = dis as GameWindow;
+				win.mouseChildren = true;
+				addChild(win);
+				binder.setSingleProperty("x",this.mouseX.toString());
+				binder.setSingleProperty("y",this.mouseY.toString());
+				return;
+			}
+			else
+			{
+				binder.setSingleProperty("x",win.mouseX.toString());
+				binder.setSingleProperty("y",win.mouseY.toString());
+				if(binderMgr.addVec.indexOf(dis) == -1)
+				{
+					binderMgr.addVec.push(dis);
+				}
+				win.addChild(dis);
+			}
 		}
 		public function removeItem(dis:Sprite):void
 		{
-			removeChild(dis);
+			win.removeChild(dis);
 			binderMgr.delSp(dis);
 			binderMgr.addVec.splice(binderMgr.addVec.indexOf(dis),1);
 			dis.removeEventListener(MouseEvent.MOUSE_DOWN,onItemDown);
@@ -79,13 +105,18 @@ package src.wyy.view
 		protected function onItemDown(event:Event):void
 		{
 			var sp:Sprite = event.target as Sprite;
-			curFocus = event.target as Sprite;
-			propertyView.data = binder.vo;
-			FoucusUIMgr.inst.editUI = curFocus;
-			(curFocus).startDrag();
-			addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
-			if(!curFocus.hasEventListener(WyyEvent.UI_RESIZE))
-				curFocus.addEventListener(WyyEvent.UI_RESIZE,onResizeUI);
+			var arr:Array = sp.name.split("~");
+			if(arr[0] != "pt")//不是拖拽的描点
+			{
+				curFocus = event.target as Sprite;
+				propertyView.data = binder.vo;
+				FoucusUIMgr.inst.editUI = curFocus;
+				(curFocus).startDrag();
+				addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
+				if(!curFocus.hasEventListener(WyyEvent.UI_RESIZE))
+					curFocus.addEventListener(WyyEvent.UI_RESIZE,onResizeUI);
+			}
+			
 		}
 		/**
 		 * 重新设置大小 

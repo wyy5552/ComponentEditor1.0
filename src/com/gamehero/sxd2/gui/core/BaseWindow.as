@@ -1,15 +1,7 @@
 package com.gamehero.sxd2.gui.core {
 		
-	import com.gamehero.sxd2.core.SoundConfig;
-	import com.gamehero.sxd2.event.WindowEvent;
-	import com.gamehero.sxd2.manager.SoundManager;
-	import com.greensock.TweenLite;
-	
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.geom.Point;
-	
-	import alternativa.gui.mouse.MouseManager;
 	
 	
 	
@@ -28,8 +20,8 @@ package com.gamehero.sxd2.gui.core {
 		protected var _modal:Boolean = false;		// 是否模态
 		protected var _modalAlpha:Number;	// 模态透明度
 		
-		protected var _width:Number;
-		protected var _height:Number;
+		protected var _width:Number = 0;
+		protected var _height:Number = 0;
 		
 		private var _position:int;	// 窗口位置
 
@@ -84,7 +76,6 @@ package com.gamehero.sxd2.gui.core {
 		// 窗口开启音效
 		protected function playOpenSound():void
 		{
-			SoundManager.inst.play(SoundConfig.OPEN_WINDOW);
 		}
 		
 		
@@ -92,7 +83,6 @@ package com.gamehero.sxd2.gui.core {
 		// 窗口关闭音效
 		protected function playCloseSound():void
 		{
-			SoundManager.inst.play(SoundConfig.CLOSE_WINDOW);
 		}
 		
 		

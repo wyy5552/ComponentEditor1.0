@@ -1,7 +1,6 @@
 package src.wyy.util
 {
 	import flash.display.Sprite;
-	import flash.display.Sprite;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
@@ -102,7 +101,7 @@ package src.wyy.util
 					var key:String = trim(arr[0]);//key 组件名字
 					var spType:String = String(arr[1]).substring(4,String(arr[1]).length - 3);//去掉new，()
 					spType = trim(spType);
-					vDict[key] = CompModel.getUIbyName(spType);// 获取对应的组件
+					vDict[key] = UICreater.getUIbyName(spType);// 获取对应的组件
 					addVec.push(Sprite(vDict[key]));//保存组件
 				}
 				else if(str.indexOf(".") > -1)

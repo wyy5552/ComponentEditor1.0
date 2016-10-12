@@ -1,13 +1,7 @@
 package src.wyy.model
 {
-	import com.gamehero.sxd2.gui.core.button.YY_SkinSetBtn;
-	import com.gamehero.sxd2.gui.core.label.ActiveLabel;
-	
-	import flash.display.DisplayObject;
-	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
-	import src.wyy.util.BinderManager;
 	import src.wyy.vo.KeyValueVo;
 	import src.wyy.vo.PropertyBaseVo;
 	
@@ -52,35 +46,6 @@ package src.wyy.model
 				dict[vo.type] = vo;
 				compArr.push(vo);
 			}
-		}
-		
-		/**
-		 *  
-		 * @param value
-		 * @return 
-		 * 
-		 */		
-		public static function getUIbyName(value:String):Sprite
-		{
-			var dis:Sprite;
-			var property:PropertyBaseVo;
-			switch(value)
-			{
-				case CompDict.YY_SkinSetBtn:
-					dis = new YY_SkinSetBtn;	
-					property = inst.dict[CompDict.YY_SkinSetBtn];
-					break;
-				case CompDict.YY_Label:
-					dis = new ActiveLabel;
-					property = inst.dict[CompDict.YY_Label];
-					break;
-				default:
-					dis = new Sprite;
-					property = inst.dict[CompDict.YY_Label];
-			}
-			dis.mouseEnabled = true;
-			dis.mouseChildren = false;
-			return BinderManager.setGraphics(dis);
 		}
 		
 		

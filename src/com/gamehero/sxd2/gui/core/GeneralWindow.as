@@ -1,21 +1,19 @@
 package com.gamehero.sxd2.gui.core {
 	
-	import com.gamehero.sxd2.data.GameDictionary;
-	import com.gamehero.sxd2.gui.IAlert;
 	import com.gamehero.sxd2.gui.SButton;
+	import com.gamehero.sxd2.gui.core.util.SpAddUtil;
 	import com.gamehero.sxd2.gui.theme.ifstheme.skin.CommonSkin;
 	import com.gamehero.sxd2.gui.theme.ifstheme.skin.MainSkin;
-	import com.gamehero.sxd2.util.WasynManager;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.SimpleButton;
 	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	
 	import org.bytearray.display.ScaleBitmap;
+	
+	import src.wyy.model.ResourceModel;
 	
 	
 	/**
@@ -40,8 +38,6 @@ package com.gamehero.sxd2.gui.core {
 		// 移动热区Boudns
 		private var _moveBounds:Rectangle;
 
-		private var _moveActiveArea:Sprite;
-		
 		// 宽高适应次数 
 		protected var _resizeNum:int = 1;
 		
@@ -70,6 +66,7 @@ package com.gamehero.sxd2.gui.core {
 			
 			super(position, resourceURL, width, height);
 			_titleType = titleType;
+			initWindow();
 		}
 		
 		
@@ -91,7 +88,7 @@ package com.gamehero.sxd2.gui.core {
 			
 
 			
-			var bd:BitmapData = getSwfBD("TITLE_BD");
+			var bd:BitmapData = SpAddUtil.getBD(ResourceModel.inst.getDomain(ResourceModel.UI),"TITLE_BD");
 			if(bd != null) 
 			{	
 				_titleSp = new Sprite();
@@ -106,63 +103,18 @@ package com.gamehero.sxd2.gui.core {
 			
 			// 关闭按钮
 			closeButton = new SButton(CommonSkin.getClass("closeButton") as SimpleButton);
-			closeButton.addEventListener(MouseEvent.CLICK, onCloseButtonClick);
 			this.addChild(closeButton);
 			
 			interrogationBtn =  new SButton(CommonSkin.getClass("interrogationBtn") as SimpleButton);
 			interrogationBtn.visible = false;
 			this.addChild(interrogationBtn);
 			
-			// 标题栏移动热区
-			_moveActiveArea = new Sprite();
-			this.addChildAt(_moveActiveArea, 0);
 			_moveBounds = new Rectangle();
 			
 			this.calculate();
 			
 			//重新布局
 			this.onResize();
-		}
-		
-		protected function addInnerBg(c:ScaleBitmap, px:int = 0, py:int = 0, w:int = -1, h:int = -1):void 
-		{	
-			c.x = px;
-			c.y = py;
-			if(h != -1) {
-				
-				c.setSize(w,h);
-			}
-			
-			addChild(c);
-		}
-		
-		
-		/**
-		 * Do Something After Show 
-		 */
-		override protected function onShow():void 
-		{	
-			super.onShow();
-			
-			_moveActiveArea.addEventListener(MouseEvent.MOUSE_DOWN, onWindowMove);
-			if(_titleSp)
-			{	
-				_titleSp.addEventListener(MouseEvent.MOUSE_DOWN, onWindowMove);
-			}
-			App.windowUI.stage.addEventListener(MouseEvent.MOUSE_UP, onWindowMove);
-			
-			dispatchEvent(new Event(Event.COMPLETE));//模块swf加载成功
-		}
-		
-		
-		
-		
-		/**
-		 * Close Button Click Handler 
-		 */
-		protected function onCloseButtonClick(event:MouseEvent):void 
-		{	
-			this.close();
 		}
 		
 		
@@ -174,44 +126,6 @@ package com.gamehero.sxd2.gui.core {
 		override public function close():void 
 		{	
 			super.close();
-			
-			_moveActiveArea && _moveActiveArea.removeEventListener(MouseEvent.MOUSE_DOWN, onWindowMove);
-			if(_titleSp)
-			{	
-				_titleSp.removeEventListener(MouseEvent.MOUSE_DOWN, onWindowMove);
-			}
-			App.windowUI.stage.removeEventListener(MouseEvent.MOUSE_UP, onWindowMove);
-		}
-		
-		
-		/**
-		 * 窗口移动Handler 
-		 * @param event
-		 * 
-		 */
-		private function onWindowMove(event:MouseEvent):void {
-			
-			if(event.type == MouseEvent.MOUSE_DOWN) {
-				
-//				_moveBounds.setTo(0, 0, App.windowUI.width - this.width, App.windowUI.height - this.height);
-				_moveBounds.x = 0;
-				_moveBounds.y = 0;
-				_moveBounds.width = App.windowUI.width - this.width;
-				_moveBounds.height = App.windowUI.height - this.height;
-				//2015年12月15日12:44:23 by shenliangliang 获取当前点击窗口显示在最前面
-				if(!(this is IAlert))
-				{
-					WindowManager.inst.topWindow(this);
-				}
-//				WindowManager.inst.topWindow(this);
-				
-				this.startDrag(false, _moveBounds);
-			}
-			else {
-				
-				this.stopDrag();
-			}
-			
 		}
 		
 		override public function set width(value:Number):void
@@ -220,7 +134,7 @@ package com.gamehero.sxd2.gui.core {
 			super.width=value;
 			
 			//重新布局
-			asynResize();
+			onResize();
 		}
 		
 		
@@ -230,36 +144,17 @@ package com.gamehero.sxd2.gui.core {
 			super.height=value;
 			
 			//重新布局
-			asynResize();
+			onResize();
 		}
 		
 		
-		
-		/**
-		 * 之所以覆盖改方法， BaseWindow父类计算的宽高并非所需且没有并要
-		 */		
-		override protected function calculate():void
-		{
-			
-		}
-		
-		
-		
-		
-		/**
-		 * 帧末尾统一调用onResize，避免多次调用onResize
-		 */		
-		protected function asynResize():void
-		{
-			WasynManager.instance.addFuncToEnd(onResize);
-		}
 		
 		
 		
 		
 		protected function get canResize():Boolean
 		{
-			return _resizeNum>0&&loaded;
+			return true;
 		}
 		
 		
@@ -285,21 +180,8 @@ package com.gamehero.sxd2.gui.core {
 				interrogationBtn.x = closeButton.x - interrogationBtn.width;
 				interrogationBtn.y = 1;
 				
-				_moveActiveArea.graphics.clear();
-				_moveActiveArea.graphics.beginFill(0x000000, 0);
-				_moveActiveArea.graphics.drawRect(0, 0, this.width, 35);
 			}
 		}
-		
-		/**
-		 * 设置小问号hint
-		 * */
-		protected function set interrogation(value:String):void
-		{
-			this.interrogationBtn.visible = true;
-			this.interrogationBtn.hint = GameDictionary.getGeneralTips(value);
-		}
-		
 		
 		/**
 		 * 调整标题位置 

@@ -1,14 +1,10 @@
-package src.wyy.view
+package src.wyy.util
 {
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	
-	import mx.core.UIComponent;
-	
 	import src.wyy.event.WyyEvent;
-	import src.wyy.util.BinderManager;
-	import src.wyy.util.CodeParse;
 	import src.wyy.vo.SpriteVoBinder;
 	
 	/**
@@ -26,7 +22,7 @@ package src.wyy.view
 		
 		private var _editUI:Sprite;
 		
-		private var _dragPt:UIComponent;
+		private var _dragPt:Sprite;
 		
 		private var model:CodeParse = CodeParse.inst;
 		
@@ -45,7 +41,7 @@ package src.wyy.view
 				throw "UIRect.as" + "is a SingleTon Class!!!";
 			pointArr = new Array();
 			var arr:Array;
-			var pt:UIComponent;
+			var pt:Sprite;
 			for(var i:int = 0; i < num; i++)
 			{
 				arr = new Array();
@@ -72,7 +68,7 @@ package src.wyy.view
 		private function resetPt():void
 		{
 			var arr:Array;
-			var point:UIComponent;
+			var point:Sprite;
 			for(var i:int = 0; i < num; i++)
 			{
 				arr = pointArr[i];
@@ -106,14 +102,15 @@ package src.wyy.view
 		{
 			
 			editUI.stage.addEventListener(MouseEvent.MOUSE_MOVE,onMove);
-			_dragPt = event.target as UIComponent;
-			_dragPt.startDrag();
+			_dragPt = event.target as Sprite;
+			_dragPt.startDrag(true);
 		}
 		
 		
 		protected function onMove(event:MouseEvent):void
 		{
-			switch(_dragPt.name)
+			var arr:Array = _dragPt.name.split("~");
+			switch(arr[1])
 			{
 				case "0,0"://左上角
 					up();
@@ -187,10 +184,10 @@ package src.wyy.view
 			
 		}
 		
-		private function drawRect(name:String):UIComponent
+		private function drawRect(name:String):Sprite
 		{
-			var rect:UIComponent = new UIComponent();
-			rect.name = name;
+			var rect:Sprite = new Sprite();
+			rect.name = "pt~" + name;
 			rect.graphics.beginFill(0x41415D,1);
 			rect.graphics.drawRect(-3,-3,6,6);
 			rect.graphics.endFill();

@@ -1,8 +1,12 @@
 package src.wyy.model
 {
+	import com.gamehero.sxd2.gui.theme.ifstheme.skin.MainSkin;
+	
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
+	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.filesystem.File;
 	import flash.net.FileFilter;
 	import flash.net.URLRequest;
@@ -16,7 +20,7 @@ package src.wyy.model
 	 * @author weiyanyu
 	 * 创建时间：2016-9-30 上午10:10:13
 	 */
-	public class ResourceModel
+	public class ResourceModel extends EventDispatcher
 	{
 		private static var _instance: ResourceModel;
 		public static function get inst(): ResourceModel
@@ -82,6 +86,8 @@ package src.wyy.model
 		protected function loadFileCompleteHandler(event:Event):void
 		{
 			mainInfo=loader.contentLoaderInfo; 
+			MainSkin.init(loader.content as MovieClip);
+			dispatchEvent(new Event(Event.COMPLETE));
 			mainUI=mainInfo.applicationDomain as ApplicationDomain; 
 		}
 		
