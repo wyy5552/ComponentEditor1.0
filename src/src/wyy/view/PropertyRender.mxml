@@ -7,7 +7,6 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import src.wyy.util.FoucusUIMgr;
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
@@ -15,6 +14,7 @@
 			
 			import src.wyy.model.ResourceModel;
 			import src.wyy.util.BinderManager;
+			import src.wyy.util.FoucusUIMgr;
 			import src.wyy.vo.KeyValueVo;
 			 /**
 			 * domain组
@@ -35,7 +35,7 @@
 				var kv:KeyValueVo = value as KeyValueVo;
 				
 				
-				if(kv.type == KeyValueVo.bd_type)
+				if(kv.type == KeyValueVo.bd_type || kv.type == KeyValueVo.mc_type)
 				{
 					group1.visible = false;
 					group2.visible = true;

@@ -1,11 +1,9 @@
 package src.wyy.vo
 {
-	import com.gamehero.sxd2.gui.core.util.SpAddUtil;
-	
-	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	
-	import src.wyy.model.ResourceModel;
+	import src.wyy.util.UICreater;
 	
 	/**
 	 * 组件与vo绑定<br>
@@ -16,11 +14,11 @@ package src.wyy.vo
 	public class SpriteVoBinder
 	{
 		
-		public var dis:DisplayObject;
+		public var dis:Sprite;
 		
 		public var vo:PropertyBaseVo;
 		
-		public function SpriteVoBinder(sp:DisplayObject,vo:PropertyBaseVo)
+		public function SpriteVoBinder(sp:Sprite,vo:PropertyBaseVo)
 		{
 			this.dis = sp;
 			this.vo = vo;
@@ -46,24 +44,7 @@ package src.wyy.vo
 		{
 			var kv:KeyValueVo = vo.getProperty(key);
 			kv.value = value;
-			switch(kv.type)
-			{
-				case KeyValueVo.int_type:
-				{
-					dis[kv.key] = int(kv.value);
-					break;
-				}
-				case KeyValueVo.bd_type:
-					var url:Array = kv.value.split("~");
-					var bd:BitmapData = SpAddUtil.getBD(ResourceModel.inst.getDomain(url[0]),url[1]);
-					dis[kv.key] = bd;
-					break;
-				default:
-				{
-					dis[kv.key] = String(kv.value);
-					break;
-				}
-			}
+			UICreater.setSingleProperty(dis,kv);
 		}
 		
 	}

@@ -1,4 +1,5 @@
 <root>
+    <!-- type: 0整形； 1字符；2位图；3movieclip-->
 	<comp type="YY_Window" text="窗口">
 		<prop key="x" value="0" type="0"/>
 		<prop key="y" value="0" type="0"/>
@@ -23,7 +24,7 @@
 		<prop key="overSkin" value="" type="2"/>
 	</comp>
 	
-	<comp type="YY_DataGroup" text="文本组件">
+	<comp type="YY_DataGroup" text="容器">
 		<prop key="x" value="0" type="0"/>
 		<prop key="y" value="0" type="0"/>
 		<prop key="width" value="100" type="0"/>
@@ -34,5 +35,19 @@
 		<prop key="col" value="100" type="0"/>
 		<prop key="gapY" value="100" type="0"/>
 		<prop key="gapX" value="100" type="0"/>
+	</comp>
+	<comp type="YY_McPlayer" text="动画">
+		<prop key="x" value="0" type="0"/>
+		<prop key="y" value="0" type="0"/>
+		<prop key="width" value="100" type="0"/>
+		<prop key="height" value="100" type="0"/>
+		<prop key="source" value="" type="3"/>
+	</comp>
+	<comp type="YY_SpBitmap" text="位图">
+		<prop key="x" value="0" type="0"/>
+		<prop key="y" value="0" type="0"/>
+		<prop key="width" value="100" type="0"/>
+		<prop key="height" value="100" type="0"/>
+		<prop key="bitmapData" value="" type="2"/>
 	</comp>
 </root>
