@@ -21,6 +21,7 @@ package
 	import src.wyy.view.UIAddPopWin;
 	import src.wyy.view.UIView;
 	import src.wyy.vo.DragObject;
+	import src.wyy.vo.KeyValueVo;
 	import src.wyy.vo.PropertyBaseVo;
 	
 	/**
@@ -177,7 +178,16 @@ package
 			curDrag.x = view.mouseX;//设置到鼠标位置
 			curDrag.y = view.mouseY;
 			var vo:PropertyBaseVo = event.data as PropertyBaseVo;
-			curDrag.setSize(int(vo.getProperty("width").value), int(vo.getProperty("height").value));
+			var wKv:KeyValueVo = vo.getProperty("width");
+			var hKv:KeyValueVo = vo.getProperty("height");
+			if(wKv != null && int(wKv.value) > 0)//如果设置宽高，或者宽高大于0
+			{
+				curDrag.setSize(int(wKv.value), int(hKv.value));
+			}
+			else
+			{
+				curDrag.setSize(50,50);
+			}
 			curDrag.startDrag();
 		}
 		

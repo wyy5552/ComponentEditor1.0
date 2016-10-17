@@ -23,7 +23,6 @@
 		<prop key="downSkin" value="" type="2"/>
 		<prop key="overSkin" value="" type="2"/>
 	</comp>
-	
 	<comp type="YY_DataGroup" text="容器">
 		<prop key="x" value="0" type="0"/>
 		<prop key="y" value="0" type="0"/>

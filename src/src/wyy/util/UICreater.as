@@ -5,11 +5,9 @@ package src.wyy.util
 	import com.gamehero.sxd2.gui.core.components.McPlayer;
 	import com.gamehero.sxd2.gui.core.components.SpBitmap;
 	import com.gamehero.sxd2.gui.core.group.DataGroup;
-	import com.gamehero.sxd2.gui.core.label.ActiveLabel;
 	import com.gamehero.sxd2.gui.core.util.SpAddUtil;
 	
 	import flash.display.BitmapData;
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	
 	import src.wyy.model.CompDict;
@@ -41,9 +39,9 @@ package src.wyy.util
 				case CompDict.YY_SkinSetBtn:
 					dis = new YY_SkinSetBtn;	
 					break;
-				case CompDict.YY_Label:
-					dis = new ActiveLabel;
-					break;
+//				case CompDict.YY_Label:
+//					dis = new ActiveLabel;
+//					break;
 				case CompDict.YY_Window:
 					dis = new GeneralWindow(1);
 					break;

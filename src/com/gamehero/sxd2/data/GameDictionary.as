@@ -299,7 +299,7 @@ package com.gamehero.sxd2.data {
 				switch(browser)
 				{
 					case Browser.Chrome:
-						fontName = ((system == OS.Win10) || (system == OS.Win8)) ? App.embedFontName : "微软雅黑";
+//						fontName = ((system == OS.Win10) || (system == OS.Win8)) ? App.embedFontName : "微软雅黑";
 						break;
 					
 					default:

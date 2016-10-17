@@ -1,128 +1,85 @@
-package
-{
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.display.MovieClip;
-	import flash.display.Shape;
+/**
+ * Morn UI Version 3.0 http://www.mornui.com/
+ * Feedback yungzhu@gmail.com http://weibo.com/newyung
+ */
+package {
 	import flash.display.Sprite;
 	import flash.display.Stage;
-	import flash.events.Event;
-	import flash.geom.Point;
-	import flash.utils.ByteArray;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
+	import morn.core.components.View;
+	import morn.core.handlers.Handler;
+	import morn.core.managers.AssetManager;
+	import morn.core.managers.DialogManager;
+	import morn.core.managers.DragManager;
+	import morn.core.managers.LangManager;
+	import morn.core.managers.LoaderManager;
+	import morn.core.managers.LogManager;
+	import morn.core.managers.MassLoaderManager;
+	import morn.core.managers.RenderManager;
+	import morn.core.managers.TimerManager;
+	import morn.core.managers.TipManager;
 	
-	import alternativa.gui.base.GUIobject;
-	
-	
-	/**
-	 * 全局APP类
-	 * @author xuwenyi
-	 * @create 2013-07-29
-	 * @modify by Trey 2014-6-17
-	 **/
-	public class App
-	{
+	/**全局引用入口*/
+	public class App {
+		/**全局stage引用*/
 		public static var stage:Stage;
+		/**资源管理器*/
+		public static var asset:AssetManager = new AssetManager();
+		/**加载管理器*/
+		public static var loader:LoaderManager = new LoaderManager();
+		/**时钟管理器*/
+		public static var timer:TimerManager = new TimerManager();
+		/**渲染管理器*/
+		public static var render:RenderManager = new RenderManager();
+		/**对话框管理器*/
+		public static var dialog:DialogManager = new DialogManager();
+		/**日志管理器*/
+		public static var log:LogManager = new LogManager();
+		/**提示管理器*/
+		public static var tip:TipManager = new TipManager();
+		/**拖动管理器*/
+		public static var drag:DragManager = new DragManager();
+		/**语言管理器*/
+		public static var lang:LangManager = new LangManager();
+		/**多线程加载管理器*/
+		public static var mloader:MassLoaderManager = new MassLoaderManager();
 		
-		public static var ui:GUIobject = new GUIobject();	// UI层（UI顶层）
-		
-		public static var hintUI:Sprite = new Sprite();		// hint层
-		public static var topUI:GUIobject = new GUIobject();	// Top UI层
-		public static var windowUI:GUIobject = new GUIobject();// Window层
-		public static var guideUI:GUIobject = new GUIobject();//引导层
-		
-		
-		// MainUI资源
-		public static var mainUIRes:MovieClip;
-		// 配置表资源
-		public static var settingsBinary:ByteArray;
-		
-		// 模态
-		static private var _modalShape:Shape;
-		static private var _modalSprite:Sprite;
-		
-		public static var embedFontName:String = "";//嵌入字体名称
-		
-		public function App()
-		{
+		public static function init(main:Sprite):void {
+			stage = main.stage;
+			stage.frameRate = Config.GAME_FPS;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.align = StageAlign.TOP_LEFT;
+			stage.stageFocusRect = false;
+			stage.tabChildren = false;
 			
-		}
-		
-		
-		/**
-		 * 获得游戏帧频 
-		 * @return 
-		 * 
-		 */
-		static public function get frameRate():Number {
-			
-			return App.stage.frameRate;
-		}
-		
-		
-		/**
-		 * 窗口模态设置
-		 * @param isShow
-		 * @param target
-		 * @param color
-		 * @param alpha
-		 * 
-		 */
-		static public function modal(isShow:Boolean = false, target:DisplayObject = null, color:uint = 0, alpha:Number = .7):void {
-			
-			if(_modalSprite == null) {
-				
-				_modalSprite = new Sprite();
-				
-				_modalShape = new Shape();
-				_modalShape.graphics.clear();
-				_modalShape.graphics.beginFill(color, alpha);
-				_modalShape.graphics.drawRect(0, 0, 10, 10);
-				_modalShape.graphics.endFill();
-				_modalSprite.addChild(_modalShape);
-			}
-			
-			if(isShow) {
-				
-				var parent:DisplayObjectContainer = (target is Stage) ? (target as DisplayObjectContainer) : target.parent;
-				
-				_modalShape.width = App.stage.stageWidth;
-				_modalShape.height = App.stage.stageHeight;
-				
-				var point:Point = parent.localToGlobal(new Point(parent.x, parent.y));
-				_modalSprite.x = -point.x;
-				_modalSprite.y = -point.y;
-				
-				if(parent is Stage) {
-					
-					parent.addChild(_modalSprite);
+			//覆盖配置
+			var gameVars:Object = stage.loaderInfo.parameters;
+			if (gameVars != null) {
+				for (var s:String in gameVars) {
+					if (Config[s] != null) {
+						Config[s] = gameVars[s];
+					}
 				}
-				else {
-					
-					parent.addChildAt(_modalSprite, parent.getChildIndex(target));
-				}
-				
-				App.stage.addEventListener(Event.RESIZE, onResize);
 			}
-			else {
-				
-				if(_modalSprite && _modalSprite.parent && _modalSprite.parent.contains(_modalSprite)) {
-					
-					_modalSprite.parent.removeChild(_modalSprite);
-				}
-				
-				App.stage.removeEventListener(Event.RESIZE, onResize);
+			
+			stage.addChild(dialog);
+			stage.addChild(tip);
+			stage.addChild(log);
+			
+			//如果UI视图是加载模式，则进行整体加载
+			if (Boolean(Config.uiPath)) {
+				App.loader.loadDB(Config.uiPath, new Handler(onUIloadComplete));
 			}
 		}
 		
-		
-		static private function onResize(evt:Event):void
-		{
-			if(_modalShape){
-				
-				_modalShape.width = App.stage.stageWidth;
-				_modalShape.height = App.stage.stageHeight;
-			}
+		private static function onUIloadComplete(content:*):void {
+			View.xmlMap = content;
 		}
 		
+		/**获得资源路径(此处可以加上资源版本控制)*/
+		public static function getResPath(url:String):String {
+			return /^http:\/\//g.test(url) ? url : Config.resPath + url;
+		}
 	}
 }
