@@ -9,8 +9,6 @@
 		<![CDATA[
 			import mx.events.FlexEvent;
 			
-			import morn.core.components.Clip;
-			
 			import src.wyy.model.ResourceModel;
 			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void

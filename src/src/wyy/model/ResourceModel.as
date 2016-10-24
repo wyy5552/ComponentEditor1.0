@@ -61,7 +61,7 @@ package src.wyy.model
 		public function init():void
 		{
 			loader = new Loader();
-			loader.load(new URLRequest("file:///D:/sxd2git/sxd2game/SXD2-Game/resource/gui/MainUI.swf"));
+			loader.load(new URLRequest("file:///D:/sxd2git/sxd2game/SXD2-Game/resource/area/cn/gui/MainUI.swf"));
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loadFileCompleteHandler);
 		}
 		
