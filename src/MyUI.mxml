@@ -16,7 +16,6 @@
 				// TODO Auto-generated method stub
 				
 				ResourceModel.inst.init();
-				
 				new GlobalMdr(this);
 				ui.graphics.beginFill(0x00ff00,.2);
 				ui.graphics.drawRect(0,0,ui.width,ui.height);
