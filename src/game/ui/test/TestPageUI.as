@@ -1,17 +1,18 @@
 /**Created by the Morn,do not modify.*/
 package game.ui.test {
-	import morn.core.components.*;
+	import morn.core.components.*;import moreui.view.*;
 	public class TestPageUI extends Dialog {
+		public var dd:Button = null;
 		protected static var uiXML:XML =
 			<Dialog width="600" height="400">
-			  <Image skin="png.comp.bg" x="0" y="0" sizeGrid="4,30,4,4" width="600" height="400"/>
-			  <Button skin="png.comp.btn_close" x="563" y="3" name="close"/>
+			  <Image skin="png.comp.bg" x="-151" y="-121" sizeGrid="4,30,4,4" width="600" height="400"/>
+			  <Button skin="png.comp.btn_close" x="313" y="7" name="close"/>
 			  <CheckBox label="label" skin="png.comp.checkbox" x="169" y="224"/>
 			  <Clip skin="png.comp.clip_num" x="305" y="335" clipX="10" index="8"/>
 			  <HSlider skin="png.comp.hslider" x="45" y="97" width="120"/>
 			  <RadioGroup labels="label1,label2" skin="png.comp.radiogroup" x="45" y="224"/>
 			  <TextInput text="TextInput" skin="png.comp.textinput" x="45" y="258" margin="1,1,1,1" sizeGrid="2,2,2,2" width="150"/>
-			  <Button label="label" skin="png.comp.button" x="45" y="178"/>
+			  <Button label="label" skin="png.comp.button" x="45" y="178" var="dd" name="dd"/>
 			  <LinkButton label="linkButton" x="146" y="179"/>
 			  <ProgressBar skin="png.comp.progress" x="45" y="135" width="114" height="14" sizeGrid="4,4,4,4"/>
 			  <Tab labels="Tab1,Tab2" skin="png.comp.tab" x="251" y="280" selectedIndex="0"/>
@@ -36,7 +37,8 @@ package game.ui.test {
 			    </Box>
 			  </Tree>
 			  <ComboBox labels="label1,label2" skin="png.comp.combobox" x="45" y="45" width="120" height="23" sizeGrid="2,2,25,2"/>
-			  <Clip skin="png.comp.clip_num" x="253" y="335" clipX="10" autoPlay="true"/>
+			  <Clip skin="png.comp.clip_num" x="253" y="335" clipX="10" autoPlay="true" width="24" height="27"/>
+			  <Label text="label" x="317" y="370" isHtml="true"/>
 			</Dialog>;
 		public function TestPageUI(){}
 		override protected function createChildren():void {

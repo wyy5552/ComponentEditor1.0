@@ -1,3 +1,28 @@
-<View width="1239" height="723" sceneColor="0xffffff" sceneBg="morn/views/shell/Main.png" layers="2,1,0,0,区块;1,0,0,1,背景">
-  <Image skin="png.comp.bg" x="17" y="5" layer="1" width="1201" height="727" sizeGrid="4,30,4,4"/>
+<View width="1239" height="723" sceneColor="0xffffff" sceneBg="morn/views/shell/Main.png" layers="2,1,0,0,区块">
+  <ViewStack layers="1,1,0,0,第 1 层" layer="2" x="222" y="146">
+    <ProgressBar skin="png.comp.progress" layer="1"/>
+  </ViewStack>
+  <Tab labels="label1,label2" skin="png.comp.tab" x="380" y="507" layer="2"/>
+  <List layers="1,1,0,0,第 1 层" layer="2" x="378" y="282" repeatX="2" repeatY="4" name="list">
+    <Box layers="1,1,0,0,第 1 层" layer="1" name="render">
+      <Clip skin="png.comp.clip_num" layer="1" clipX="10" clipY="1" name="icon1"/>
+      <Label text="label" styleSkin="png.comp.label" x="46" y="5" layer="1" name="label1"/>
+    </Box>
+    <VScrollBar skin="png.comp.vscroll" x="157" y="4" layer="1" name="scrollBar"/>
+  </List>
+  <Box layers="1,1,0,0,第 1 层" layer="2" x="376" y="154">
+    <Image skin="png.comp.blank" layer="1" width="121" height="26"/>
+    <Clip skin="png.comp.clip_tree_arrow" x="5" y="6" layer="1" clipX="1" clipY="2"/>
+  </Box>
+  <ViewStack layers="1,1,0,0,第 1 层" layer="2" x="646" y="211" var="viewStack">
+    <Box layers="1,1,0,0,第 1 层" layer="1" name="item0">
+      <Button label="label" skin="png.comp.button" layer="1"/>
+      <Button label="label" skin="png.comp.button" x="90" y="2" layer="1"/>
+    </Box>
+    <Box layers="1,1,0,0,第 1 层" layer="1" x="10" y="73" name="item1">
+      <CheckBox label="label" skin="png.comp.checkbox" layer="1"/>
+      <CheckBox label="label" skin="png.comp.checkbox" x="87" y="2" layer="1"/>
+    </Box>
+  </ViewStack>
+  <Tab labels="label1,label2" skin="png.comp.tab" x="653" y="337" layer="2" var="tab"/>
 </View>

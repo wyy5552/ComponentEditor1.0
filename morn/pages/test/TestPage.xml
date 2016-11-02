@@ -1,5 +1,5 @@
 <Dialog sceneColor="0xffffff" layers="2,1,0,0,body;1,1,0,0,bg" width="600" height="400">
-  <Image skin="png.comp.bg" x="0" y="0" layer="1" sizeGrid="4,30,4,4" width="600" height="400"/>
+  <Image skin="png.comp.bg" x="-151" y="-121" layer="1" sizeGrid="4,30,4,4" width="600" height="400"/>
   <Button skin="png.comp.btn_close" x="313" y="7" layer="1" name="close"/>
   <CheckBox label="label" skin="png.comp.checkbox" x="169" y="224" layer="2"/>
   <Clip skin="png.comp.clip_num" x="305" y="335" layer="2" clipX="10" index="8"/>

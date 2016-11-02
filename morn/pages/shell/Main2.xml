@@ -1,0 +1,5 @@
+<View width="600" height="400" sceneColor="0xffffff" layers="1,1,0,0,第 1 层">
+  <Container layers="1,1,0,0,第 1 层" layer="1" width="99" height="77" right="10" bottom="10">
+    <Image skin="png.comp.bg" layer="1"/>
+  </Container>
+</View>
